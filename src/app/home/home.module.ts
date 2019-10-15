@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {IonicModule} from '@ionic/angular';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 
 import {HomePage} from './home.page';
 import {SharedModule} from '../shared/shared.module';
+import {SelectActionModalComponent} from './selectAction/selectAction.modal.component';
 
 @NgModule({
     imports: [
@@ -18,7 +17,8 @@ import {SharedModule} from '../shared/shared.module';
             }
         ])
     ],
-    declarations: [HomePage]
+    declarations: [HomePage, SelectActionModalComponent],
+    entryComponents: [SelectActionModalComponent]
 })
 export class HomePageModule {
 }
