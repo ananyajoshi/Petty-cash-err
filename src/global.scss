@@ -24,3 +24,54 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+:root {
+  --ion-color-sales: #45A7E6;
+  --ion-color-sales-rgb: 69,167,230;
+  --ion-color-sales-contrast: #000000;
+  --ion-color-sales-contrast-rgb: 0,0,0;
+  --ion-color-sales-shade: #3d93ca;
+  --ion-color-sales-tint: #58b0e9;
+
+  --ion-color-purchase: #F2913B;
+  --ion-color-purchase-rgb: 242,145,59;
+  --ion-color-purchase-contrast: #000000;
+  --ion-color-purchase-contrast-rgb: 0,0,0;
+  --ion-color-purchase-shade: #d58034;
+  --ion-color-purchase-tint: #f39c4f;
+
+  --ion-color-withdrawal: #67AA5A;
+  --ion-color-withdrawal-rgb: 103,170,90;
+  --ion-color-withdrawal-contrast: #000000;
+  --ion-color-withdrawal-contrast-rgb: 0,0,0;
+  --ion-color-withdrawal-shade: #5b964f;
+  --ion-color-withdrawal-tint: #76b36b;
+}
+
+.ion-color-sales {
+  --ion-color-base: var(--ion-color-sales);
+  --ion-color-base-rgb: var(--ion-color-sales-rgb);
+  --ion-color-contrast: var(--ion-color-sales-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-sales-contrast-rgb);
+  --ion-color-shade: var(--ion-color-sales-shade);
+  --ion-color-tint: var(--ion-color-sales-tint);
+}
+
+.ion-color-purchase {
+  --ion-color-base: var(--ion-color-purchase);
+  --ion-color-base-rgb: var(--ion-color-purchase-rgb);
+  --ion-color-contrast: var(--ion-color-purchase-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-purchase-contrast-rgb);
+  --ion-color-shade: var(--ion-color-purchase-shade);
+  --ion-color-tint: var(--ion-color-purchase-tint);
+}
+
+.ion-color-withdrawal {
+  --ion-color-base: var(--ion-color-withdrawal);
+  --ion-color-base-rgb: var(--ion-color-withdrawal-rgb);
+  --ion-color-contrast: var(--ion-color-withdrawal-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-withdrawal-contrast-rgb);
+  --ion-color-shade: var(--ion-color-withdrawal-shade);
+  --ion-color-tint: var(--ion-color-withdrawal-tint);
+}
