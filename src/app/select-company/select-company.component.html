@@ -4,6 +4,12 @@
 
 <ion-content>
 
+    <ion-item>
+        <ion-label>
+            Select Company
+        </ion-label>
+    </ion-item>
+
     <ion-list>
 
         <ion-item *ngFor="let company of companies" type="button" (click)="switchCompany(company.uniqueName)">
