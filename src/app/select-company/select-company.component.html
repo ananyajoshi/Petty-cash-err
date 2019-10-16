@@ -1,0 +1,24 @@
+
+<app-header
+        [title]="'Switch Company'"
+></app-header>
+
+<ion-content>
+
+    <ion-list>
+
+        <ion-item *ngFor="let company of companies">
+
+            <ion-label>
+                {{ company?.name }}
+            </ion-label>
+
+            <ion-icon *ngIf="company.uniqueName === activeCompanyUniqueName" name="checkmark">
+
+            </ion-icon>
+
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>

@@ -17,10 +17,12 @@ import {environment} from '../environments/environment';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {LayoutResolver} from './resolver/layout.resolver';
 import {NoCompanyModalComponent} from './no-company-modal/no-company-modal.component';
+import {SelectCompanyComponent} from './select-company/select-company.component';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
-    declarations: [AppComponent, NoCompanyModalComponent],
-    entryComponents: [NoCompanyModalComponent],
+    declarations: [AppComponent, NoCompanyModalComponent, SelectCompanyComponent],
+    entryComponents: [NoCompanyModalComponent, SelectCompanyComponent],
     imports: [
         BrowserModule,
         IonicModule.forRoot(),
@@ -29,7 +31,8 @@ import {NoCompanyModalComponent} from './no-company-modal/no-company-modal.compo
         StoreModule.forRoot(reducers, {metaReducers}),
         ServiceModule.forRoot(),
         ActionsModule.forRoot(),
-        [!environment.production ? StoreDevtoolsModule.instrument() : []]
+        [!environment.production ? StoreDevtoolsModule.instrument() : []],
+        SharedModule
     ],
     providers: [
         StatusBar,

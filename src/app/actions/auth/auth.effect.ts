@@ -7,8 +7,8 @@ import {GeneralService} from '../../services/general.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {AppState} from '../../store/reducer';
-import {Observable, of} from 'rxjs';
-import {AuthActionType, LoginUserAction, LoginUserCompleteAction, LoginUserErrorAction} from './auth.action';
+import {Observable, of, pipe} from 'rxjs';
+import {AuthActionType, LoginUserAction, LoginUserCompleteAction, LoginUserErrorAction, LogoutUserAction} from './auth.action';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {BaseResponse} from '../../models/base.model';
 import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
@@ -55,11 +55,14 @@ export class AuthEffect {
     );
 
     //
-    // @Effect({dispatch: false})
-    // LogoutUser$: Observable<void> = this.actions$.pipe(
-    //     ofType<LogoutUserAction>(AuthActionType.LogoutUser),
-    //     pipe(map((p) => {
-    //         this.router.navigate(['/home']);
-    //     }))
-    // );
+    @Effect({dispatch: false})
+    LogoutUser$: Observable<void> = this.actions$.pipe(
+        ofType<LogoutUserAction>(AuthActionType.LogoutUser),
+        pipe(map((p) => {
+            this.generalService.sessionId = null;
+            this.generalService.user = null;
+            this.generalService.activeCompany = null;
+            this.router.navigate(['/login']);
+        }))
+    );
 }

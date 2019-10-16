@@ -12,8 +12,15 @@
                 <ion-item>Balance</ion-item>
                 <ion-item>Home</ion-item>
                 <ion-item>Settings</ion-item>
-                <ion-item>{{ activeCompany?.name }}</ion-item>
-                <ion-item>Logout</ion-item>
+
+                <ion-item>
+                    <ion-label>
+                        {{ activeCompany?.name }}
+                    </ion-label>
+                    <ion-icon name="swap" (click)="showCompanySwitchModal()"></ion-icon>
+                </ion-item>
+
+                <ion-item (click)="logout()">Logout</ion-item>
 
             </ion-menu-toggle>
 
