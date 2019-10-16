@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
-import {MessageData} from '../../models/base.model';
+import {BaseResponse, MessageData} from '../../models/base.model';
+import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
 
 export enum AuthActionType {
     LoginUser = '[User] Login',
@@ -24,21 +25,21 @@ export enum AuthActionType {
 export class LoginUserAction implements Action {
     readonly type = AuthActionType.LoginUser;
 
-    constructor(public user: any) {
+    constructor(public request: LoginWithPassword) {
     }
 }
 
 export class LoginUserCompleteAction implements Action {
     readonly type = AuthActionType.LoginUserComplete;
 
-    constructor(public user: any) {
+    constructor(public result: LoginResponseModel) {
     }
 }
 
 export class LoginUserErrorAction implements Action {
     readonly type = AuthActionType.LoginUserError;
 
-    constructor(public errors: MessageData[]) {
+    constructor(public errors: string) {
     }
 }
 

@@ -1,9 +1,40 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+
+    <div class="login">
+        <h3 class="mb-3">Login to your secure <br>accounting space</h3>
+        <div class="login-form">
+
+            <ion-item>
+                <ion-label>Email</ion-label>
+                <ion-input type="email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Password</ion-label>
+                <ion-input type="password"></ion-input>
+            </ion-item>
+            <!--      <div class="form-group">-->
+            <!--        <label>Password</label>-->
+            <!--        -->
+            <!--      </div>-->
+
+            <!-- <button mat-button class="btn-custom btn-block">Login</button> -->
+            <!-- <button type="butotn" class="btn-google btn-block mt-3" routerLink="/home">
+              <span><img src="assets/images/google_ico.svg" alt=""></span>
+              Login With Google
+            </button> -->
+
+            <!-- on click login & login with google button this is only example routing  see abow in button tag -->
+            <ion-button>
+                Login
+            </ion-button>
+
+            <a href="javascript:void(0)" type="butotn" class="btn-google btn-block mt-3" routerLink="/">
+                <span><img src="assets/google_ico.svg" alt=""></span>
+                Login With Google
+            </a>
+
+        </div>
+    </div>
 
 </ion-content>

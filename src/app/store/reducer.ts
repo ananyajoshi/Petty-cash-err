@@ -1,13 +1,13 @@
 import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
-import * as fromAuth from './auth.reducer';
+import * as fromSession from './session.reducer';
 import {localStorageSync} from 'ngrx-store-localstorage';
 
 export interface AppState {
-    auth: fromAuth.AuthState;
+    session: fromSession.SessionState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-    auth: fromAuth.AuthReducer,
+    session: fromSession.SessionReducer,
 };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -15,8 +15,4 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 }
 
 // @ts-ignore
-const a: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
-// if (typeof window !== 'undefined') {
-//   a.push(localStorageSyncReducer);
-// }
-export const metaReducers = a;
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
