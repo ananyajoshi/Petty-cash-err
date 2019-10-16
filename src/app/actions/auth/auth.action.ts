@@ -1,5 +1,4 @@
 import {Action} from '@ngrx/store';
-import {BaseResponse, MessageData} from '../../models/base.model';
 import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
 
 export enum AuthActionType {
@@ -8,6 +7,8 @@ export enum AuthActionType {
     LoginUserError = '[User] Login Error',
 
     LogoutUser = '[User] Logout',
+
+    SetActiveCompany = '[User] Set Active Company',
 
     ForgotPassword = '[User] ForgotPassword',
     ForgotPasswordError = '[User] ForgotPassword Error',
@@ -43,6 +44,13 @@ export class LoginUserErrorAction implements Action {
     }
 }
 
+export class SetActiveCompanyAction implements Action {
+    readonly type = AuthActionType.SetActiveCompany;
+
+    constructor(public uniqueName: string) {
+    }
+}
+
 export class LogoutUserAction implements Action {
     readonly type = AuthActionType.LogoutUser;
 }
@@ -51,4 +59,5 @@ export type AuthActionsUnion =
     LoginUserAction
     | LoginUserCompleteAction
     | LoginUserErrorAction
+    | SetActiveCompanyAction
     | LogoutUserAction;

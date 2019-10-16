@@ -4,15 +4,19 @@
         <h3 class="mb-3">Login to your secure <br>accounting space</h3>
         <div class="login-form">
 
-            <ion-item>
-                <ion-label>Email</ion-label>
-                <ion-input type="email"></ion-input>
-            </ion-item>
+            <form [formGroup]="loginWithPasswordForm">
 
-            <ion-item>
-                <ion-label>Password</ion-label>
-                <ion-input type="password"></ion-input>
-            </ion-item>
+                <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-input type="email" formControlName="uniqueKey"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Password</ion-label>
+                    <ion-input type="password" formControlName="password"></ion-input>
+                </ion-item>
+
+            </form>
             <!--      <div class="form-group">-->
             <!--        <label>Password</label>-->
             <!--        -->
@@ -25,7 +29,7 @@
             </button> -->
 
             <!-- on click login & login with google button this is only example routing  see abow in button tag -->
-            <ion-button>
+            <ion-button (click)="login()" [disabled]="loginWithPasswordForm.invalid">
                 Login
             </ion-button>
 

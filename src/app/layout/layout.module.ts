@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {LayoutPage} from './layout.page';
 import {SharedModule} from '../shared/shared.module';
+import {LayoutResolver} from '../resolver/layout.resolver';
 
 const routes: Routes = [
     {
@@ -31,7 +32,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         SharedModule
     ],
-    declarations: [LayoutPage]
+    declarations: [LayoutPage],
+    providers: []
 })
 export class LayoutPageModule {
 }

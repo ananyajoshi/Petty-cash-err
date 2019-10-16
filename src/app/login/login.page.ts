@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
 
     ngOnInit() {
         this.loginWithPasswordForm = new FormGroup({
-            uniqueKey: new FormControl('', Validators.required),
+            uniqueKey: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required, Validators.minLength(8),
                 Validators.maxLength(20), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,20}$')])
         });

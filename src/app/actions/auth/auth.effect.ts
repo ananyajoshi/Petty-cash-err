@@ -15,7 +15,7 @@ import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
 
 
 @Injectable()
-export class LoginEffect {
+export class AuthEffect {
 
     constructor(private actions$: Actions, private authService: AuthService, private store: Store<AppState>,
                 private generalService: GeneralService, private router: Router) {
@@ -43,22 +43,17 @@ export class LoginEffect {
     );
 
     //
-    // @Effect()
-    // loginUserComplete$: Observable<any> = this.actions$.pipe(
-    //     ofType<LoginUserCompleteAction>(AuthActionType.LoginUserComplete),
-    //     switchMap((s) => {
-    //         this.generalService.token = s.user.token;
-    //         this.generalService.user = s.user.user;
-    //         const userResponse: BaseResponse<UserProfile, string> = new BaseResponse();
-    //         userResponse.data = s.user.user;
-    //         this.router.navigate(['/pages/dashboard']);
-    //         return this.loginService.GetProfileImage().pipe(map(p => {
-    //             return new SetUserProfilePicture(p);
-    //         }));
-    //
-    //
-    //     })
-    // );
+    @Effect()
+    loginUserComplete$: Observable<any> = this.actions$.pipe(
+        ofType<LoginUserCompleteAction>(AuthActionType.LoginUserComplete),
+        switchMap((s) => {
+            this.generalService.sessionId = s.result.session.id;
+            this.generalService.user = s.result.user;
+            this.router.navigate(['/pages/home']);
+            return of();
+        })
+    );
+
     //
     // @Effect({dispatch: false})
     // LogoutUser$: Observable<void> = this.actions$.pipe(
