@@ -1,4 +1,4 @@
-<ion-menu side="start" menuId="first" contentId="content1" type="push">
+<ion-menu side="start" menuId="first" contentId="content1">
 
     <app-header
             [title]="'Vishal'"
@@ -12,7 +12,7 @@
                 <ion-item>Balance</ion-item>
                 <ion-item>Home</ion-item>
                 <ion-item>Settings</ion-item>
-                <ion-item>Menu Item</ion-item>
+                <ion-item>{{ activeCompany?.name }}</ion-item>
                 <ion-item>Logout</ion-item>
 
             </ion-menu-toggle>

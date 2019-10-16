@@ -1,15 +1,17 @@
 import {Injectable} from '@angular/core';
 import {UserDetails} from '../models/user.model';
+import {CompanyResponse} from '../models/company.model';
 
 @Injectable()
 export class GeneralService {
-    get activeCompany(): string {
+    get activeCompany(): CompanyResponse {
         return this._activeCompany;
     }
 
-    set activeCompany(value: string) {
+    set activeCompany(value: CompanyResponse) {
         this._activeCompany = value;
     }
+
     get user(): UserDetails {
         return this._user;
     }
@@ -28,5 +30,5 @@ export class GeneralService {
 
     private _sessionId: string;
     private _user: UserDetails;
-    private _activeCompany: string;
+    private _activeCompany: CompanyResponse;
 }

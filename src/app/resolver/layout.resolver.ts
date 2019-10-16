@@ -44,16 +44,16 @@ export class LayoutResolver implements Resolve<any> {
                 if (result.body.length) {
                     this.store.dispatch(new SetCompanyAction(result.body));
                     if (activeCompany) {
-                        const isThere = result.body.some(s => s.uniqueName === activeCompany);
-                        if (isThere) {
-                            this._generalService.activeCompany = activeCompany;
+                        const companyIndex = result.body.findIndex(s => s.uniqueName === activeCompany);
+                        if (companyIndex > -1) {
+                            this._generalService.activeCompany = result.body[companyIndex];
                             this.store.dispatch(new SetActiveCompanyAction(activeCompany));
                         } else {
-                            this._generalService.activeCompany = result.body[0].uniqueName;
+                            this._generalService.activeCompany = result.body[0];
                             this.store.dispatch(new SetActiveCompanyAction(result.body[0].uniqueName));
                         }
                     } else {
-                        this._generalService.activeCompany = result.body[0].uniqueName;
+                        this._generalService.activeCompany = result.body[0];
                         this.store.dispatch(new SetActiveCompanyAction(result.body[0].uniqueName));
                     }
                     return true;
