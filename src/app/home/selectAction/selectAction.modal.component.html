@@ -4,15 +4,13 @@
         <ion-label>Select Action</ion-label>
     </ion-item>
 
-    <ion-card *ngFor="let a of [1, 2, 3]" class="ion-padding">
+    <ion-card *ngFor="let action of actions" class="ion-padding" [ngStyle]="action.style">
 
         <ion-card-content>
             <ion-row class="ion-justify-content-center">
 
                 <ion-col>
-                    <div>
-                        1 of 2
-                    </div>
+                    <ion-icon [color]="action.color" [src]="action.icon"></ion-icon>
                 </ion-col>
 
             </ion-row>
@@ -20,9 +18,9 @@
             <ion-row class="ion-justify-content-center">
 
                 <ion-col>
-                    <div>
-                        2 of 2
-                    </div>
+                    <ion-text [color]="action.color">
+                        {{ action.name }}
+                    </ion-text>
                 </ion-col>
             </ion-row>
 
