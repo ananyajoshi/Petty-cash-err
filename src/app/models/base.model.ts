@@ -17,6 +17,17 @@ export class MessageData {
     public message: string;
 }
 
+export interface IPagination {
+    count: number;
+    page: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface IPaginatedResponse<T = any> extends IPagination {
+    size: number;
+    results: T[];
+}
 
 export class CreatedBy {
     public email: string;

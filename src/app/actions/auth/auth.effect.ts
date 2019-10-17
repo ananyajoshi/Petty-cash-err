@@ -20,6 +20,7 @@ import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {BaseResponse} from '../../models/base.model';
 import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
 import {CompanyResponse} from '../../models/company.model';
+import {GetFlattenAccountAction} from '../account/account.action';
 
 
 @Injectable()
@@ -72,7 +73,7 @@ export class AuthEffect {
             });
             this.generalService.activeCompany = {...companies.find(f => f.uniqueName === res.uniqueName)};
             this.generalService.companyChangeEvent.next(true);
-            return of();
+            return of(new GetFlattenAccountAction());
         })
     );
 

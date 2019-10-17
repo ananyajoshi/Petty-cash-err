@@ -3,6 +3,7 @@ import {HttpWrapperService} from './httpWrapper.service';
 import {GeneralService} from './general.service';
 import {CompanyService} from './company/company.service';
 import {AuthService} from './auth/auth.service';
+import {AccountService} from './account/account.service';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ export class ServiceModule {
                 HttpWrapperService,
                 GeneralService,
                 CompanyService,
-                AuthService
+                AuthService,
+                AccountService
             ]
         };
     }
