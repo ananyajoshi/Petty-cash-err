@@ -1,0 +1,12 @@
+// app header and toolbar color
+::ng-deep ion-toolbar {
+  --background: #0B1B46;
+
+  ion-menu-button {
+    --color: #FFFFFF;
+  }
+
+  ion-title {
+    --color: #FFFFFF;
+  }
+}
