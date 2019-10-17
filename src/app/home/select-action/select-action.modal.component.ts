@@ -1,13 +1,15 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {PopoverController} from '@ionic/angular';
 
 @Component({
     selector: 'app-select-action-modal',
-    templateUrl: './selectAction.modal.component.html',
-    styleUrls: ['./selectAction.modal.controller.scss']
+    templateUrl: './select-action.modal.component.html',
+    styleUrls: ['./select-action.modal.controller.scss']
 })
 
 export class SelectActionModalComponent implements OnInit {
-    public actions: Array<{ icon: string, style: any, color: string, name: string }> = [
+    public actions: Array<{ icon: string, style: any, color: string, name: string, path: string }> = [
         {
             icon: 'assets/icon/sales.svg',
             style: {
@@ -15,7 +17,8 @@ export class SelectActionModalComponent implements OnInit {
                 'border-bottom-width': '5px'
             },
             color: 'sales',
-            name: 'Sales/Income'
+            name: 'Sales/Income',
+            path: '/entry/sales'
         },
         {
             icon: 'assets/icon/purchase.svg',
@@ -24,7 +27,8 @@ export class SelectActionModalComponent implements OnInit {
                 'border-bottom-width': '5px'
             },
             color: 'purchase',
-            name: 'Purchase/Expenses'
+            name: 'Purchase/Expenses',
+            path: '/entry/purchase'
         },
         {
             icon: 'assets/icon/withdrawal.svg',
@@ -33,13 +37,18 @@ export class SelectActionModalComponent implements OnInit {
                 'border-bottom-width': '5px'
             },
             color: 'withdrawal',
-            name: 'Withdrawal/Deposit'
+            name: 'Withdrawal/Deposit',
+            path: '/entry/withdrawal'
         },
     ];
 
-    constructor() {
+    constructor(private router: Router, private popover: PopoverController) {
     }
 
     ngOnInit() {
+    }
+
+    actionSelected(item) {
+        this.popover.dismiss({path: item.path});
     }
 }

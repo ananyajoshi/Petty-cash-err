@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 
 import {HomePage} from './home.page';
 import {SharedModule} from '../shared/shared.module';
-import {SelectActionModalComponent} from './selectAction/selectAction.modal.component';
+import {SelectActionModalComponent} from './select-action/select-action.modal.component';
 
 @NgModule({
     imports: [

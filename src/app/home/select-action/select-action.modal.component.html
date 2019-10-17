@@ -4,7 +4,8 @@
         <ion-label>Select Action</ion-label>
     </ion-item>
 
-    <ion-card *ngFor="let action of actions" class="ion-padding" [ngStyle]="action.style" button="true">
+    <ion-card *ngFor="let action of actions" class="ion-padding" [ngStyle]="action.style"
+              button="true" (click)="actionSelected(action)">
 
         <ion-card-content>
             <ion-row class="ion-justify-content-center ion-text-center ion-align-items-end">

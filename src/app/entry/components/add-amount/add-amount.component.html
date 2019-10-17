@@ -1,0 +1,22 @@
+<ion-content>
+
+    <ion-item [color]="actionType">
+        <ion-text>Add Amount</ion-text>
+    </ion-item>
+
+    <ion-item>
+        <ion-input type="number" name="amount" [(ngModel)]="amount"></ion-input>
+    </ion-item>
+
+    <ion-item>
+
+        <ion-buttons slot="end">
+
+            <ion-button>Cancel</ion-button>
+            <ion-button [color]="actionType" (click)="onAmountAdded()">Done</ion-button>
+
+        </ion-buttons>
+
+    </ion-item>
+
+</ion-content>
