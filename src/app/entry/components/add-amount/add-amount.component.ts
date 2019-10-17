@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PopoverController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'add-amount',
@@ -11,10 +12,15 @@ export class AddAmountComponent implements OnInit {
     @Input() public actionType: string;
     public amount: number = 0;
 
-    constructor(private popoverCtrl: PopoverController) {
+    constructor(private popoverCtrl: PopoverController, private router: Router) {
     }
 
     ngOnInit() {
+    }
+
+    cancelModal() {
+        this.router.navigate(['pages/home/select-action']);
+        this.popoverCtrl.dismiss();
     }
 
     onAmountAdded() {

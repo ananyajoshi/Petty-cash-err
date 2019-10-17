@@ -1,16 +1,27 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalController, PopoverController} from '@ionic/angular';
 import {SelectActionModalComponent} from './select-action/select-action.modal.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
-    constructor(private modalController: ModalController, private popover: PopoverController, private router: Router) {
+    constructor(private modalController: ModalController, private popover: PopoverController, private router: Router,
+                private activatedRouter: ActivatedRoute) {
+    }
+
+    ngOnInit(): void {
+        this.activatedRouter.url.subscribe(url => {
+            const showSelectActionModal = url.some(u => u.path.includes('select-action'));
+
+            if (showSelectActionModal) {
+                this.openSelectActionModal();
+            }
+        });
     }
 
     async openSelectActionModal() {

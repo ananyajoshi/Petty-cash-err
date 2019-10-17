@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {IFlattenAccountsResultItem} from '../../../models/account.model';
+import {PopoverController} from '@ionic/angular';
 
 @Component({
     selector: 'select-account-component',
@@ -8,11 +10,26 @@ import {Component, Input, OnInit} from '@angular/core';
 
 export class SelectAccountComponentComponent implements OnInit {
     @Input() public actionType: string;
-    @Input() public accountList
+    @Input() public accountList: IFlattenAccountsResultItem[] = [];
+    public searchModal: string = '';
 
-    constructor() {
+    public filteredAccounts: IFlattenAccountsResultItem[] = [];
+
+    constructor(private popoverCtrl: PopoverController) {
     }
 
     ngOnInit() {
+        this.filteredAccounts = this.accountList;
+    }
+
+    searchInputChanged() {
+        this.filteredAccounts = this.accountList.filter(f => {
+            return f.name.toLowerCase().includes(this.searchModal.toLowerCase()) ||
+                f.uniqueName.toLowerCase().includes(this.searchModal.toLowerCase());
+        });
+    }
+
+    cancelModal() {
+        this.popoverCtrl.dismiss();
     }
 }

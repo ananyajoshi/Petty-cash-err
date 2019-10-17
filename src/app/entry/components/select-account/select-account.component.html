@@ -1,17 +1,28 @@
 <ion-content>
 
     <ion-item [color]="actionType">
-        <ion-text>Add Amount</ion-text>
+        <ion-text>Select Account</ion-text>
     </ion-item>
 
     <ion-item>
-
+        <ion-searchbar showCancelButton="focus" debounce="500"
+                       (ionChange)="searchInputChanged()" [(ngModel)]="searchModal"></ion-searchbar>
     </ion-item>
+
+    <ion-list>
+
+        <ion-item *ngFor="let account of filteredAccounts">
+            <ion-label>
+                {{ account.name }}
+            </ion-label>
+        </ion-item>
+
+    </ion-list>
 
     <ion-item>
 
         <ion-buttons slot="end">
-            <ion-button>Cancel</ion-button>
+            <ion-button (click)="cancelModal()">Cancel</ion-button>
         </ion-buttons>
 
     </ion-item>

@@ -13,8 +13,7 @@ const routes: Routes = [
     {
         path: 'pages', loadChildren: () => import('./layout/layout.module').then(m => m.LayoutPageModule),
         canActivate: [AuthGuard], resolve: [LayoutResolver]
-    },
-    {path: 'entry/:type', loadChildren: () => import('./entry/entry.module').then(m => m.EntryPageModule), canActivate: [AuthGuard]},
+    }
 
 ];
 

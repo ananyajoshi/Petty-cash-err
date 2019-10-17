@@ -18,7 +18,7 @@ export class SelectActionModalComponent implements OnInit {
             },
             color: 'sales',
             name: 'Sales/Income',
-            path: '/entry/sales'
+            path: 'pages/entry/sales'
         },
         {
             icon: 'assets/icon/purchase.svg',
@@ -28,7 +28,7 @@ export class SelectActionModalComponent implements OnInit {
             },
             color: 'purchase',
             name: 'Purchase/Expenses',
-            path: '/entry/purchase'
+            path: 'pages/entry/purchase'
         },
         {
             icon: 'assets/icon/withdrawal.svg',
@@ -38,7 +38,7 @@ export class SelectActionModalComponent implements OnInit {
             },
             color: 'withdrawal',
             name: 'Withdrawal/Deposit',
-            path: '/entry/withdrawal'
+            path: 'pages/entry/withdrawal'
         },
     ];
 

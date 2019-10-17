@@ -7,7 +7,6 @@ import {IonicModule} from '@ionic/angular';
 
 import {LayoutPage} from './layout.page';
 import {SharedModule} from '../shared/shared.module';
-import {LayoutResolver} from '../resolver/layout.resolver';
 
 const routes: Routes = [
     {
@@ -20,6 +19,7 @@ const routes: Routes = [
             {
                 path: 'home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
             },
+            {path: 'entry/:type', loadChildren: () => import('../entry/entry.module').then(m => m.EntryPageModule)},
         ]
     }
 ];
