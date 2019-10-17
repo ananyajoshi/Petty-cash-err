@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {Action, Store} from '@ngrx/store';
+import {Action, select, Store} from '@ngrx/store';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 
 import {GeneralService} from '../../services/general.service';
@@ -8,10 +8,18 @@ import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {AppState} from '../../store/reducer';
 import {Observable, of, pipe} from 'rxjs';
-import {AuthActionType, LoginUserAction, LoginUserCompleteAction, LoginUserErrorAction, LogoutUserAction} from './auth.action';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {
+    AuthActionType,
+    LoginUserAction,
+    LoginUserCompleteAction,
+    LoginUserErrorAction,
+    LogoutUserAction,
+    SetActiveCompanyAction
+} from './auth.action';
+import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {BaseResponse} from '../../models/base.model';
 import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
+import {CompanyResponse} from '../../models/company.model';
 
 
 @Injectable()
@@ -50,6 +58,20 @@ export class AuthEffect {
             this.generalService.sessionId = s.result.session.id;
             this.generalService.user = s.result.user;
             this.router.navigate(['/pages/home']);
+            return of();
+        })
+    );
+
+    @Effect()
+    switchCompany$: Observable<any> = this.actions$.pipe(
+        ofType<SetActiveCompanyAction>(AuthActionType.SetActiveCompany),
+        switchMap(res => {
+            let companies: CompanyResponse[] = [];
+            this.store.pipe(take(1), select(s => s.company.companies)).subscribe(data => {
+                companies = data;
+            });
+            this.generalService.activeCompany = {...companies.find(f => f.uniqueName === res.uniqueName)};
+            this.generalService.companyChangeEvent.next(true);
             return of();
         })
     );

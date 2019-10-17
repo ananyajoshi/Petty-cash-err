@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
 import {UserDetails} from '../models/user.model';
 import {CompanyResponse} from '../models/company.model';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable()
 export class GeneralService {
+    public companyChangeEvent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
     get activeCompany(): CompanyResponse {
         return this._activeCompany;
     }

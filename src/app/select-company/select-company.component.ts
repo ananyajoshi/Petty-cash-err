@@ -4,6 +4,7 @@ import {AppState} from '../store/reducer';
 import {select, Store} from '@ngrx/store';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {SetActiveCompanyAction} from '../actions/auth/auth.action';
+import {ModalController} from '@ionic/angular';
 
 @Component({
     selector: 'app-select-company',
@@ -14,7 +15,7 @@ export class SelectCompanyComponent implements OnInit, OnDestroy {
     @Input() public activeCompanyUniqueName: string;
     public companies: CompanyResponse[] = [];
 
-    constructor(private store: Store<AppState>) {
+    constructor(private store: Store<AppState>, private modalCtrl: ModalController) {
     }
 
     ngOnInit() {
@@ -31,6 +32,11 @@ export class SelectCompanyComponent implements OnInit, OnDestroy {
         }
 
         this.store.dispatch(new SetActiveCompanyAction(uniqueName));
+        this.closeModal();
+    }
+
+    closeModal() {
+        this.modalCtrl.dismiss();
     }
 
     ngOnDestroy(): void {

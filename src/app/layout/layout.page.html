@@ -1,8 +1,17 @@
 <ion-menu side="start" menuId="first" contentId="content1">
 
-    <app-header
-            [title]="'Vishal'"
-    ></app-header>
+    <ion-header>
+        <ion-toolbar>
+
+            <ion-buttons slot="start">
+                <ion-button (click)="closeMenu()">
+                    <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>Vishal</ion-title>
+
+        </ion-toolbar>
+    </ion-header>
 
     <ion-content>
 

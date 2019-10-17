@@ -1,6 +1,15 @@
-<app-header
-        [title]="'Switch Company'"
-></app-header>
+<ion-header>
+    <ion-toolbar>
+
+        <ion-buttons slot="start">
+            <ion-button (click)="closeModal()">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Switch Company</ion-title>
+
+    </ion-toolbar>
+</ion-header>
 
 <ion-content>
 
