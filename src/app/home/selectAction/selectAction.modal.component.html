@@ -4,18 +4,18 @@
         <ion-label>Select Action</ion-label>
     </ion-item>
 
-    <ion-card *ngFor="let action of actions" class="ion-padding" [ngStyle]="action.style">
+    <ion-card *ngFor="let action of actions" class="ion-padding" [ngStyle]="action.style" button="true">
 
         <ion-card-content>
-            <ion-row class="ion-justify-content-center">
+            <ion-row class="ion-justify-content-center ion-text-center ion-align-items-end">
 
                 <ion-col>
-                    <ion-icon [color]="action.color" [src]="action.icon"></ion-icon>
+                    <ion-icon [color]="action.color" [src]="action.icon" size="large"></ion-icon>
                 </ion-col>
 
             </ion-row>
 
-            <ion-row class="ion-justify-content-center">
+            <ion-row class="ion-justify-content-center ion-text-center ion-align-items-end">
 
                 <ion-col>
                     <ion-text [color]="action.color">
