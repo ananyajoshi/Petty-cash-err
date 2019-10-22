@@ -1,20 +1,24 @@
 <ion-content>
 
     <div class="login">
-        <h3 class="mb-3">Login to your secure <br>accounting space</h3>
+        <a class="logo" href="/"><img src="./assets/giddh-logo-white.png"></a>
+        <h3 class="mb-3 ion-text-center"><strong> Login to your secure accounting space</strong></h3>
+        <br />
         <div class="login-form">
 
             <form [formGroup]="loginWithPasswordForm">
+                <ion-input type="email" placeholder="Email Id" formControlName="uniqueKey" class="form-control"></ion-input>
+                <ion-input type="password" placeholder="Password" formControlName="password" class="form-control"></ion-input>
 
-                <ion-item>
+                <!-- <ion-item class="form-control">
                     <ion-label>Email</ion-label>
-                    <ion-input type="email" formControlName="uniqueKey"></ion-input>
-                </ion-item>
+                    <ion-input type="email" placeholder="Email" formControlName="uniqueKey"></ion-input>
+                </ion-item> -->
 
-                <ion-item>
+                <!-- <ion-item class="form-control">
                     <ion-label>Password</ion-label>
-                    <ion-input type="password" formControlName="password"></ion-input>
-                </ion-item>
+                    <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+                </ion-item> -->
 
             </form>
             <!--      <div class="form-group">-->
@@ -29,13 +33,14 @@
             </button> -->
 
             <!-- on click login & login with google button this is only example routing  see abow in button tag -->
-            <ion-button (click)="login()" [disabled]="loginWithPasswordForm.invalid">
+            <!--  [disabled]="loginWithPasswordForm.invalid" -->
+            <ion-button (click)="login()" class="btn btn-success btn-lg btn-block" expand="block">
                 Login
             </ion-button>
 
             <a href="javascript:void(0)" type="butotn" class="btn-google btn-block mt-3" routerLink="/">
                 <span><img src="assets/google_ico.svg" alt=""></span>
-                Login With Google
+                Login with Google
             </a>
 
         </div>

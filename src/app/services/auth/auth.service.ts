@@ -8,12 +8,13 @@ import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
 import {BaseService} from '../base.service';
 import {AppState} from '../../store/reducer';
 import {Store} from '@ngrx/store';
+import {ToastController} from '@ionic/angular';
 
 @Injectable()
 export class AuthService extends BaseService {
 
-    constructor(private _http: HttpWrapperService, protected store: Store<AppState>) {
-        super(store);
+    constructor(private _http: HttpWrapperService, protected store: Store<AppState>, protected toastController: ToastController) {
+        super(store, toastController);
     }
 
     public LoginWithPassword(model: LoginWithPassword): Observable<BaseResponse<LoginResponseModel, LoginWithPassword>> {

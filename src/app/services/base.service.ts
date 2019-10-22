@@ -4,15 +4,26 @@ import * as queryString from 'querystring';
 import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/reducer';
+import {ToastController} from '@ionic/angular';
 
 const invalidStatusCodes: number[] = [0, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511];
 
 export class BaseService {
-    constructor(protected store: Store<AppState>) {
+    constructor(protected store: Store<AppState>, protected toastController: ToastController) {
     }
 
     handleCatch<TResponse, TRequest>(r: HttpErrorResponse, request?: any) {
         const data: BaseResponse<TResponse, TRequest> = new BaseResponse<TResponse, TRequest>();
+        const toast = this.toastController.create({
+            message: r.error.message,
+            animated: true,
+            color: 'danger',
+            showCloseButton: true,
+            position: 'top'
+        }).then(t => {
+            t.present();
+        });
+        // await toast.present();
         if (invalidStatusCodes.includes(r.status)
         ) {
             data.status = 'error';
