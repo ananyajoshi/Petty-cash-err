@@ -15,13 +15,14 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit(): void {
-        this.activatedRouter.url.subscribe(url => {
-            const showSelectActionModal = url.some(u => u.path.includes('select-action'));
-
-            if (showSelectActionModal) {
-                this.openSelectActionModal();
-            }
-        });
+        // this.activatedRouter.url.subscribe(url => {
+        //     const showSelectActionModal = url.some(u => u.path.includes('select-action'));
+        //
+        //     if (showSelectActionModal) {
+        //         const action = this.activatedRouter.snapshot.params.action;
+        //         this.openSelectActionModal();
+        //     }
+        // });
     }
 
     async openSelectActionModal() {

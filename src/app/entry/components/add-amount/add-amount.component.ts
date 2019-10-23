@@ -19,8 +19,8 @@ export class AddAmountComponent implements OnInit {
     }
 
     cancelModal() {
-        this.router.navigate(['pages/home/select-action']);
         this.popoverCtrl.dismiss();
+        this.router.navigate(['pages/home']);
     }
 
     onAmountAdded() {

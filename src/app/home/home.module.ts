@@ -16,7 +16,7 @@ import {SelectActionModalComponent} from './select-action/select-action.modal.co
                 component: HomePage
             },
             {
-                path: 'select-action',
+                path: 'select-action/',
                 component: HomePage
             }
         ])

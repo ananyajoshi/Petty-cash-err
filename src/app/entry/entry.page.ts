@@ -45,7 +45,8 @@ export class EntryPage implements OnInit, OnDestroy {
             animated: true,
             componentProps: {
                 actionType: this.actionType
-            }
+            },
+            backdropDismiss: false
         });
         await addAmountPopover.present();
 
@@ -84,7 +85,6 @@ export class EntryPage implements OnInit, OnDestroy {
         await accountListPopover.present();
 
         accountListPopover.onDidDismiss().then(res => {
-            debugger;
         }).catch(reason => {
             //
         });

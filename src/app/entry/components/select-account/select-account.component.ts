@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IFlattenAccountsResultItem} from '../../../models/account.model';
 import {PopoverController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'select-account-component',
@@ -15,7 +16,7 @@ export class SelectAccountComponentComponent implements OnInit {
 
     public filteredAccounts: IFlattenAccountsResultItem[] = [];
 
-    constructor(private popoverCtrl: PopoverController) {
+    constructor(private popoverCtrl: PopoverController, private router: Router) {
     }
 
     ngOnInit() {
@@ -31,5 +32,6 @@ export class SelectAccountComponentComponent implements OnInit {
 
     cancelModal() {
         this.popoverCtrl.dismiss();
+        this.router.navigate(['pages/home']);
     }
 }
