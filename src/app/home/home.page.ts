@@ -32,7 +32,7 @@ export class HomePage implements OnInit {
         modal.present();
 
         modal.onDidDismiss().then(res => {
-            if (res) {
+            if (res && res.data) {
                 this.router.navigate([res.data.path]);
             }
         });

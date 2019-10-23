@@ -1,12 +1,12 @@
 <ion-content>
-    <img src="./assets/nocompany-ico.svg" />
+    <img src="./assets/nocompany-ico.svg"/>
     <ion-text>
         <h3>You need permission!</h3>
     </ion-text>
-    <p>There is no company shared with the login id <a href="#">sampleemailid@gmail.com</a> </p>
+    <p>There is no company shared with the login id <a href="#">sampleemailid@gmail.com</a></p>
     <p>Ask your admin for access, or switch to an account with permission.</p>
 
-    <ion-button class="btn btn-default btn-lg btn-block" expand="block">
+    <ion-button class="btn btn-default btn-lg btn-block" expand="block" (click)="logout()">
         Login again
     </ion-button>
 </ion-content>
