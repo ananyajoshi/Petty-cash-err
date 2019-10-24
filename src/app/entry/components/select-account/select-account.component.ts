@@ -29,6 +29,10 @@ export class SelectAccountComponentComponent implements OnInit {
         });
     }
 
+    accountSelected(account: IFlattenAccountsResultItem) {
+        this.popoverCtrl.dismiss({account});
+    }
+
     cancelModal() {
         this.popoverCtrl.dismiss();
     }

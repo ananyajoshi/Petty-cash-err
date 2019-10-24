@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PopoverController} from '@ionic/angular';
 import {AddAmountComponent} from './components/add-amount/add-amount.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {IFlattenAccountsResultItem} from '../models/account.model';
 import {AppState} from '../store/reducer';
 import {select, Store} from '@ngrx/store';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {SelectAccountComponentComponent} from './components/select-account/select-account.component';
-import {BalanceViewComponent} from './components/balance-view/balance-view.component';
 
 @Component({
     selector: 'app-entry',
@@ -23,7 +22,8 @@ export class EntryPage implements OnInit, OnDestroy {
 
     public amount: number;
 
-    constructor(private popoverCtrl: PopoverController, private activatedRouter: ActivatedRoute, private store: Store<AppState>) {
+    constructor(private popoverCtrl: PopoverController, private activatedRouter: ActivatedRoute, private store: Store<AppState>,
+                private router: Router) {
     }
 
     async ngOnInit() {
@@ -51,9 +51,12 @@ export class EntryPage implements OnInit, OnDestroy {
         await addAmountPopover.present();
 
         addAmountPopover.onDidDismiss().then(res => {
-            this.amount = res.data.amount;
-            this.showAccountList();
-            // this.showBalance();
+            if (res && res.data) {
+                this.amount = res.data.amount;
+                this.showAccountList();
+            } else {
+                this.goToHome();
+            }
         }).catch(reason => {
             this.amount = 0;
         });
@@ -86,24 +89,11 @@ export class EntryPage implements OnInit, OnDestroy {
         await accountListPopover.present();
 
         accountListPopover.onDidDismiss().then(res => {
-            this.showBalance();
-        }).catch(reason => {
-            //
-        });
-    }
-
-    async showBalance() {
-        const balancePopover = await this.popoverCtrl.create({
-            component: BalanceViewComponent,
-            animated: true,
-            componentProps: {
-                actionType: this.actionType
-            },
-            cssClass: 'w350 balance-popover'
-        });
-        await balancePopover.present();
-
-        balancePopover.onDidDismiss().then(res => {
+            if (res && res.data) {
+                this.router.navigate(['pages', 'entry', this.actionType, 'create']);
+            } else {
+                this.goToHome();
+            }
         }).catch(reason => {
             //
         });
@@ -112,4 +102,7 @@ export class EntryPage implements OnInit, OnDestroy {
     ngOnDestroy(): void {
     }
 
+    private goToHome() {
+        this.router.navigate(['/pages/home']);
+    }
 }

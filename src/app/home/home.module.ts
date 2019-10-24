@@ -14,10 +14,6 @@ import {SelectActionModalComponent} from './select-action/select-action.modal.co
             {
                 path: '',
                 component: HomePage
-            },
-            {
-                path: 'select-action',
-                component: HomePage
             }
         ])
     ],
