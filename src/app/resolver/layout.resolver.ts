@@ -58,6 +58,7 @@ export class LayoutResolver implements Resolve<any> {
                     const modal = await this.popoverController.create({
                         component: NoCompanyModalComponent,
                         backdropDismiss: false,
+                        cssClass: 'nocompany-popover',
                         componentProps: {
                             email: 'vishal@gmail.com'
                         }
@@ -68,6 +69,7 @@ export class LayoutResolver implements Resolve<any> {
                 const modal = await this.popoverController.create({
                     component: NoCompanyModalComponent,
                     backdropDismiss: false,
+                    cssClass: 'nocompany-popover',
                     componentProps: {
                         email: 'vishal@gmail.com'
                     }

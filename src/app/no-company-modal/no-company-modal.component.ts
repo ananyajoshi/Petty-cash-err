@@ -1,8 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {LogoutUserAction} from '../actions/auth/auth.action';
-import {Store} from '@ngrx/store';
-import {AppState} from '../store/reducer';
-import {PopoverController} from '@ionic/angular';
 
 @Component({
     selector: 'no-company-data',
@@ -11,14 +7,9 @@ import {PopoverController} from '@ionic/angular';
 })
 
 export class NoCompanyModalComponent implements OnInit {
-    constructor(private store: Store<AppState>, private popoverController: PopoverController) {
+    constructor() {
     }
 
     ngOnInit() {
-    }
-
-    logout() {
-        this.store.dispatch(new LogoutUserAction());
-        this.popoverController.dismiss();
     }
 }

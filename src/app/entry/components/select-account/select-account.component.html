@@ -1,30 +1,27 @@
 <ion-content>
-
-    <ion-item [color]="actionType">
-        <ion-text>Select Account</ion-text>
-    </ion-item>
-
-    <ion-item>
-        <ion-searchbar showCancelButton="focus" debounce="500"
-                       (ionChange)="searchInputChanged()" [(ngModel)]="searchModal"></ion-searchbar>
-    </ion-item>
-
     <ion-list>
+        <ion-list-header class="title" [color]="actionType">
+            <ion-label>Select A/c</ion-label>
+          </ion-list-header>
+        <!-- <ion-item class="title" [color]="actionType">
+            <ion-text>Select {{actionType}} A/c</ion-text>
+        </ion-item> -->
+    
+        <ion-searchbar showCancelButton="focus" debounce="500"
+        (ionChange)="searchInputChanged()" [(ngModel)]="searchModal" placeholder="Search Account"></ion-searchbar>
 
-        <ion-item *ngFor="let account of filteredAccounts">
+        <ion-item *ngFor="let account of filteredAccounts" class="noline list-item">
             <ion-label>
-                {{ account.name }}
+                {{ account.name }} A/c
             </ion-label>
+            <ion-note slot="end">$7,980</ion-note>
         </ion-item>
 
     </ion-list>
 
-    <ion-item>
 
-        <ion-buttons slot="end">
-            <ion-button (click)="cancelModal()">Cancel</ion-button>
-        </ion-buttons>
-
-    </ion-item>
+    <ion-row align-items-center>
+        <ion-col><ion-button expand="full" (click)="cancelModal()" color="light">Cancel</ion-button></ion-col>
+    </ion-row>
 
 </ion-content>

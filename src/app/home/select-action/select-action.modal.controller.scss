@@ -4,3 +4,25 @@
   position: absolute;
   display: block;
 }
+ion-card {
+  border-width: 1px 1px 3px 3px !important;
+  margin: 10px 15px 20px;
+  padding: 14px 10px 2px;
+  box-shadow: none;
+}
+
+ion-item {
+  --inner-border-width: 0;
+}
+ion-text {
+  font-size: 18px;
+}
+ion-card-content {
+  padding: 0;
+}
+.heading {
+  font-weight: 600;
+  --color: #333333;
+  font-size: 18px;
+  margin-bottom: 0;
+}

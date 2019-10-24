@@ -1,0 +1,35 @@
+ion-toolbar.sales {
+    --background: var(--ion-color-sales);
+}
+ion-toolbar.purchase {
+    --background: var(--ion-color-purchase);
+}
+ion-toolbar.withdrawal {
+    --background: var(--ion-color-withdrawal)
+}
+ion-back-button {
+    --color: #fff;
+}
+ion-item {
+    --min-height: auto;
+    --highlight-height: 0;
+    --inner-border-width: 0;
+    --border-width: 0;
+    --background: transparent;
+}
+ion-label {
+    --color: #999999 !important;
+    font-size: 14px !important;
+}
+.icon {
+    margin-right: 15px;
+}
+ion-datetime {
+    padding-left: 0;
+}
+.item-native {
+    border: 0;
+}
+ion-list {
+    background: #F7F8FA;
+}

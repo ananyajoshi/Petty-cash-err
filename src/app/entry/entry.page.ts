@@ -7,6 +7,7 @@ import {AppState} from '../store/reducer';
 import {select, Store} from '@ngrx/store';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {SelectAccountComponentComponent} from './components/select-account/select-account.component';
+import {BalanceViewComponent} from './components/balance-view/balance-view.component';
 
 @Component({
     selector: 'app-entry',
@@ -41,18 +42,18 @@ export class EntryPage implements OnInit, OnDestroy {
 
         const addAmountPopover = await this.popoverCtrl.create({
             component: AddAmountComponent,
-            showBackdrop: false,
             animated: true,
             componentProps: {
                 actionType: this.actionType
             },
-            backdropDismiss: false
+            cssClass: 'w350'
         });
         await addAmountPopover.present();
 
         addAmountPopover.onDidDismiss().then(res => {
             this.amount = res.data.amount;
             this.showAccountList();
+            // this.showBalance();
         }).catch(reason => {
             this.amount = 0;
         });
@@ -78,13 +79,31 @@ export class EntryPage implements OnInit, OnDestroy {
                 accountList: this.accountList,
             },
             component: SelectAccountComponentComponent,
-            showBackdrop: false,
-            animated: true
+            animated: true,
+            cssClass: 'w350'
         });
 
         await accountListPopover.present();
 
         accountListPopover.onDidDismiss().then(res => {
+            this.showBalance();
+        }).catch(reason => {
+            //
+        });
+    }
+
+    async showBalance() {
+        const balancePopover = await this.popoverCtrl.create({
+            component: BalanceViewComponent,
+            animated: true,
+            componentProps: {
+                actionType: this.actionType
+            },
+            cssClass: 'w350 balance-popover'
+        });
+        await balancePopover.present();
+
+        balancePopover.onDidDismiss().then(res => {
         }).catch(reason => {
             //
         });

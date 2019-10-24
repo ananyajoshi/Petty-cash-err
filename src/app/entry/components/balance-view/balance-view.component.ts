@@ -3,13 +3,13 @@ import {PopoverController} from '@ionic/angular';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'add-amount',
-    templateUrl: './add-amount.component.html',
-    styleUrls: ['./add-amount.component.scss']
+    selector: 'balance-view',
+    templateUrl: './balance-view.component.html',
+    styleUrls: ['./balance-view.component.scss']
 })
 
-export class AddAmountComponent implements OnInit {
-    @Input() public actionType: string;
+export class BalanceViewComponent implements OnInit {
+    @Input() public actionType: string = 'sales';
     public amount: number = 0;
 
     constructor(private popoverCtrl: PopoverController, private router: Router) {

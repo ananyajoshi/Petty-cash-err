@@ -15,25 +15,24 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.activatedRouter.url.subscribe(url => {
-        //     const showSelectActionModal = url.some(u => u.path.includes('select-action'));
-        //
-        //     if (showSelectActionModal) {
-        //         const action = this.activatedRouter.snapshot.params.action;
-        //         this.openSelectActionModal();
-        //     }
-        // });
+        this.activatedRouter.url.subscribe(url => {
+            const showSelectActionModal = url.some(u => u.path.includes('select-action'));
+
+            if (showSelectActionModal) {
+                this.openSelectActionModal();
+            }
+        });
     }
 
     async openSelectActionModal() {
         const modal = await this.popover.create({
             component: SelectActionModalComponent,
-            cssClass: 'my-custom-modal-css'
+            cssClass: 'my-custom-modal-css w350',
         });
         modal.present();
 
         modal.onDidDismiss().then(res => {
-            if (res && res.data) {
+            if (res) {
                 this.router.navigate([res.data.path]);
             }
         });
