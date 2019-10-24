@@ -83,7 +83,7 @@ export class EntryPage implements OnInit, OnDestroy {
             },
             component: SelectAccountComponentComponent,
             animated: true,
-            cssClass: 'w350'
+            backdropDismiss: false
         });
 
         await accountListPopover.present();

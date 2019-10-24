@@ -1,27 +1,36 @@
 <ion-content>
-    <ion-list>
-        <ion-list-header class="title" [color]="actionType">
-            <ion-label>Select A/c</ion-label>
-        </ion-list-header>
+    <ion-grid>
 
-        <ion-searchbar showCancelButton="focus" debounce="500"
-                       (ionChange)="searchInputChanged()" [(ngModel)]="searchModal"
-                       placeholder="Search Account"></ion-searchbar>
+        <ion-row class="main-container">
 
-        <ion-item *ngFor="let account of filteredAccounts" class="noline list-item" (click)="accountSelected(account)">
-            <ion-label>
-                {{ account.name }} A/c
-            </ion-label>
-            <ion-note slot="end">$7,980</ion-note>
-        </ion-item>
+            <ion-col>
+                <ion-list>
+                    <ion-list-header class="title" [color]="actionType">
+                        <ion-label>Select A/c</ion-label>
+                    </ion-list-header>
 
-    </ion-list>
+                    <ion-searchbar showCancelButton="focus" debounce="500"
+                                   (ionChange)="searchInputChanged()" [(ngModel)]="searchModal"
+                                   placeholder="Search Account"></ion-searchbar>
+
+                    <ion-item *ngFor="let account of filteredAccounts" class="noline list-item"
+                              (click)="accountSelected(account)">
+                        <ion-label>
+                            {{ account.name }} A/c
+                        </ion-label>
+                        <ion-note slot="end">$7,980</ion-note>
+                    </ion-item>
+
+                </ion-list>
+            </ion-col>
+
+            <ion-col class="ion-align-self-end">
+                <ion-button expand="full" (click)="cancelModal()" color="light">Cancel</ion-button>
+            </ion-col>
+
+        </ion-row>
 
 
-    <ion-row align-items-center>
-        <ion-col>
-            <ion-button expand="full" (click)="cancelModal()" color="light">Cancel</ion-button>
-        </ion-col>
-    </ion-row>
+    </ion-grid>
 
 </ion-content>
