@@ -25,4 +25,8 @@ export class CreateEntryComponent implements OnInit {
     onAmountAdded() {
         this.popoverCtrl.dismiss({amount: this.amount});
     }
+
+    goToHome() {
+        this.router.navigate(['pages', 'home']);
+    }
 }
