@@ -3,7 +3,7 @@
 
         <ion-buttons slot="start">
             <ion-button (click)="closeModal()">
-                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+                <ion-icon slot="icon-only" name="arrow-back" color="light"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title>Switch Company</ion-title>
@@ -13,13 +13,11 @@
 
 <ion-content>
 
-    <ion-item>
-        <ion-label>
-            Select Company
-        </ion-label>
-    </ion-item>
-
     <ion-list>
+
+        <ion-list-header class="title">
+            <ion-label>Select Company</ion-label>
+        </ion-list-header>
 
         <ion-item *ngFor="let company of companies" type="button" (click)="switchCompany(company.uniqueName)">
 
@@ -27,7 +25,7 @@
                 {{ company?.name }}
             </ion-label>
 
-            <ion-icon *ngIf="company.uniqueName === activeCompanyUniqueName" name="checkmark">
+            <ion-icon *ngIf="company.uniqueName === activeCompanyUniqueName" src="../assets/icon/company-switcher.svg">
 
             </ion-icon>
 

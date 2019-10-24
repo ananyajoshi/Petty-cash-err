@@ -5,9 +5,8 @@
 
             <ion-buttons slot="start">
 
-                <ion-button (click)="closeMenu()" color="success">
-
-                    <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+                <ion-button (click)="closeMenu()">
+                    <ion-icon slot="icon-only" name="arrow-back" color="light"></ion-icon>
                 </ion-button>
 
             </ion-buttons>
@@ -22,15 +21,15 @@
         <ion-list>
             <ion-menu-toggle auto-hide="true">
 
-                <ion-item >Balance</ion-item>
+                <ion-item>Balance</ion-item>
                 <ion-item>Home</ion-item>
                 <ion-item href="/pages/setting">Settings</ion-item>
 
                 <ion-item>
-                    <ion-label>
+                    <ion-label style="font-weight: 600">
                         {{ activeCompany?.name }}
                     </ion-label>
-                    <ion-icon name="swap" (click)="showCompanySwitchModal()"></ion-icon>
+                    <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()"></ion-icon>
                 </ion-item>
 
                 <ion-item (click)="logout()">Logout</ion-item>
