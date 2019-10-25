@@ -4,9 +4,7 @@
   }
 }
 
-.my-custom-modal-css .modal-wrapper {
-  height: 20%;
-  top: 80%;
-  position: absolute;
-  display: block;
+::ng-deep.select-action-popover{
+  --min-width: 300px !important;
+  --max-width: 300px !important;
 }

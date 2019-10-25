@@ -9,7 +9,7 @@ import {ResetEntryAction, SetEntryAction} from '../actions/entry/entry.action';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
-    styleUrls: ['home.page.scss'],
+    styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
 
@@ -24,8 +24,8 @@ export class HomePage implements OnInit {
     async openSelectActionModal() {
         const modal = await this.popover.create({
             component: SelectActionModalComponent,
-            cssClass: 'my-custom-modal-css w350',
-            backdropDismiss: false
+            cssClass: 'select-action-popover',
+            backdropDismiss: true
         });
         modal.present();
 
