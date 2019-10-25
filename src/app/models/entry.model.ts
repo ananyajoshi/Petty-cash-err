@@ -3,6 +3,9 @@ export class EntryModel {
     transactions: EntryTransaction[];
     exchangeRate: number;
     entryType: EntryTypes;
+    baseAccount: string;
+    attachedFiles: string[];
+    description: string;
 
     constructor() {
         this.transactions = [new EntryTransaction()];
@@ -11,6 +14,9 @@ export class EntryModel {
 
 export class EntryTransaction {
     amount: number;
+    particular: string;
+    type: string;
+    description: string;
 
     constructor() {
         this.amount = 0;

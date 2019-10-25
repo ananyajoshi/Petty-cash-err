@@ -84,6 +84,7 @@ export class EntryPage implements OnInit, OnDestroy {
         const accountListPopover = await this.popoverCtrl.create({
             componentProps: {
                 accountList: this.accountList,
+                entryType: this.entryType
             },
             component: SelectAccountComponentComponent,
             animated: true,

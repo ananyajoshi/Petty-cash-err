@@ -10,7 +10,7 @@ import {EntryTypes} from '../../../models/entry.model';
 })
 
 export class SelectAccountComponentComponent implements OnInit {
-    @Input() public actionType: EntryTypes;
+    @Input() public entryType: EntryTypes;
     @Input() public accountList: IFlattenAccountsResultItem[] = [];
     public searchModal: string = '';
     public title: string;
@@ -23,7 +23,7 @@ export class SelectAccountComponentComponent implements OnInit {
     ngOnInit() {
         this.filteredAccounts = this.accountList;
 
-        switch (this.actionType) {
+        switch (this.entryType) {
             case EntryTypes.sales:
                 this.title = 'Sales/Income Ac';
                 break;
