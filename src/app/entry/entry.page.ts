@@ -7,6 +7,8 @@ import {AppState} from '../store/reducer';
 import {select, Store} from '@ngrx/store';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {SelectAccountComponentComponent} from './components/select-account/select-account.component';
+import {SetEntryAction} from '../actions/entry/entry.action';
+import {EntryModel, EntryTypes} from '../models/entry.model';
 
 @Component({
     selector: 'app-entry',
@@ -14,37 +16,50 @@ import {SelectAccountComponentComponent} from './components/select-account/selec
     styleUrls: ['./entry.page.scss'],
 })
 export class EntryPage implements OnInit, OnDestroy {
-    public actionType: string;
     public salesAccounts: IFlattenAccountsResultItem[] = [];
-    public purchaseAccounts: IFlattenAccountsResultItem[] = [];
-    public withdrawalAccounts: IFlattenAccountsResultItem[] = [];
+    public expensesAccounts: IFlattenAccountsResultItem[] = [];
+    public depositAccounts: IFlattenAccountsResultItem[] = [];
     public accountList: IFlattenAccountsResultItem[] = [];
+    public entryType: EntryTypes;
 
-    public amount: number;
+    public requestModal: EntryModel;
 
     constructor(private popoverCtrl: PopoverController, private activatedRouter: ActivatedRoute, private store: Store<AppState>,
                 private router: Router) {
     }
 
     async ngOnInit() {
-        this.actionType = this.activatedRouter.snapshot.params.type;
+    }
+
+    ionViewWillEnter() {
+        this.entryType = this.activatedRouter.snapshot.params.entryType;
 
         this.store.pipe(
             select(s => s.general),
             untilDestroyed(this)
         ).subscribe(res => {
             this.salesAccounts = res.salesAccounts;
-            this.purchaseAccounts = res.purchaseAccounts;
-            this.withdrawalAccounts = res.withdrawalAccounts;
+            this.expensesAccounts = res.expensesAccounts;
+            this.depositAccounts = res.depositAccounts;
 
             this.assignAccountToList();
         });
 
+        this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
+            this.requestModal = req;
+        });
+    }
+
+    ionViewDidEnter() {
+        this.showAddAmountModal();
+    }
+
+    async showAddAmountModal() {
         const addAmountPopover = await this.popoverCtrl.create({
             component: AddAmountComponent,
             animated: true,
             componentProps: {
-                actionType: this.actionType
+                actionType: this.requestModal.entryType
             },
             cssClass: 'w350',
             backdropDismiss: false
@@ -53,28 +68,16 @@ export class EntryPage implements OnInit, OnDestroy {
 
         addAmountPopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                this.amount = res.data.amount;
+                this.requestModal.transactions[0].amount = res.data.amount;
+                this.updateRequestModal();
                 this.showAccountList();
             } else {
                 this.goToHome();
             }
         }).catch(reason => {
-            this.amount = 0;
+            this.requestModal.transactions[0].amount = 0;
+            this.updateRequestModal();
         });
-    }
-
-    assignAccountToList() {
-        switch (this.actionType) {
-            case 'sales':
-                this.accountList = this.salesAccounts;
-                return;
-            case 'purchase':
-                this.accountList = this.purchaseAccounts;
-                return;
-            case 'withdrawal':
-                this.accountList = this.withdrawalAccounts;
-                return;
-        }
     }
 
     async showAccountList() {
@@ -91,13 +94,31 @@ export class EntryPage implements OnInit, OnDestroy {
 
         accountListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                this.router.navigate(['pages', 'entry', this.actionType, 'create']);
+                this.router.navigate(['pages', 'entry', this.entryType, 'create']);
             } else {
                 this.goToHome();
             }
         }).catch(reason => {
             //
         });
+    }
+
+    private assignAccountToList() {
+        switch (this.entryType) {
+            case EntryTypes.sales:
+                this.accountList = this.salesAccounts;
+                return;
+            case EntryTypes.expense:
+                this.accountList = this.expensesAccounts;
+                return;
+            case EntryTypes.deposit:
+                this.accountList = this.depositAccounts;
+                return;
+        }
+    }
+
+    private updateRequestModal() {
+        this.store.dispatch(new SetEntryAction(this.requestModal));
     }
 
     ngOnDestroy(): void {

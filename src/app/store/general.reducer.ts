@@ -1,17 +1,18 @@
 import {IFlattenAccountsResultItem} from '../models/account.model';
 import {AccountActionsUnion, AccountActionType} from '../actions/account/account.action';
+import {EntryTypes} from '../models/entry.model';
 
 export interface GeneralState {
     flattenAccounts: IFlattenAccountsResultItem[];
     salesAccounts: IFlattenAccountsResultItem[];
-    purchaseAccounts: IFlattenAccountsResultItem[];
-    withdrawalAccounts: IFlattenAccountsResultItem[];
+    expensesAccounts: IFlattenAccountsResultItem[];
+    depositAccounts: IFlattenAccountsResultItem[];
 }
 
 const initialState: GeneralState = {
-    purchaseAccounts: [],
+    expensesAccounts: [],
     salesAccounts: [],
-    withdrawalAccounts: [],
+    depositAccounts: [],
     flattenAccounts: []
 };
 
@@ -25,18 +26,18 @@ export function GeneralReducer(state: GeneralState = initialState, action: Accou
             return {
                 ...state,
                 flattenAccounts: action.result.results,
-                salesAccounts: filterAccounts(result, 'sales'),
-                purchaseAccounts: filterAccounts(result, 'purchase'),
-                withdrawalAccounts: filterAccounts(result, 'withdrawal')
+                salesAccounts: filterAccounts(result, EntryTypes.sales),
+                expensesAccounts: filterAccounts(result, EntryTypes.expense),
+                depositAccounts: filterAccounts(result, EntryTypes.deposit)
             };
 
         case AccountActionType.GetFlattenAccountsError:
             return {
                 ...state,
                 flattenAccounts: [],
-                purchaseAccounts: [],
+                expensesAccounts: [],
                 salesAccounts: [],
-                withdrawalAccounts: []
+                depositAccounts: []
             };
 
         default:
@@ -44,19 +45,19 @@ export function GeneralReducer(state: GeneralState = initialState, action: Accou
     }
 }
 
-const filterAccounts = (accounts: IFlattenAccountsResultItem[], type: string) => {
+const filterAccounts = (accounts: IFlattenAccountsResultItem[], type: EntryTypes) => {
     switch (type) {
-        case 'sales':
+        case EntryTypes.sales:
             return accounts.filter(acc => {
                 return acc.parentGroups.some(s => s.uniqueName === 'otherincome' || s.uniqueName === 'revenuefromoperations');
             });
 
-        case 'purchase':
+        case EntryTypes.expense:
             return accounts.filter(acc => {
                 return acc.parentGroups.some(s => s.uniqueName === 'operatingcost' || s.uniqueName === 'indirectexpenses');
             });
 
-        case 'withdrawal':
+        case EntryTypes.deposit:
             return accounts.filter(acc => {
                 return acc.parentGroups.some(s => s.uniqueName === 'bankaccounts' || s.uniqueName === 'cash');
             });

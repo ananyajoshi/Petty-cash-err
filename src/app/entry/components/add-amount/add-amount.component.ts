@@ -12,7 +12,7 @@ export class AddAmountComponent implements OnInit {
     @Input() public actionType: string;
     public amount: number = 0;
 
-    constructor(private popoverCtrl: PopoverController, private router: Router) {
+    constructor(private popoverCtrl: PopoverController) {
     }
 
     ngOnInit() {

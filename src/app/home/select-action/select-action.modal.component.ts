@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {PopoverController} from '@ionic/angular';
+import {EntryTypes} from '../../models/entry.model';
 
 @Component({
     selector: 'app-select-action-modal',
@@ -9,7 +10,7 @@ import {PopoverController} from '@ionic/angular';
 })
 
 export class SelectActionModalComponent implements OnInit {
-    public actions: Array<{ icon: string, style: any, color: string, name: string, path: string }> = [
+    public actions: Array<{ icon: string, style: any, color: string, name: string, type: EntryTypes }> = [
         {
             icon: 'assets/icon/sales.svg',
             style: {
@@ -18,27 +19,27 @@ export class SelectActionModalComponent implements OnInit {
             },
             color: 'sales',
             name: 'Sales/Income',
-            path: 'pages/entry/sales'
+            type: EntryTypes.sales
         },
         {
-            icon: 'assets/icon/purchase.svg',
+            icon: 'assets/icon/expense.svg',
             style: {
                 border: '1px solid #F2913B',
                 'border-bottom-width': '5px'
             },
-            color: 'purchase',
+            color: 'expense',
             name: 'Purchase/Expenses',
-            path: 'pages/entry/purchase'
+            type: EntryTypes.expense
         },
         {
-            icon: 'assets/icon/withdrawal.svg',
+            icon: 'assets/icon/deposit.svg',
             style: {
                 border: '1px solid #67AA5A',
                 'border-bottom-width': '5px'
             },
-            color: 'withdrawal',
+            color: 'deposit',
             name: 'Withdrawal/Deposit',
-            path: 'pages/entry/withdrawal'
+            type: EntryTypes.deposit
         },
     ];
 
@@ -49,6 +50,6 @@ export class SelectActionModalComponent implements OnInit {
     }
 
     actionSelected(item) {
-        this.popover.dismiss({path: item.path});
+        this.popover.dismiss(item);
     }
 }

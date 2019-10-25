@@ -19,7 +19,9 @@ const routes: Routes = [
             {
                 path: 'home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
             },
-            {path: 'entry/:type', loadChildren: () => import('../entry/entry.module').then(m => m.EntryPageModule)},
+            {
+                path: 'entry/:entryType', loadChildren: () => import('../entry/entry.module').then(m => m.EntryPageModule)
+            },
             {
                 path: 'setting', loadChildren: () => import('../settings/settings.module').then(m => m.SettingPageModule)
             },

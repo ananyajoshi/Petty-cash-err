@@ -1,12 +1,15 @@
 <ion-header translucent>
 
-    <ion-toolbar [ngClass]="actionType">
+    <ion-toolbar [ngClass]="requestModal?.entryType">
 
         <ion-buttons slot="start" (click)="goToHome()">
             <ion-icon slot="icon-only" name="arrow-back" color="light"></ion-icon>
         </ion-buttons>
 
-        <ion-title><h3>Withdrawl/Deposit</h3> <h4>$100</h4></ion-title>
+        <ion-title>
+            <h3>Withdrawl/Deposit</h3>
+            <h4>{{ requestModal?.transactions[0]?.amount }}</h4>
+        </ion-title>
 
     </ion-toolbar>
 </ion-header>

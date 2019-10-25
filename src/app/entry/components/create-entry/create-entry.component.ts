@@ -1,6 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PopoverController} from '@ionic/angular';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {EntryModel} from '../../../models/entry.model';
+import {select, Store} from '@ngrx/store';
+import {AppState} from '../../../store/reducer';
+import {untilDestroyed} from 'ngx-take-until-destroy';
 
 @Component({
     selector: 'create-entry',
@@ -8,25 +11,22 @@ import {Router} from '@angular/router';
     styleUrls: ['./create-entry.component.scss']
 })
 
-export class CreateEntryComponent implements OnInit {
-    @Input() public actionType: string = 'sales';
-    public amount: number = 0;
+export class CreateEntryComponent implements OnInit, OnDestroy {
+    public requestModal: EntryModel;
 
-    constructor(private popoverCtrl: PopoverController, private router: Router) {
+    constructor(private router: Router, private store: Store<AppState>) {
     }
 
     ngOnInit() {
-    }
-
-    cancelModal() {
-        this.popoverCtrl.dismiss();
-    }
-
-    onAmountAdded() {
-        this.popoverCtrl.dismiss({amount: this.amount});
+        this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
+            this.requestModal = req;
+        });
     }
 
     goToHome() {
         this.router.navigate(['pages', 'home']);
+    }
+
+    ngOnDestroy(): void {
     }
 }
