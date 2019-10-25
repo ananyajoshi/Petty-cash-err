@@ -19,18 +19,24 @@
             <ion-label>Select Company</ion-label>
         </ion-list-header>
 
-        <ion-item *ngFor="let company of companies" type="button" (click)="switchCompany(company.uniqueName)">
+        <ion-item *ngFor="let company of companies" type="button" (click)="selectCompany(company.uniqueName)">
 
             <ion-label>
                 {{ company?.name }}
             </ion-label>
 
-            <ion-icon *ngIf="company.uniqueName === activeCompanyUniqueName" src="../assets/icon/company-switcher.svg">
+            <ion-icon *ngIf="company.uniqueName === activeCompanyUniqueName" src="../assets/icon/selected-company.svg">
 
             </ion-icon>
 
         </ion-item>
 
     </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="switchCompany()">
+            <ion-icon name="checkmark"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>

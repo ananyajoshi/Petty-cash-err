@@ -26,12 +26,12 @@ export class SelectCompanyComponent implements OnInit, OnDestroy {
         });
     }
 
-    switchCompany(uniqueName: string) {
-        if (uniqueName === this.activeCompanyUniqueName) {
-            return;
-        }
+    selectCompany(uniqueName: string) {
+        this.activeCompanyUniqueName = uniqueName;
+    }
 
-        this.store.dispatch(new SetActiveCompanyAction(uniqueName));
+    switchCompany() {
+        this.store.dispatch(new SetActiveCompanyAction(this.activeCompanyUniqueName));
         this.closeModal();
     }
 
