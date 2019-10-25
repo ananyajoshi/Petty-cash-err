@@ -18,6 +18,12 @@ export class AddAmountComponent implements OnInit {
     ngOnInit() {
     }
 
+    focusOnInput() {
+        if (Number(this.amount) === 0) {
+            this.amount = undefined;
+        }
+    }
+
     cancelModal() {
         this.popoverCtrl.dismiss();
     }

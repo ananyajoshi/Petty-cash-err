@@ -46,7 +46,8 @@ export class EntryPage implements OnInit, OnDestroy {
             componentProps: {
                 actionType: this.actionType
             },
-            cssClass: 'w350'
+            cssClass: 'w350',
+            backdropDismiss: false
         });
         await addAmountPopover.present();
 
