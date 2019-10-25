@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class HomePage implements OnInit {
 
     constructor(private modalController: ModalController, private popover: PopoverController, private router: Router,
-                ) {
+    ) {
     }
 
     ngOnInit(): void {
@@ -21,11 +21,12 @@ export class HomePage implements OnInit {
         const modal = await this.popover.create({
             component: SelectActionModalComponent,
             cssClass: 'my-custom-modal-css w350',
+            backdropDismiss: false
         });
         modal.present();
 
         modal.onDidDismiss().then(res => {
-            if (res) {
+            if (res && res.data) {
                 this.router.navigate([res.data.path]);
             }
         });
