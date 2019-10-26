@@ -31,6 +31,27 @@
             <ion-input placeholder="Write a note" [(ngModel)]="requestModal.description"></ion-input>
         </ion-item>
 
+        <ion-item detail="">
+            <ion-icon class="icon" slot="start"
+                      src="../../../../assets/icon/attachment.svg"
+                      [color]="requestModal.entryType"></ion-icon>
+            <ion-label>Attachment</ion-label>
+        </ion-item>
+        <ion-item class="inner-item">
+            <ion-button class="attachment" color="medium" fill="clear">
+                <ion-icon name="camera">
+                </ion-icon>
+            </ion-button>
+            <ion-grid style="overflow-x: auto;">
+                <ion-row nowrap>
+                    <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="1" *ngFor="let a of [1,2,3,4,5,6]">
+                        <ion-img  src="../../../../assets/icon/alhamdlulillah_1x.png"> </ion-img>
+                    </ion-col>
+
+                </ion-row>
+
+            </ion-grid>
+        </ion-item>
         <!-- region only for sales -->
         <ng-container *ngIf="requestModal.entryType === 'sales'">
 
