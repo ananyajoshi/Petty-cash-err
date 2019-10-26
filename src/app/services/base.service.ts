@@ -23,7 +23,7 @@ export class BaseService {
         }).then(t => {
             t.present();
         });
-        // await toast.present();
+
         if (invalidStatusCodes.includes(r.status)
         ) {
             data.status = 'error';
