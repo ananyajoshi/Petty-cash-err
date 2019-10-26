@@ -22,7 +22,7 @@ export class EntryEffect {
     createEntry$: Observable<Action> = this.actions$.pipe(
         ofType<CreateEntryAction>(EntryActionType.createEntry),
         switchMap((s) => {
-            return this._entryService.CreateEntry(s.entry, s.entry.entryType)
+            return this._entryService.CreateEntry(s.entry, s.entry.entryType.toUpperCase())
                 .pipe(
                     map((res: BaseResponse<any, EntryModel>) => {
                         if (res.status !== 'success') {

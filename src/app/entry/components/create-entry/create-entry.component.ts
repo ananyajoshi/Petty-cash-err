@@ -4,12 +4,12 @@ import {EntryModel} from '../../../models/entry.model';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../../store/reducer';
 import {untilDestroyed} from 'ngx-take-until-destroy';
-import {CreateEntryAction} from '../../../actions/entry/entry.action';
-import {SelectAccountComponentComponent} from '../select-account/select-account.component';
+import {CreateEntryAction, ResetEntryAction} from '../../../actions/entry/entry.action';
 import {PopoverController} from '@ionic/angular';
 import {IFlattenAccountsResultItem} from '../../../models/account.model';
 import {PaymentModeComponent} from '../payment-mode/payment-mode.component';
 import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-debtor-creditor.component';
+import * as moment from 'moment';
 
 @Component({
     selector: 'create-entry',
@@ -51,10 +51,12 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     goToHome() {
+        this.store.dispatch(new ResetEntryAction());
         this.router.navigate(['pages', 'home']);
     }
 
     createEntry() {
+        this.requestModal.entryDate = moment(this.requestModal.entryDate).format('DD-MM-YYYY');
         this.store.dispatch(new CreateEntryAction(this.requestModal));
     }
 
@@ -76,40 +78,15 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             if (res && res.data) {
                 if (['notYetReceived', 'notYetPaid'].includes(res.data.uniqueName)) {
                     this.otherPaymentMode = res.data;
-                    this.requestModal.transactions[0].particular = null;
+                    this.requestModal.baseAccount = null;
                     this.requestModal.transactions[0].name = null;
                 } else {
                     this.otherPaymentMode = null;
-                    this.requestModal.transactions[0].particular = res.data.uniqueName;
+                    this.requestModal.baseAccount = res.data.uniqueName;
                     this.requestModal.transactions[0].name = res.data.name;
                 }
             } else {
                 // this.goToHome();
-            }
-        }).catch(reason => {
-            //
-        });
-    }
-
-    async showAccountList(type: string) {
-        const accountListPopover = await this.popoverCtrl.create({
-            componentProps: {
-                accountList: [...this.getAccounts(type)],
-                entryType: this.requestModal.entryType
-            },
-            component: SelectAccountComponentComponent,
-            animated: true,
-            backdropDismiss: false,
-            cssClass: 'select-amount-popover'
-        });
-
-        await accountListPopover.present();
-
-        accountListPopover.onDidDismiss().then(res => {
-            if (res && res.data) {
-                //
-            } else {
-                this.goToHome();
             }
         }).catch(reason => {
             //

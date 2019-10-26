@@ -9,7 +9,9 @@ import {FlattenAccountsResponse} from '../../models/account.model';
 import {GeneralService} from '../general.service';
 import {AccountUrls} from './account.url';
 import {ToastController} from '@ionic/angular';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class AccountService extends BaseService {
 
     constructor(private _http: HttpWrapperService, protected store: Store<AppState>, private _generalService: GeneralService,

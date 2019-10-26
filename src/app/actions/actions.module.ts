@@ -3,13 +3,15 @@ import {EffectsModule} from '@ngrx/effects';
 import {AuthEffect} from './auth/auth.effect';
 import {CompanyEffect} from './company/company.effect';
 import {AccountEffect} from './account/account.effect';
+import {EntryEffect} from './entry/entry.effect';
 
 @NgModule({
     imports: [
         EffectsModule.forRoot([
             AuthEffect,
             CompanyEffect,
-            AccountEffect
+            AccountEffect,
+            EntryEffect
         ])
     ],
     exports: [EffectsModule],

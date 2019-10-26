@@ -9,12 +9,13 @@ import {GeneralService} from '../general.service';
 import {CompanyUrls} from './company.url';
 import {HttpWrapperService} from '../httpWrapper.service';
 import {catchError, map} from 'rxjs/operators';
-import { ToastController } from '@ionic/angular';
+import {ToastController} from '@ionic/angular';
 
 @Injectable()
 export class CompanyService extends BaseService {
 
-    constructor(protected store: Store<AppState>, protected _generalService: GeneralService, private _http: HttpWrapperService, protected toastController: ToastController) {
+    constructor(protected store: Store<AppState>, protected _generalService: GeneralService, private _http: HttpWrapperService,
+                protected toastController: ToastController) {
         super(store, toastController);
     }
 

@@ -9,7 +9,9 @@ import {GeneralService} from '../general.service';
 import {ToastController} from '@ionic/angular';
 import {EntryUrls} from './entry.url';
 import {EntryModel} from '../../models/entry.model';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class EntryService extends BaseService {
 
     constructor(private _http: HttpWrapperService, protected store: Store<AppState>, private _generalService: GeneralService,

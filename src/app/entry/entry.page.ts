@@ -7,7 +7,7 @@ import {AppState} from '../store/reducer';
 import {select, Store} from '@ngrx/store';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {SelectAccountComponentComponent} from './components/select-account/select-account.component';
-import {SetEntryAction} from '../actions/entry/entry.action';
+import {ResetEntryAction, SetEntryAction} from '../actions/entry/entry.action';
 import {EntryModel, EntryTypes} from '../models/entry.model';
 
 @Component({
@@ -96,6 +96,7 @@ export class EntryPage implements OnInit, OnDestroy {
 
         accountListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
+                this.requestModal.transactions[0].particular = res.data.uniqueName;
                 this.router.navigate(['pages', 'entry', this.entryType, 'create']);
             } else {
                 this.goToHome();
@@ -127,6 +128,7 @@ export class EntryPage implements OnInit, OnDestroy {
     }
 
     private goToHome() {
+        this.store.dispatch(new ResetEntryAction());
         this.router.navigate(['/pages/home']);
     }
 }

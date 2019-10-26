@@ -4,6 +4,7 @@ import {GeneralService} from './general.service';
 import {CompanyService} from './company/company.service';
 import {AuthService} from './auth/auth.service';
 import {AccountService} from './account/account.service';
+import {EntryService} from './entry/entry.service';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ export class ServiceModule {
                 GeneralService,
                 CompanyService,
                 AuthService,
-                AccountService
+                AccountService,
+                EntryService
             ]
         };
     }
