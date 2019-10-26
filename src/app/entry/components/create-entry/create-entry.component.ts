@@ -77,7 +77,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         });
     }
 
-    async showAccountList() {
+    async showAccountList(type: string) {
         const accountListPopover = await this.popoverCtrl.create({
             componentProps: {
                 accountList: [],
