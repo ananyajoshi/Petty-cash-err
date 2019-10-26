@@ -40,7 +40,9 @@
             </ion-item>
 
             <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                <ion-label>{{ otherPaymentMode ? otherPaymentMode.name : requestModal?.baseAccountName }}</ion-label>
+                <ion-label>{{
+                    otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Receipt Mode')
+                    }}</ion-label>
             </ion-item>
 
             <ng-container *ngIf="otherPaymentMode">
@@ -52,7 +54,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
-                    <ion-label>{{ requestModal?.baseAccountName }}</ion-label>
+                    <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
                 </ion-item>
             </ng-container>
 
@@ -67,7 +69,9 @@
             </ion-item>
 
             <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                <ion-label>{{ otherPaymentMode ? otherPaymentMode.name : requestModal?.baseAccountName }}</ion-label>
+                <ion-label>{{
+                    otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Payment Mode')
+                    }}</ion-label>
             </ion-item>
 
             <ng-container *ngIf="otherPaymentMode">
@@ -79,7 +83,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditor')">
-                    <ion-label>{{ requestModal?.baseAccountName }}</ion-label>
+                    <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Creditor' }}</ion-label>
                 </ion-item>
 
             </ng-container>
