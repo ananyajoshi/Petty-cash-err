@@ -1,45 +1,56 @@
 ion-toolbar.sales {
-    --background: var(--ion-color-sales);
-}
-ion-toolbar.expense {
-    --background: var(--ion-color-expense);
-}
-ion-toolbar.deposit {
-    --background: var(--ion-color-deposit)
-}
-ion-back-button {
-    --color: #fff;
-}
-ion-item {
-    --min-height: auto;
-    --highlight-height: 0;
-    --inner-border-width: 0;
-    --border-width: 0;
-    --background: transparent;
-}
-ion-label {
-    --color: #999999 !important;
-    font-size: 14px !important;
-}
-.icon {
-    margin-right: 15px;
-}
-ion-datetime {
-    padding-left: 0;
-}
-.item-native {
-    border: 0;
-}
-ion-list {
-    background: #F7F8FA;
-    height: 100%;
+  --background: var(--ion-color-sales);
 }
 
-::ng-deep.inner-item{
-    --inner-padding-start: 40px;
+ion-toolbar.expense {
+  --background: var(--ion-color-expense);
 }
-::ng-deep.main-lis{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+
+ion-toolbar.deposit {
+  --background: var(--ion-color-deposit)
+}
+
+ion-back-button {
+  --color: #fff;
+}
+
+ion-item {
+  --min-height: auto;
+  --highlight-height: 0;
+  --inner-border-width: 0;
+  --border-width: 0;
+  --background: transparent;
+
+}
+
+ion-label {
+  --color: #999999 !important;
+  font-size: 14px !important;
+}
+
+.icon {
+  margin-right: 15px;
+}
+
+ion-datetime {
+  padding-left: 0;
+}
+
+.item-native {
+  border: 0;
+}
+
+ion-list {
+  background: #F7F8FA;
+  height: 100%;
+}
+
+::ng-deep.inner-item {
+  --inner-padding-start: 40px;
+}
+
+::ng-deep.main-lis {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
