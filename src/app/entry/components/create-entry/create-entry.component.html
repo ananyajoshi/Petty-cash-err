@@ -135,10 +135,18 @@
         <!-- endregion -->
 
         <ion-item>
-            <ion-icon class="icon" slot="start" name="code-working" [color]="requestModal.entryType"></ion-icon>
+            <ion-icon class="icon" slot="start"
+                      src="../../../../assets/icon/Switch_icon.svg" [color]="requestModal.entryType"></ion-icon>
             <ion-label>Conversion Rates</ion-label>
         </ion-item>
-
+        <ion-item class="inner-item">
+            <ion-item>
+            <ion-label>1 USD =</ion-label>
+            <ion-input class="text-box"></ion-input>
+            <ion-label>AED</ion-label>
+            </ion-item>
+            <ion-icon name="swap"></ion-icon>
+        </ion-item>
     </ion-list>
 
     <!-- fab placed to the bottom end -->
