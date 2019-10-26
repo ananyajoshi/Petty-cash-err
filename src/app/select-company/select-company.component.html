@@ -13,10 +13,10 @@
 
 <ion-content>
 
-    <ion-list>
+    <ion-list lines="none">
 
         <ion-list-header class="title">
-            <ion-label>Select Company</ion-label>
+            <ion-label color="medium">Select Company</ion-label>
         </ion-list-header>
 
         <ion-item *ngFor="let company of companies" type="button" (click)="selectCompany(company.uniqueName)">
