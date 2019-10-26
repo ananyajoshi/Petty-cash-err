@@ -15,35 +15,65 @@
 </ion-header>
 
 <ion-content>
+
     <ion-list>
+
         <ion-item>
-            <ion-icon class="icon" slot="start" name="calendar"></ion-icon>
+            <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
             <ion-label>
                 <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
             </ion-label>
         </ion-item>
+
         <ion-item>
-            <ion-icon class="icon" slot="start" name="create"></ion-icon>
+            <ion-icon class="icon" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
             <ion-input placeholder="Write a note"></ion-input>
         </ion-item>
+
+        <ng-container>
+
+            <ion-item>
+                <ion-icon class="icon" slot="start" name="copy" [color]="requestModal.entryType"></ion-icon>
+                <ion-label>Receipt Mode</ion-label>
+            </ion-item>
+
+            <ion-item detail="" class="inner-item">
+                <ion-label>Cash</ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-icon class="icon" slot="start" name="copy" [color]="requestModal.entryType"></ion-icon>
+                <ion-label>Deposit to</ion-label>
+            </ion-item>
+
+        </ng-container>
+
+        <!-- only for withdrawal and deposit -->
+        <ng-container *ngIf="requestModal.entryType === 'deposit'">
+            <ion-item>
+                <ion-icon class="icon" slot="start" name="copy" [color]="requestModal.entryType"></ion-icon>
+                <ion-label>Withdrawl from</ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-icon class="icon" slot="start" name="copy" [color]="requestModal.entryType"></ion-icon>
+                <ion-label>Deposit to</ion-label>
+            </ion-item>
+        </ng-container>
+
         <ion-item>
-            <ion-icon class="icon" slot="start" name="copy"></ion-icon>
-            <ion-label>Withdrawl from</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon class="icon" slot="start" name="copy"></ion-icon>
-            <ion-label>Deposit to</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon class="icon" slot="start" name="code-working"></ion-icon>
+            <ion-icon class="icon" slot="start" name="code-working" [color]="requestModal.entryType"></ion-icon>
             <ion-label>Conversion Rates</ion-label>
         </ion-item>
+
     </ion-list>
 
     <!-- fab placed to the bottom end -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+
         <ion-fab-button>
             <ion-icon name="checkmark"></ion-icon>
         </ion-fab-button>
+
     </ion-fab>
 </ion-content>

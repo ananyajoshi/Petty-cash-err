@@ -33,3 +33,12 @@ ion-datetime {
 ion-list {
     background: #F7F8FA;
 }
+
+::ng-deep.inner-item{
+    --inner-padding-start: 40px;
+}
+::ng-deep.main-lis{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
