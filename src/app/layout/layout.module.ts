@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {LayoutPage} from './layout.page';
 import {SharedModule} from '../shared/shared.module';
+import {EntryGuard} from '../guards/entry.guard';
 
 const routes: Routes = [
     {
@@ -20,7 +21,8 @@ const routes: Routes = [
                 path: 'home', loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
             },
             {
-                path: 'entry/:entryType', loadChildren: () => import('../entry/entry.module').then(m => m.EntryPageModule)
+                path: 'entry/:entryType', loadChildren: () => import('../entry/entry.module').then(m => m.EntryPageModule),
+                canActivate: [EntryGuard]
             },
             {
                 path: 'setting', loadChildren: () => import('../settings/settings.module').then(m => m.SettingPageModule)
