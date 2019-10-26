@@ -31,8 +31,7 @@
             <ion-input placeholder="Write a note"></ion-input>
         </ion-item>
 
-
-        <!-- region only for expense -->
+        <!-- region only for sales -->
         <ng-container *ngIf="requestModal.entryType === 'sales'">
 
             <ion-item>
@@ -45,7 +44,9 @@
             </ion-item>
 
             <ion-item>
-                <ion-icon class="icon" slot="start" name="copy" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start"
+                          src="../../../../assets/icon/account.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label>Debtor</ion-label>
             </ion-item>
 
@@ -68,7 +69,9 @@
             </ion-item>
 
             <ion-item>
-                <ion-icon class="icon" slot="start" name="copy" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start"
+                          src="../../../../assets/icon/account.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label>Creditor</ion-label>
             </ion-item>
 
