@@ -119,8 +119,8 @@
                 <ion-label>Withdrawal from</ion-label>
             </ion-item>
 
-            <ion-item detail="" class="inner-item">
-                <ion-label>{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Deposit A/c' }}</ion-label>
+            <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
+                <ion-label>{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
             </ion-item>
 
             <ion-item>
@@ -128,7 +128,7 @@
                 <ion-label>Deposit to</ion-label>
             </ion-item>
 
-            <ion-item detail="" class="inner-item">
+            <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
                 <ion-label>{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
             </ion-item>
         </ng-container>
