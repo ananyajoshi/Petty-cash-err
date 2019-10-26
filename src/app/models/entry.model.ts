@@ -15,6 +15,7 @@ export class EntryModel {
 export class EntryTransaction {
     amount: number;
     particular: string;
+    name: string;
     type: string;
     description: string;
 

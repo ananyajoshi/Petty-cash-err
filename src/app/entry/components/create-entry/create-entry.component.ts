@@ -23,6 +23,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public depositAccounts: IFlattenAccountsResultItem[] = [];
     public debtorsAccounts: IFlattenAccountsResultItem[] = [];
     public creditorsAccount: IFlattenAccountsResultItem[] = [];
+    public otherPaymentMode: IFlattenAccountsResultItem = null;
 
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController) {
     }
@@ -68,7 +69,15 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
         paymentModePopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                //
+                if (['notYetReceived', 'notYetPaid'].includes(res.data.uniqueName)) {
+                    this.otherPaymentMode = res.data;
+                    this.requestModal.transactions[0].particular = null;
+                    this.requestModal.transactions[0].name = null;
+                } else {
+                    this.otherPaymentMode = null;
+                    this.requestModal.transactions[0].particular = res.data.uniqueName;
+                    this.requestModal.transactions[0].name = res.data.name;
+                }
             } else {
                 // this.goToHome();
             }
@@ -80,7 +89,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     async showAccountList(type: string) {
         const accountListPopover = await this.popoverCtrl.create({
             componentProps: {
-                accountList: [],
+                accountList: [...this.getAccounts(type)],
                 entryType: this.requestModal.entryType
             },
             component: SelectAccountComponentComponent,
@@ -100,6 +109,14 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         }).catch(reason => {
             //
         });
+    }
+
+    private getAccounts(type: string): IFlattenAccountsResultItem[] {
+        if (type === 'debtors') {
+            return this.debtorsAccounts;
+        } else {
+            return this.creditorsAccount;
+        }
     }
 
     ngOnDestroy(): void {

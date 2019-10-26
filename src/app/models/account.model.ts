@@ -7,9 +7,9 @@ export interface IAccountsInfo extends INameUniqueName {
 }
 
 export interface IFlattenAccountsResultItem extends IAccountsInfo {
-    applicableTaxes: any[];
-    isFixed: boolean;
-    parentGroups: INameUniqueName[];
+    applicableTaxes?: any[];
+    isFixed?: boolean;
+    parentGroups?: INameUniqueName[];
     currency?: string;
     nameStr?: string;
     uNameStr?: string;
