@@ -79,11 +79,11 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                 if (['notYetReceived', 'notYetPaid'].includes(res.data.uniqueName)) {
                     this.otherPaymentMode = res.data;
                     this.requestModal.baseAccount = null;
-                    this.requestModal.transactions[0].name = null;
+                    this.requestModal.baseAccountName = null;
                 } else {
                     this.otherPaymentMode = null;
                     this.requestModal.baseAccount = res.data.uniqueName;
-                    this.requestModal.transactions[0].name = res.data.name;
+                    this.requestModal.baseAccountName = res.data.name;
                 }
             } else {
                 // this.goToHome();

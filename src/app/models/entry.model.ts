@@ -4,6 +4,7 @@ export class EntryModel {
     exchangeRate: number;
     entryType: EntryTypes;
     baseAccount: string;
+    baseAccountName: string;
     attachedFiles: string[];
     description: string;
 
