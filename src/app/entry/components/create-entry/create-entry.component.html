@@ -51,7 +51,7 @@
                     <ion-label>Debtor</ion-label>
                 </ion-item>
 
-                <ion-item detail="" class="inner-item" (click)="showAccountList('debtor')">
+                <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
                     <ion-label>{{ requestModal?.transactions[0]?.name }}</ion-label>
                 </ion-item>
             </ng-container>
@@ -78,7 +78,7 @@
                     <ion-label>Creditor</ion-label>
                 </ion-item>
 
-                <ion-item detail="" class="inner-item" (click)="showAccountList('creditor')">
+                <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditor')">
                     <ion-label>{{ requestModal?.transactions[0]?.name }}</ion-label>
                 </ion-item>
 

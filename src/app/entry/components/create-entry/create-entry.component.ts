@@ -9,6 +9,7 @@ import {SelectAccountComponentComponent} from '../select-account/select-account.
 import {PopoverController} from '@ionic/angular';
 import {IFlattenAccountsResultItem} from '../../../models/account.model';
 import {PaymentModeComponent} from '../payment-mode/payment-mode.component';
+import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-debtor-creditor.component';
 
 @Component({
     selector: 'create-entry',
@@ -93,6 +94,32 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                 entryType: this.requestModal.entryType
             },
             component: SelectAccountComponentComponent,
+            animated: true,
+            backdropDismiss: false,
+            cssClass: 'select-amount-popover'
+        });
+
+        await accountListPopover.present();
+
+        accountListPopover.onDidDismiss().then(res => {
+            if (res && res.data) {
+                //
+            } else {
+                this.goToHome();
+            }
+        }).catch(reason => {
+            //
+        });
+    }
+
+    async showDebtorCreditor(type: string) {
+        const accountListPopover = await this.popoverCtrl.create({
+            componentProps: {
+                accountList: [...this.getAccounts(type)],
+                entryType: this.requestModal.entryType,
+                accountType: type
+            },
+            component: SelectDebtorCreditorComponent,
             animated: true,
             backdropDismiss: false,
             cssClass: 'select-amount-popover'
