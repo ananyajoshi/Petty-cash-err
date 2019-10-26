@@ -119,7 +119,7 @@
     <!-- fab placed to the bottom end -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 
-        <ion-fab-button (click)="createEntry()">
+        <ion-fab-button (click)="createEntry()" [disabled]="createEntryInProcess">
             <ion-icon name="checkmark"></ion-icon>
         </ion-fab-button>
 

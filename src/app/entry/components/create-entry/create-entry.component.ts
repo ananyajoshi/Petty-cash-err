@@ -25,6 +25,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public debtorsAccounts: IFlattenAccountsResultItem[] = [];
     public creditorsAccount: IFlattenAccountsResultItem[] = [];
     public otherPaymentMode: IFlattenAccountsResultItem = null;
+    public createEntryInProcess: boolean = false;
 
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController) {
     }
@@ -33,6 +34,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;
         });
+
+        this.store.pipe(select(s => s.entry.createEntryInProcess), untilDestroyed(this))
+            .subscribe(result => this.createEntryInProcess = result);
 
         this.store.pipe(
             select(s => s.general),
