@@ -65,12 +65,17 @@ ion-list {
 }
 .text-box{
   background-color: white;
-  margin: 0 26px;
+  margin-left: 15px;
+  margin-right: 9px;
   border: 1px solid gainsboro;
   text-align: end;
 
+}
+::ng-deep.text-box input{
+  padding: 3px !important;
+  width: 63px !important;
 
 }
-.text-box input{
-  padding: 3px !important;
+::ng-deep.inner-t-list .item-native{
+  padding: 0 !important;
 }
