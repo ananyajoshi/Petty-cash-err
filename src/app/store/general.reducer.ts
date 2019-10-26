@@ -7,13 +7,17 @@ export interface GeneralState {
     salesAccounts: IFlattenAccountsResultItem[];
     expensesAccounts: IFlattenAccountsResultItem[];
     depositAccounts: IFlattenAccountsResultItem[];
+    creditorsAccounts: IFlattenAccountsResultItem[];
+    debtorsAccounts: IFlattenAccountsResultItem[];
 }
 
 const initialState: GeneralState = {
     expensesAccounts: [],
     salesAccounts: [],
     depositAccounts: [],
-    flattenAccounts: []
+    flattenAccounts: [],
+    creditorsAccounts: [],
+    debtorsAccounts: []
 };
 
 export function GeneralReducer(state: GeneralState = initialState, action: AccountActionsUnion): GeneralState {
@@ -28,7 +32,9 @@ export function GeneralReducer(state: GeneralState = initialState, action: Accou
                 flattenAccounts: action.result.results,
                 salesAccounts: filterAccounts(result, EntryTypes.sales),
                 expensesAccounts: filterAccounts(result, EntryTypes.expense),
-                depositAccounts: filterAccounts(result, EntryTypes.deposit)
+                depositAccounts: filterAccounts(result, EntryTypes.deposit),
+                creditorsAccounts: filterAccounts(result, 'creditors'),
+                debtorsAccounts: filterAccounts(result, 'debtors')
             };
 
         case AccountActionType.GetFlattenAccountsError:
@@ -37,7 +43,9 @@ export function GeneralReducer(state: GeneralState = initialState, action: Accou
                 flattenAccounts: [],
                 expensesAccounts: [],
                 salesAccounts: [],
-                depositAccounts: []
+                depositAccounts: [],
+                debtorsAccounts: [],
+                creditorsAccounts: []
             };
 
         default:
@@ -45,7 +53,7 @@ export function GeneralReducer(state: GeneralState = initialState, action: Accou
     }
 }
 
-const filterAccounts = (accounts: IFlattenAccountsResultItem[], type: EntryTypes) => {
+const filterAccounts = (accounts: IFlattenAccountsResultItem[], type: string) => {
     switch (type) {
         case EntryTypes.sales:
             return accounts.filter(acc => {
@@ -60,6 +68,15 @@ const filterAccounts = (accounts: IFlattenAccountsResultItem[], type: EntryTypes
         case EntryTypes.deposit:
             return accounts.filter(acc => {
                 return acc.parentGroups.some(s => s.uniqueName === 'bankaccounts' || s.uniqueName === 'cash');
+            });
+
+        case 'creditors':
+            return accounts.filter(acc => {
+                return acc.parentGroups.some((s => s.uniqueName === 'sundrycreditors'));
+            });
+        case 'debtors':
+            return accounts.filter(acc => {
+                return acc.parentGroups.some((s => s.uniqueName === 'sundrydebtors'));
             });
     }
 };

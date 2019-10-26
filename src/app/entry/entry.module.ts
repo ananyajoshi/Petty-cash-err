@@ -7,6 +7,7 @@ import {AddAmountComponent} from './components/add-amount/add-amount.component';
 import {FormsModule} from '@angular/forms';
 import {SelectAccountComponentComponent} from './components/select-account/select-account.component';
 import {CreateEntryComponent} from './components/create-entry/create-entry.component';
+import {PaymentModeComponent} from './components/payment-mode/payment-mode.component';
 
 const routes: Routes = [
     {
@@ -26,8 +27,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         FormsModule
     ],
-    declarations: [EntryPage, AddAmountComponent, SelectAccountComponentComponent, CreateEntryComponent],
-    entryComponents: [AddAmountComponent, SelectAccountComponentComponent]
+    declarations: [EntryPage, AddAmountComponent, SelectAccountComponentComponent, CreateEntryComponent, PaymentModeComponent],
+    entryComponents: [AddAmountComponent, SelectAccountComponentComponent, PaymentModeComponent]
 })
 export class EntryPageModule {
 }

@@ -7,7 +7,7 @@
         </ion-buttons>
 
         <ion-title>
-            <h3>Withdrawl/Deposit</h3>
+            <h3>{{ requestModal.entryType | titlecase }}</h3>
             <h4>{{ requestModal?.transactions[0]?.amount }}</h4>
         </ion-title>
 
@@ -21,7 +21,8 @@
         <ion-item>
             <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
             <ion-label>
-                <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+                <ion-datetime value="1990-02-19" placeholder="Select Date"
+                              [(ngModel)]="requestModal.entryDate"></ion-datetime>
             </ion-label>
         </ion-item>
 
@@ -37,7 +38,7 @@
                 <ion-label>Receipt Mode</ion-label>
             </ion-item>
 
-            <ion-item detail="" class="inner-item">
+            <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
                 <ion-label>Cash</ion-label>
             </ion-item>
 
@@ -46,7 +47,7 @@
                 <ion-label>Deposit to</ion-label>
             </ion-item>
 
-            <ion-item detail="" class="inner-item">
+            <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
                 <ion-label>Cash</ion-label>
             </ion-item>
 
@@ -56,7 +57,7 @@
         <ng-container *ngIf="requestModal.entryType === 'deposit'">
             <ion-item>
                 <ion-icon class="icon" slot="start" name="copy" [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Withdrawl from</ion-label>
+                <ion-label>Withdrawal from</ion-label>
             </ion-item>
 
             <ion-item detail="" class="inner-item">
@@ -83,7 +84,7 @@
     <!-- fab placed to the bottom end -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 
-        <ion-fab-button>
+        <ion-fab-button (click)="createEntry()">
             <ion-icon name="checkmark"></ion-icon>
         </ion-fab-button>
 

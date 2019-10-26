@@ -1,0 +1,49 @@
+<ion-content>
+
+    <ion-item>
+        <ion-label color="dark"><strong>Select Mode</strong></ion-label>
+    </ion-item>
+
+    <ion-grid>
+
+        <ion-row class="main-container">
+
+            <ion-col>
+                <ion-list lines="none">
+
+                    <ion-item *ngIf="entryType === 'sales'">
+                        <ion-icon slot="start" src="../../../../assets/icon/currency-dollar.svg"></ion-icon>
+                        <ion-label>Not Yet Received</ion-label>
+                    </ion-item>
+
+                    <ion-item *ngIf="entryType === 'expense'">
+                        <ion-icon slot="start" src="../../../../assets/icon/currency-dollar.svg"></ion-icon>
+                        <ion-label>Not Yet Paid</ion-label>
+                    </ion-item>
+
+                    <ion-item *ngFor="let account of accountList" class=""
+                              (click)="accountSelected(account)">
+                        <ion-icon slot="start" src="../../../../assets/icon/cash.svg"></ion-icon>
+                        <ion-label>
+                            {{ account.name }} a/c
+                        </ion-label>
+                        <!--<ion-note slot="end">$7,980</ion-note>-->
+                    </ion-item>
+
+                </ion-list>
+            </ion-col>
+
+            <ion-col size="12" class="ion-align-self-end model-footer">
+
+
+                <ion-button (click)="cancelModal()" expand="full" fill="clear" [color]="entryType">Next</ion-button>
+
+
+            </ion-col>
+
+        </ion-row>
+
+
+    </ion-grid>
+
+</ion-content>
