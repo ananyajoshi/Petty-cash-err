@@ -9,6 +9,7 @@ import {SelectAccountComponentComponent} from '../select-account/select-account.
 import {PopoverController} from '@ionic/angular';
 import {IFlattenAccountsResultItem} from '../../../models/account.model';
 import {PaymentModeComponent} from '../payment-mode/payment-mode.component';
+import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-debtor-creditor.component';
 
 @Component({
     selector: 'create-entry',
@@ -23,6 +24,8 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public depositAccounts: IFlattenAccountsResultItem[] = [];
     public debtorsAccounts: IFlattenAccountsResultItem[] = [];
     public creditorsAccount: IFlattenAccountsResultItem[] = [];
+    public otherPaymentMode: IFlattenAccountsResultItem = null;
+    public createEntryInProcess: boolean = false;
 
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController) {
     }
@@ -31,6 +34,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;
         });
+
+        this.store.pipe(select(s => s.entry.createEntryInProcess), untilDestroyed(this))
+            .subscribe(result => this.createEntryInProcess = result);
 
         this.store.pipe(
             select(s => s.general),
@@ -68,7 +74,15 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
         paymentModePopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                //
+                if (['notYetReceived', 'notYetPaid'].includes(res.data.uniqueName)) {
+                    this.otherPaymentMode = res.data;
+                    this.requestModal.transactions[0].particular = null;
+                    this.requestModal.transactions[0].name = null;
+                } else {
+                    this.otherPaymentMode = null;
+                    this.requestModal.transactions[0].particular = res.data.uniqueName;
+                    this.requestModal.transactions[0].name = res.data.name;
+                }
             } else {
                 // this.goToHome();
             }
@@ -80,7 +94,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     async showAccountList(type: string) {
         const accountListPopover = await this.popoverCtrl.create({
             componentProps: {
-                accountList: [],
+                accountList: [...this.getAccounts(type)],
                 entryType: this.requestModal.entryType
             },
             component: SelectAccountComponentComponent,
@@ -100,6 +114,40 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         }).catch(reason => {
             //
         });
+    }
+
+    async showDebtorCreditor(type: string) {
+        const accountListPopover = await this.popoverCtrl.create({
+            componentProps: {
+                accountList: [...this.getAccounts(type)],
+                entryType: this.requestModal.entryType,
+                accountType: type
+            },
+            component: SelectDebtorCreditorComponent,
+            animated: true,
+            backdropDismiss: false,
+            cssClass: 'select-amount-popover'
+        });
+
+        await accountListPopover.present();
+
+        accountListPopover.onDidDismiss().then(res => {
+            if (res && res.data) {
+                //
+            } else {
+                this.goToHome();
+            }
+        }).catch(reason => {
+            //
+        });
+    }
+
+    private getAccounts(type: string): IFlattenAccountsResultItem[] {
+        if (type === 'debtors') {
+            return this.debtorsAccounts;
+        } else {
+            return this.creditorsAccount;
+        }
     }
 
     ngOnDestroy(): void {
