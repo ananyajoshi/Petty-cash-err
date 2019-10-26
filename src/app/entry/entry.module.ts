@@ -9,6 +9,7 @@ import {SelectAccountComponentComponent} from './components/select-account/selec
 import {CreateEntryComponent} from './components/create-entry/create-entry.component';
 import {PaymentModeComponent} from './components/payment-mode/payment-mode.component';
 import {SelectDebtorCreditorComponent} from './components/select-debtor-creditor/select-debtor-creditor.component';
+import {SelectWithdrawalDepositAccountComponent} from './components/select-withdrawal-deposit-account/select-withdrawal-deposit-account.component';
 
 const routes: Routes = [
     {
@@ -29,8 +30,9 @@ const routes: Routes = [
         FormsModule
     ],
     declarations: [EntryPage, AddAmountComponent, SelectAccountComponentComponent, CreateEntryComponent,
-        PaymentModeComponent, SelectDebtorCreditorComponent],
-    entryComponents: [AddAmountComponent, SelectAccountComponentComponent, PaymentModeComponent, SelectDebtorCreditorComponent]
+        PaymentModeComponent, SelectDebtorCreditorComponent, SelectWithdrawalDepositAccountComponent],
+    entryComponents: [AddAmountComponent, SelectAccountComponentComponent, PaymentModeComponent, SelectDebtorCreditorComponent,
+        SelectWithdrawalDepositAccountComponent]
 })
 export class EntryPageModule {
 }

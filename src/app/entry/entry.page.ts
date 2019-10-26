@@ -97,6 +97,7 @@ export class EntryPage implements OnInit, OnDestroy {
         accountListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
                 this.requestModal.transactions[0].particular = res.data.uniqueName;
+                this.requestModal.transactions[0].name = res.data.name;
                 this.router.navigate(['pages', 'entry', this.entryType, 'create']);
             } else {
                 this.goToHome();

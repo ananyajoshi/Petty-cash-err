@@ -10,6 +10,7 @@ import {IFlattenAccountsResultItem} from '../../../models/account.model';
 import {PaymentModeComponent} from '../payment-mode/payment-mode.component';
 import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-debtor-creditor.component';
 import * as moment from 'moment';
+import {SelectWithdrawalDepositAccountComponent} from '../select-withdrawal-deposit-account/select-withdrawal-deposit-account.component';
 
 @Component({
     selector: 'create-entry',
@@ -110,9 +111,41 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
         accountListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                //
+                this.requestModal.baseAccount = res.data.uniqueName;
+                this.requestModal.baseAccountName = res.data.name;
             } else {
                 this.goToHome();
+            }
+        }).catch(reason => {
+            //
+        });
+    }
+
+    async showWithdrawalDepositAcc(type: string) {
+        const accountListPopover = await this.popoverCtrl.create({
+            componentProps: {
+                accountList: [...this.depositAccounts.filter(f => f.uniqueName !== this.requestModal.transactions[0].particular)],
+                type
+            },
+            component: SelectWithdrawalDepositAccountComponent,
+            animated: true,
+            backdropDismiss: false,
+            cssClass: 'select-amount-popover'
+        });
+
+        await accountListPopover.present();
+
+        accountListPopover.onDidDismiss().then(res => {
+            if (res && res.data) {
+                if (type === 'withdrawal') {
+                    this.requestModal.transactions[0].particular = res.data.uniqueName;
+                    this.requestModal.transactions[0].name = res.data.name;
+                } else {
+                    this.requestModal.baseAccount = res.data.uniqueName;
+                    this.requestModal.baseAccountName = res.data.name;
+                }
+            } else {
+                // this.goToHome();
             }
         }).catch(reason => {
             //
