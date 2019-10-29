@@ -64,7 +64,8 @@ export class EntryPage implements OnInit, OnDestroy {
                 actionType: this.requestModal.entryType
             },
             cssClass: 'w350',
-            backdropDismiss: false
+            backdropDismiss: false,
+            showBackdrop: true
         });
         await this.addAmountPopover.present();
 
@@ -91,7 +92,8 @@ export class EntryPage implements OnInit, OnDestroy {
             component: SelectAccountComponentComponent,
             animated: true,
             backdropDismiss: false,
-            cssClass: 'select-amount-popover'
+            cssClass: 'select-amount-popover',
+            showBackdrop: true
         });
 
         await this.accountListPopover.present();
