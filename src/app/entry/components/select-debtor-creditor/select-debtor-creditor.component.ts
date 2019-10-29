@@ -19,7 +19,7 @@ export class SelectDebtorCreditorComponent {
     }
 
     accountSelected(account: IFlattenAccountsResultItem) {
-        this.popoverCtrl.dismiss({account});
+        this.popoverCtrl.dismiss(account);
     }
 
     cancelModal() {

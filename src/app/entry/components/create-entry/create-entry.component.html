@@ -19,186 +19,188 @@
 
 <ion-content>
 
-    <ion-list>
-
-        <ion-item>
-            <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
-            <ion-label>
-                <ion-datetime value="1990-02-19" placeholder="Select Date"
-                              [(ngModel)]="requestModal.entryDate"></ion-datetime>
-            </ion-label>
-        </ion-item>
-
-        <ion-item>
-            <ion-icon class="icon" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
-            <ion-textarea placeholder="Write a note" [(ngModel)]="requestModal.description"></ion-textarea>
-        </ion-item>
-
-        <!-- region attachment -->
-        <ion-item detail="">
-            <ion-icon class="icon" slot="start"
-                      src="../../../../assets/icon/attachment.svg"
-                      [color]="requestModal.entryType"></ion-icon>
-            <ion-label>Attachment</ion-label>
-        </ion-item>
-
-        <ion-item class="inner-item">
-            <ion-button class="attachment" color="medium" fill="clear">
-                <ion-icon name="camera">
-                </ion-icon>
-            </ion-button>
-            <ion-grid style="overflow-x: auto;">
-                <ion-row nowrap>
-                    <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6" *ngFor="let a of [1,2,3,4,5,6]">
-                        <ion-img src="../../../../assets/icon/alhamdlulillah_1x.png"></ion-img>
-                    </ion-col>
-
-                </ion-row>
-
-            </ion-grid>
-        </ion-item>
-        <!-- endregion -->
-
-        <!-- region only for sales -->
-        <ng-container *ngIf="requestModal.entryType === 'sales'">
+    <form #entryForm="ngForm" novalidate>
+        <ion-list>
 
             <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
-                          [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Receipt Mode</ion-label>
-            </ion-item>
-
-            <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                <ion-label>{{
-                    otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Receipt Mode')
-                    }}</ion-label>
-            </ion-item>
-
-            <ng-container *ngIf="otherPaymentMode">
-                <ion-item>
-                    <ion-icon class="icon" slot="start"
-                              src="../../../../assets/icon/account.svg"
-                              [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Debtor</ion-label>
-                </ion-item>
-
-                <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
-                    <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
-                </ion-item>
-            </ng-container>
-
-        </ng-container>
-        <!-- endregion -->
-
-        <!-- region only for expense -->
-        <ng-container *ngIf="requestModal.entryType === 'expense'">
-            <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
-                          [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Payment Mode</ion-label>
-            </ion-item>
-
-            <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                <ion-label>{{
-                    otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Payment Mode')
-                    }}</ion-label>
-            </ion-item>
-
-            <ng-container *ngIf="otherPaymentMode">
-                <ion-item>
-                    <ion-icon class="icon" slot="start"
-                              src="../../../../assets/icon/account.svg"
-                              [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Creditor</ion-label>
-                </ion-item>
-
-                <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditor')">
-                    <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Creditor' }}</ion-label>
-                </ion-item>
-
-            </ng-container>
-        </ng-container>
-
-        <!-- endregion -->
-
-        <!-- region only for withdrawal and deposit -->
-        <ng-container *ngIf="requestModal.entryType === 'deposit'">
-            <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
-                          [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Withdrawal from</ion-label>
-            </ion-item>
-
-            <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
-                <ion-label>{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
+                <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
+                <ion-label>
+                    <ion-datetime placeholder="Select Date" name="entryDate"
+                                  [(ngModel)]="requestModal.entryDate" required></ion-datetime>
+                </ion-label>
             </ion-item>
 
             <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
-                          [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Deposit to</ion-label>
+                <ion-icon class="icon" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
+                <ion-textarea placeholder="Write a note" [(ngModel)]="requestModal.description" name="description"></ion-textarea>
             </ion-item>
 
-            <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
-                <ion-label>{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
-            </ion-item>
-        </ng-container>
-        <!-- endregion -->
-
-        <!-- region cheque details -->
-        <ng-container>
-            <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
-                          [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Reference/Cheque #</ion-label>
-            </ion-item>
-
-            <ion-item class="inner-item">
-                <ion-input [(ngModel)]="requestModal.chequeNumber" placeholder="Reference/Cheque No"></ion-input>
-            </ion-item>
-        </ng-container>
-        <!-- endregion -->
-
-        <!-- region multi-currency tools -->
-        <ng-container *ngIf="requestModal.isMultiCurrencyAvailable">
-            <ion-item>
+            <!-- region attachment -->
+            <ion-item detail="">
                 <ion-icon class="icon" slot="start"
-                          src="../../../../assets/icon/Switch_icon.svg" [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Conversion Rates</ion-label>
+                          src="../../../../assets/icon/attachment.svg"
+                          [color]="requestModal.entryType"></ion-icon>
+                <ion-label>Attachment</ion-label>
             </ion-item>
 
             <ion-item class="inner-item">
+                <ion-button class="attachment" color="medium" fill="clear">
+                    <ion-icon name="camera">
+                    </ion-icon>
+                </ion-button>
+                <ion-grid style="overflow-x: auto;">
+                    <ion-row nowrap>
+                        <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6" *ngFor="let a of [1,2,3,4,5,6]">
+                            <ion-img src="../../../../assets/icon/alhamdlulillah_1x.png"></ion-img>
+                        </ion-col>
 
-                <ion-item class="inner-t-list">
+                    </ion-row>
 
-                    <ion-label>
-                        1
-                        {{ activeCurrency === 0 ? requestModal.baseCurrencyDetails.code : requestModal.foreignCurrencyDetails.code }}
-                        =
-                    </ion-label>
-
-                    <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" type="number"></ion-input>
-
-                    <ion-label>
-                        {{ activeCurrency === 0 ? requestModal.foreignCurrencyDetails.code : requestModal.baseCurrencyDetails.code }}
-                    </ion-label>
-
-                </ion-item>
-
-                <ion-item button (click)="switchExchangeRate()">
-                    <ion-icon name="swap"></ion-icon>
-                </ion-item>
-
+                </ion-grid>
             </ion-item>
-        </ng-container>
-        <!-- endregion -->
+            <!-- endregion -->
 
-    </ion-list>
+            <!-- region only for sales -->
+            <ng-container *ngIf="requestModal.entryType === 'sales'">
+
+                <ion-item>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
+                    <ion-label>Receipt Mode</ion-label>
+                </ion-item>
+
+                <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
+                    <ion-label>{{
+                        otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Receipt Mode')
+                        }}</ion-label>
+                </ion-item>
+
+                <ng-container *ngIf="otherPaymentMode">
+                    <ion-item>
+                        <ion-icon class="icon" slot="start"
+                                  src="../../../../assets/icon/account.svg"
+                                  [color]="requestModal.entryType"></ion-icon>
+                        <ion-label>Debtor</ion-label>
+                    </ion-item>
+
+                    <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
+                        <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
+                    </ion-item>
+                </ng-container>
+
+            </ng-container>
+            <!-- endregion -->
+
+            <!-- region only for expense -->
+            <ng-container *ngIf="requestModal.entryType === 'expense'">
+                <ion-item>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
+                    <ion-label>Payment Mode</ion-label>
+                </ion-item>
+
+                <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
+                    <ion-label>{{
+                        otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Payment Mode')
+                        }}</ion-label>
+                </ion-item>
+
+                <ng-container *ngIf="otherPaymentMode">
+                    <ion-item>
+                        <ion-icon class="icon" slot="start"
+                                  src="../../../../assets/icon/account.svg"
+                                  [color]="requestModal.entryType"></ion-icon>
+                        <ion-label>Creditor</ion-label>
+                    </ion-item>
+
+                    <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditor')">
+                        <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Creditor' }}</ion-label>
+                    </ion-item>
+
+                </ng-container>
+            </ng-container>
+
+            <!-- endregion -->
+
+            <!-- region only for withdrawal and deposit -->
+            <ng-container *ngIf="requestModal.entryType === 'deposit'">
+                <ion-item>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
+                    <ion-label>Withdrawal from</ion-label>
+                </ion-item>
+
+                <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
+                    <ion-label>{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
+                    <ion-label>Deposit to</ion-label>
+                </ion-item>
+
+                <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
+                    <ion-label>{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
+                </ion-item>
+            </ng-container>
+            <!-- endregion -->
+
+            <!-- region cheque details -->
+            <ng-container *ngIf="isBankAccountSelected">
+                <ion-item>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
+                    <ion-label>Reference/Cheque #</ion-label>
+                </ion-item>
+
+                <ion-item class="inner-item">
+                    <ion-input [(ngModel)]="requestModal.chequeNumber" name="chequeNumber" placeholder="Reference/Cheque No"></ion-input>
+                </ion-item>
+            </ng-container>
+            <!-- endregion -->
+
+            <!-- region multi-currency tools -->
+            <ng-container *ngIf="requestModal.isMultiCurrencyAvailable">
+                <ion-item>
+                    <ion-icon class="icon" slot="start"
+                              src="../../../../assets/icon/Switch_icon.svg" [color]="requestModal.entryType"></ion-icon>
+                    <ion-label>Conversion Rates</ion-label>
+                </ion-item>
+
+                <ion-item class="inner-item">
+
+                    <ion-item class="inner-t-list">
+
+                        <ion-label>
+                            1
+                            {{ activeCurrency === 0 ? requestModal.baseCurrencyDetails.code : requestModal.foreignCurrencyDetails.code }}
+                            =
+                        </ion-label>
+
+                        <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" name="exchangeRate" type="number"></ion-input>
+
+                        <ion-label>
+                            {{ activeCurrency === 0 ? requestModal.foreignCurrencyDetails.code : requestModal.baseCurrencyDetails.code }}
+                        </ion-label>
+
+                    </ion-item>
+
+                    <ion-item button (click)="switchExchangeRate()">
+                        <ion-icon name="swap"></ion-icon>
+                    </ion-item>
+
+                </ion-item>
+            </ng-container>
+            <!-- endregion -->
+
+        </ion-list>
+    </form>
 
     <!-- fab placed to the bottom end -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 
-        <ion-fab-button (click)="createEntry()" [disabled]="createEntryInProcess">
+        <ion-fab-button (click)="createEntry()" [disabled]="entryForm.invalid || createEntryInProcess">
             <ion-icon name="checkmark"></ion-icon>
         </ion-fab-button>
 

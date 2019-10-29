@@ -29,6 +29,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public otherPaymentMode: IFlattenAccountsResultItem = null;
     public createEntryInProcess: boolean = false;
     public activeCurrency: 0 | 1 = 0;
+    public isBankAccountSelected: boolean = false;
 
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService) {
     }
@@ -91,6 +92,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     this.otherPaymentMode = null;
                     this.requestModal.baseAccount = res.data.uniqueName;
                     this.requestModal.baseAccountName = res.data.name;
+                    this.isBankAccountSelected = res.data.parentGroups.some(s => s.uniqueName === 'bankaccounts');
                 }
             } else {
                 // this.goToHome();
@@ -120,7 +122,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                 this.requestModal.baseAccount = res.data.uniqueName;
                 this.requestModal.baseAccountName = res.data.name;
             } else {
-                this.goToHome();
+                //
             }
         }).catch(reason => {
             //
