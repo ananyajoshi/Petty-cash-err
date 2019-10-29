@@ -36,4 +36,14 @@ export class CompanyService extends BaseService {
             }),
             catchError((e) => this.handleCatch<ICurrencyDetails[], string>(e, '')));
     }
+
+    public getCurrencyRateNewApi(fromCurrency: string, toCurrency: string, date: string) {
+        return this._http.get(CompanyUrls.currencyRate
+            .replace(':from', encodeURIComponent(fromCurrency))
+            .replace(':to', encodeURIComponent(toCurrency))
+            .replace(':date', encodeURIComponent(date))
+        ).pipe(map((res) => {
+            return res;
+        }), catchError((e) => this.handleCatch<any, any>(e)));
+    }
 }

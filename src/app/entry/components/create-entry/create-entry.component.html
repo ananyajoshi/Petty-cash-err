@@ -170,13 +170,25 @@
             <ion-item class="inner-item">
 
                 <ion-item class="inner-t-list">
-                    <ion-label>1 USD =</ion-label>
-                    <ion-input class="text-box"></ion-input>
-                    <ion-label>AED</ion-label>
+
+                    <ion-label>
+                        1
+                        {{ activeCurrency === 0 ? requestModal.baseCurrencyDetails.code : requestModal.foreignCurrencyDetails.code }}
+                        =
+                    </ion-label>
+
+                    <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" type="number"></ion-input>
+
+                    <ion-label>
+                        {{ activeCurrency === 0 ? requestModal.foreignCurrencyDetails.code : requestModal.baseCurrencyDetails.code }}
+                    </ion-label>
+
                 </ion-item>
-                <ion-item>
+
+                <ion-item button (click)="switchExchangeRate()">
                     <ion-icon name="swap"></ion-icon>
                 </ion-item>
+
             </ion-item>
         </ng-container>
         <!-- endregion -->

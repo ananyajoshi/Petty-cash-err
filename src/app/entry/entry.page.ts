@@ -28,7 +28,7 @@ export class EntryPage implements OnInit, OnDestroy {
                 private router: Router, private _generalService: GeneralService) {
     }
 
-    async ngOnInit() {
+    ngOnInit() {
     }
 
     ionViewWillEnter() {

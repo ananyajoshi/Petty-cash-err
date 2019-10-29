@@ -11,6 +11,7 @@ import {PaymentModeComponent} from '../payment-mode/payment-mode.component';
 import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-debtor-creditor.component';
 import * as moment from 'moment';
 import {SelectWithdrawalDepositAccountComponent} from '../select-withdrawal-deposit-account/select-withdrawal-deposit-account.component';
+import {CompanyService} from '../../../services/company/company.service';
 
 @Component({
     selector: 'create-entry',
@@ -27,13 +28,18 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public creditorsAccount: IFlattenAccountsResultItem[] = [];
     public otherPaymentMode: IFlattenAccountsResultItem = null;
     public createEntryInProcess: boolean = false;
+    public activeCurrency: 0 | 1 = 0;
 
-    constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController) {
+    constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService) {
     }
 
     ngOnInit() {
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;
+
+            if (req.isMultiCurrencyAvailable) {
+                this.getCurrencyDetails();
+            }
         });
 
         this.store.pipe(select(s => s.entry.createEntryInProcess), untilDestroyed(this))
@@ -152,12 +158,36 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         });
     }
 
+    switchExchangeRate() {
+        this.activeCurrency = this.activeCurrency === 0 ? 1 : 0;
+        let rate = 0;
+        if (Number(this.requestModal.exchangeRate)) {
+            rate = 1 / this.requestModal.exchangeRate;
+        }
+        this.requestModal.exchangeRate = rate;
+    }
+
+    exchangeRateChanged() {
+        this.requestModal.exchangeRate = Number(this.requestModal.exchangeRate) || 0;
+    }
+
     private getAccounts(type: string): IFlattenAccountsResultItem[] {
         if (type === 'debtors') {
             return this.debtorsAccounts;
         } else {
             return this.creditorsAccount;
         }
+    }
+
+    private getCurrencyDetails() {
+        this._companyService.getCurrencyRateNewApi(this.requestModal.baseCurrencyDetails.code, this.requestModal.foreignCurrencyDetails.code,
+            moment().format('DD-MM-YYYY'))
+            .subscribe(res => {
+                const rate = res.body;
+                if (rate) {
+                    this.requestModal.exchangeRate = rate;
+                }
+            });
     }
 
     ngOnDestroy(): void {
