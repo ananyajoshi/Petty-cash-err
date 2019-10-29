@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
+import {LoginResponseModel, LoginWithPassword, ResetPasswordRequest} from '../../models/login.model';
 
 export enum AuthActionType {
     LoginUser = '[User] Login',
@@ -45,6 +45,48 @@ export class LoginUserErrorAction implements Action {
     }
 }
 
+export class ForgotPasswordAction implements Action {
+    readonly type = AuthActionType.ForgotPassword;
+
+    constructor(public userId: string) {
+    }
+}
+
+export class ForgotPasswordSuccessAction implements Action {
+    readonly type = AuthActionType.ForgotPasswordComplete;
+
+    constructor(public response: string) {
+    }
+}
+
+export class ForgotPasswordErrorAction implements Action {
+    readonly type = AuthActionType.ForgotPasswordError;
+
+    constructor(public error: string) {
+    }
+}
+
+export class ResetPasswordAction implements Action {
+    readonly type = AuthActionType.ResetPassword;
+
+    constructor(public req: ResetPasswordRequest) {
+    }
+}
+
+export class ResetPasswordSuccessAction implements Action {
+    readonly type = AuthActionType.ResetPasswordComplete;
+
+    constructor(public response: string) {
+    }
+}
+
+export class ResetPasswordErrorAction implements Action {
+    readonly type = AuthActionType.ResetPasswordError;
+
+    constructor(public error: string) {
+    }
+}
+
 export class SetActiveCompanyAction implements Action {
     readonly type = AuthActionType.SetActiveCompany;
 
@@ -67,6 +109,12 @@ export type AuthActionsUnion =
     LoginUserAction
     | LoginUserCompleteAction
     | LoginUserErrorAction
+    | ForgotPasswordAction
+    | ForgotPasswordSuccessAction
+    | ForgotPasswordErrorAction
+    | ResetPasswordAction
+    | ResetPasswordSuccessAction
+    | ResetPasswordErrorAction
     | SetActiveCompanyAction
     | SetActiveLanguage
     | LogoutUserAction;

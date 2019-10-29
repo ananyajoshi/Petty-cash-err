@@ -17,3 +17,9 @@ export class LoginResponseModel {
     public session?: Session;
     public intercomHash?: string;
 }
+
+export class ResetPasswordRequest {
+    verificationCode: string;
+    uniqueKey: string;
+    newPassword: string;
+}

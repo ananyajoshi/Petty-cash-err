@@ -10,25 +10,32 @@ import {AppState} from '../../store/reducer';
 import {Observable, of} from 'rxjs';
 import {
     AuthActionType,
+    ForgotPasswordAction,
+    ForgotPasswordErrorAction,
+    ForgotPasswordSuccessAction,
     LoginUserAction,
     LoginUserCompleteAction,
     LoginUserErrorAction,
     LogoutUserAction,
+    ResetPasswordAction,
+    ResetPasswordErrorAction,
+    ResetPasswordSuccessAction,
     SetActiveCompanyAction
 } from './auth.action';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {BaseResponse} from '../../models/base.model';
-import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
+import {LoginResponseModel, LoginWithPassword, ResetPasswordRequest} from '../../models/login.model';
 import {CompanyResponse} from '../../models/company.model';
 import {GetFlattenAccountAction} from '../account/account.action';
 import {GetCurrenciesAction} from '../company/company.action';
+import {ToastController} from '@ionic/angular';
 
 
 @Injectable()
 export class AuthEffect {
 
     constructor(private actions$: Actions, private authService: AuthService, private store: Store<AppState>,
-                private generalService: GeneralService, private router: Router) {
+                private generalService: GeneralService, private router: Router, protected toastController: ToastController) {
     }
 
     @Effect()
@@ -39,13 +46,11 @@ export class AuthEffect {
                 .pipe(
                     map((res: BaseResponse<LoginResponseModel, LoginWithPassword>) => {
                         if (res.status !== 'success') {
-                            // this.generalService.showErrorNotification(res.errors[0].message);
                             return new LoginUserErrorAction(res.message);
                         }
                         return new LoginUserCompleteAction(res.body);
                     }),
                     catchError((res) => {
-                        // this.generalService.showErrorNotification(res.errors[0].message);
                         return of(new LoginUserErrorAction(res.message));
                     })
                 );
@@ -60,6 +65,71 @@ export class AuthEffect {
             this.generalService.sessionId = s.result.session.id;
             this.generalService.user = s.result.user;
             this.router.navigate(['/pages/home']);
+            return of();
+        })
+    );
+
+    @Effect()
+    forgotPassword$: Observable<Action> = this.actions$.pipe(
+        ofType<ForgotPasswordAction>(AuthActionType.ForgotPassword),
+        switchMap((s) => {
+            return this.authService.ForgotPassword(s.userId)
+                .pipe(
+                    map((res: BaseResponse<string, string>) => {
+                        if (res.status !== 'success') {
+                            return new ForgotPasswordErrorAction(res.message);
+                        }
+                        const toast = this.toastController.create({
+                            message: res.body,
+                            animated: true,
+                            color: 'success',
+                            showCloseButton: true,
+                            position: 'top'
+                        }).then(t => {
+                            t.present();
+                        });
+                        return new ForgotPasswordSuccessAction(res.body);
+                    }),
+                    catchError((res) => {
+                        return of(new ForgotPasswordErrorAction(res.message));
+                    })
+                );
+        })
+    );
+
+    @Effect()
+    resetPassword$: Observable<Action> = this.actions$.pipe(
+        ofType<ResetPasswordAction>(AuthActionType.ResetPassword),
+        switchMap((s) => {
+            return this.authService.ResetPassword(s.req)
+                .pipe(
+                    map((res: BaseResponse<string, ResetPasswordRequest>) => {
+                        if (res.status !== 'success') {
+                            return new ResetPasswordErrorAction(res.message);
+                        }
+                        const toast = this.toastController.create({
+                            message: res.body,
+                            animated: true,
+                            color: 'success',
+                            showCloseButton: true,
+                            position: 'top'
+                        }).then(t => {
+                            t.present();
+                        });
+                        return new ResetPasswordSuccessAction(res.body);
+                    }),
+                    catchError((res) => {
+                        return of(new ResetPasswordErrorAction(res.message));
+                    })
+                );
+        })
+    );
+
+    @Effect()
+    resetPasswordComplete$: Observable<any> = this.actions$.pipe(
+        ofType<ResetPasswordSuccessAction>(AuthActionType.ResetPasswordComplete),
+        switchMap((s) => {
+            this.router.navigate(['login']);
             return of();
         })
     );

@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/reducer';
 import {LoginUserAction} from '../actions/auth/auth.action';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -12,7 +13,7 @@ import {LoginUserAction} from '../actions/auth/auth.action';
 export class LoginPage implements OnInit {
     public loginWithPasswordForm: FormGroup;
 
-    constructor(private store: Store<AppState>) {
+    constructor(private store: Store<AppState>, private router: Router) {
     }
 
     ngOnInit() {
@@ -25,6 +26,10 @@ export class LoginPage implements OnInit {
 
     login() {
         this.store.dispatch(new LoginUserAction(this.loginWithPasswordForm.getRawValue()));
+    }
+
+    forgotPassword() {
+        this.router.navigate(['forgot-password']);
     }
 
 }

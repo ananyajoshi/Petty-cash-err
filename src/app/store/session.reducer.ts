@@ -6,13 +6,21 @@ export interface SessionState {
     isLoginWithPasswordInProcess: boolean;
     activeCompany: string;
     selectedLanguage: string;
+    forgotPasswordInProcess: boolean;
+    forgotPasswordSuccess: boolean;
+    resetPasswordInProcess: boolean;
+    resetPasswordSuccess: boolean;
 }
 
 const initialState: SessionState = {
     activeCompany: '',
     data: null,
     isLoginWithPasswordInProcess: false,
-    selectedLanguage: 'en'
+    selectedLanguage: 'en',
+    forgotPasswordInProcess: false,
+    forgotPasswordSuccess: false,
+    resetPasswordInProcess: false,
+    resetPasswordSuccess: false
 };
 
 
@@ -31,6 +39,53 @@ export function SessionReducer(state: SessionState = initialState, action: AuthA
                 ...state,
                 isLoginWithPasswordInProcess: false,
                 data: action.result
+            };
+        }
+
+        case AuthActionType.ForgotPassword:
+            return {
+                ...state,
+                forgotPasswordInProcess: true,
+                forgotPasswordSuccess: false
+            };
+
+        case AuthActionType.ForgotPasswordComplete: {
+            return {
+                ...state,
+                forgotPasswordSuccess: true,
+                forgotPasswordInProcess: false
+            };
+        }
+
+        case AuthActionType.ForgotPasswordError: {
+            return {
+                ...state,
+                forgotPasswordInProcess: false,
+                forgotPasswordSuccess: false
+            };
+        }
+
+        case AuthActionType.ResetPassword: {
+            return {
+                ...state,
+                resetPasswordInProcess: true,
+                forgotPasswordSuccess: false
+            };
+        }
+
+        case AuthActionType.ResetPasswordComplete: {
+            return {
+                ...state,
+                resetPasswordInProcess: false,
+                resetPasswordSuccess: true
+            };
+        }
+
+        case AuthActionType.ResetPasswordError: {
+            return {
+                ...state,
+                resetPasswordInProcess: false,
+                resetPasswordSuccess: false
             };
         }
 
@@ -56,6 +111,7 @@ export function SessionReducer(state: SessionState = initialState, action: AuthA
                 activeCompany: ''
             };
         }
+
         default:
             return state;
     }
