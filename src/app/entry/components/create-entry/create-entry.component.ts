@@ -88,6 +88,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     this.otherPaymentMode = res.data;
                     this.requestModal.baseAccount = null;
                     this.requestModal.baseAccountName = null;
+                    this.isBankAccountSelected = false;
                 } else {
                     this.otherPaymentMode = null;
                     this.requestModal.baseAccount = res.data.uniqueName;
