@@ -11,10 +11,12 @@ ion-list ion-item {
   --inner-padding-start: 0;
   --inner-padding-top: 0;
 }
-.model-footer{
+
+.model-footer {
   border-top: 1px solid gainsboro;
 }
-::ng-deep.search-box{
+
+::ng-deep.search-box {
   input.searchbar-input.sc-ion-searchbar-md {
     box-shadow: unset;
     border: 1px solid gainsboro;
