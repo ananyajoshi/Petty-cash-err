@@ -6,10 +6,10 @@
 
     <ion-grid>
 
-        <ion-row class="main-container">
+        <ion-row>
 
             <ion-col>
-                <ion-list lines="none">
+                <ion-list lines="none" class="main-container scroll">
 
                     <ion-item *ngFor="let account of accountList" class=""
                               (click)="accountSelected(account)">
@@ -20,11 +20,12 @@
 
                 </ion-list>
             </ion-col>
-
+        </ion-row>
+        <ion-row>
             <ion-col size="12" class="ion-align-self-end model-footer">
 
-                <ion-button (click)="cancelModal()" fill="clear" color="medium">Cancel</ion-button>
-                <ion-button (click)="cancelModal()" fill="clear" [color]="entryType">Next</ion-button>
+                <ion-button (click)="cancelModal()" class="ion-float-right" fill="clear" [color]="entryType">Next</ion-button>
+                <ion-button (click)="cancelModal()" class="ion-float-right" fill="clear" color="medium">Cancel</ion-button>
 
             </ion-col>
 

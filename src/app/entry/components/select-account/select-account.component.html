@@ -10,32 +10,36 @@
 
     <ion-grid>
 
-        <ion-row class="main-container">
 
-            <ion-col>
-                <ion-list lines="none">
+           <ion-row>
 
-                    <ion-item *ngFor="let account of filteredAccounts" class=""
-                              (click)="accountSelected(account)">
-                        <ion-label>
-                            {{ account.name }} a/c
-                        </ion-label>
-                        <!--<ion-note slot="end">$7,980</ion-note>-->
-                    </ion-item>
+               <ion-col>
+                   <ion-list lines="none" class="main-container scroll">
 
-                </ion-list>
-            </ion-col>
-        </ion-row>
+                       <ion-item *ngFor="let account of filteredAccounts" class=""
+                                 (click)="accountSelected(account)">
+                           <ion-label>
+                               {{ account.name }} a/c
+                           </ion-label>
+                           <!--<ion-note slot="end">$7,980</ion-note>-->
+                       </ion-item>
 
-        <ion-row>
+                   </ion-list>
+               </ion-col>
+           </ion-row>
 
-            <ion-col size="12" class="ion-align-self-end model-footer">
 
-                <ion-button (click)="cancelModal()" expand="full" fill="clear" color="medium">Cancel</ion-button>
 
-            </ion-col>
+          <ion-row>
 
-        </ion-row>
+              <ion-col size="12" class="ion-align-self-end model-footer">
+
+                  <ion-button (click)="cancelModal()" expand="full" fill="clear" color="medium">Cancel</ion-button>
+
+              </ion-col>
+
+          </ion-row>
+
 
 
     </ion-grid>
