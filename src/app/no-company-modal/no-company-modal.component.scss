@@ -1,0 +1,18 @@
+.main-no-company {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 38px;
+  color: white;
+  background-color: #0B1B46;
+}
+
+::ng-deep.new-btn{
+  color: black !important;
+  font-size: 17px !important;
+  --background: #45A7E6 !important;
+}
+.a-link{
+  color: white;
+  font-style: italic;
+}

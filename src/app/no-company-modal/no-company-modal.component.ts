@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {PopoverController} from '@ionic/angular';
+import {ModalController, PopoverController} from '@ionic/angular';
 
 @Component({
     selector: 'no-company-data',
@@ -9,7 +9,8 @@ import {PopoverController} from '@ionic/angular';
 })
 
 export class NoCompanyModalComponent implements OnInit {
-    constructor(private router: Router, private popoverController: PopoverController) {
+    @Input() public email: string;
+    constructor(private router: Router, private modalController: ModalController) {
     }
 
     ngOnInit() {
@@ -17,6 +18,6 @@ export class NoCompanyModalComponent implements OnInit {
 
     login() {
         this.router.navigate(['login']);
-        this.popoverController.dismiss();
+        this.modalController.dismiss();
     }
 }

@@ -19,3 +19,14 @@
 .boldFont {
   font-weight: 600;
 }
+::ng-deep.nocompany-popover{
+  --height: 100vh !important;
+  --max-height: 100vh !important;
+  --width: 100vw !important;
+  --max-width: 100vw !important;
+  --left: 0px!important;
+  --right: 0 !important;
+  --bottom: 0 !important;
+  --top: 0 !important;
+  --position: unset !important;
+}

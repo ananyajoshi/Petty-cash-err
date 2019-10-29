@@ -8,7 +8,8 @@ import {untilDestroyed} from 'ngx-take-until-destroy';
 
 @Component({
     selector: 'forgot-password',
-    templateUrl: './forgot-password.page.html'
+    templateUrl: './forgot-password.page.html',
+    styleUrls: ['./forgot-password.page.scss']
 })
 export class ForgotPasswordPage implements OnInit, OnDestroy {
     public forgotPasswordForm: FormGroup;

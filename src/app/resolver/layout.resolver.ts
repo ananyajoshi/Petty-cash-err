@@ -2,7 +2,7 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {Observable} from 'rxjs';
 import {AppState} from '../store/reducer';
 import {select, Store} from '@ngrx/store';
-import {AlertController, PopoverController} from '@ionic/angular';
+import {AlertController, ModalController, PopoverController} from '@ionic/angular';
 import {CompanyService} from '../services/company/company.service';
 import {Injectable} from '@angular/core';
 import {UserDetails} from '../models/user.model';
@@ -17,7 +17,7 @@ import {SetActiveCompanyAction} from '../actions/auth/auth.action';
 export class LayoutResolver implements Resolve<any> {
 
     constructor(private store: Store<AppState>, private alertCtrl: AlertController,
-                private _companyService: CompanyService, private popoverController: PopoverController,
+                private _companyService: CompanyService, private modalController: ModalController,
                 private _generalService: GeneralService) {
 
     }
@@ -55,23 +55,23 @@ export class LayoutResolver implements Resolve<any> {
                     }
                     return true;
                 } else {
-                    const modal = await this.popoverController.create({
+                    const modal = await this.modalController.create({
                         component: NoCompanyModalComponent,
                         backdropDismiss: false,
                         cssClass: 'nocompany-popover',
                         componentProps: {
-                            email: 'vishal@gmail.com'
+                            email: this._generalService.user.email
                         }
                     });
                     await modal.present();
                 }
             } else {
-                const modal = await this.popoverController.create({
+                const modal = await this.modalController.create({
                     component: NoCompanyModalComponent,
                     backdropDismiss: false,
                     cssClass: 'nocompany-popover',
                     componentProps: {
-                        email: 'vishal@gmail.com'
+                        email: this._generalService.user.email
                     }
                 });
                 await modal.present();
