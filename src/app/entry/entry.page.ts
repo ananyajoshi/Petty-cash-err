@@ -23,6 +23,8 @@ export class EntryPage implements OnInit, OnDestroy {
     public accountList: IFlattenAccountsResultItem[] = [];
     public entryType: EntryTypes;
     public requestModal: EntryModel;
+    public addAmountPopover;
+    public accountListPopover;
 
     constructor(private popoverCtrl: PopoverController, private activatedRouter: ActivatedRoute, private store: Store<AppState>,
                 private router: Router, private _generalService: GeneralService) {
@@ -55,7 +57,7 @@ export class EntryPage implements OnInit, OnDestroy {
     }
 
     async showAddAmountModal() {
-        const addAmountPopover = await this.popoverCtrl.create({
+        this.addAmountPopover = await this.popoverCtrl.create({
             component: AddAmountComponent,
             animated: true,
             componentProps: {
@@ -64,9 +66,9 @@ export class EntryPage implements OnInit, OnDestroy {
             cssClass: 'w350',
             backdropDismiss: false
         });
-        await addAmountPopover.present();
+        await this.addAmountPopover.present();
 
-        addAmountPopover.onDidDismiss().then(res => {
+        this.addAmountPopover.onDidDismiss().then(res => {
             if (res && res.data) {
                 this.requestModal.transactions[0].amount = res.data.amount;
                 this.updateRequestModal();
@@ -81,7 +83,7 @@ export class EntryPage implements OnInit, OnDestroy {
     }
 
     async showAccountList() {
-        const accountListPopover = await this.popoverCtrl.create({
+        this.accountListPopover = await this.popoverCtrl.create({
             componentProps: {
                 accountList: this.accountList,
                 entryType: this.entryType
@@ -92,9 +94,9 @@ export class EntryPage implements OnInit, OnDestroy {
             cssClass: 'select-amount-popover'
         });
 
-        await accountListPopover.present();
+        await this.accountListPopover.present();
 
-        accountListPopover.onDidDismiss().then(res => {
+        this.accountListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
                 this.requestModal.transactions[0].particular = res.data.uniqueName;
                 this.requestModal.transactions[0].name = res.data.name;
@@ -137,6 +139,13 @@ export class EntryPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        if (this.addAmountPopover) {
+            this.addAmountPopover.dismiss();
+        }
+
+        if (this.accountListPopover) {
+            this.accountListPopover.dismiss();
+        }
     }
 
     private goToHome() {
