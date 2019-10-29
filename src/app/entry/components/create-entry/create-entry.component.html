@@ -58,7 +58,8 @@
         <ng-container *ngIf="requestModal.entryType === 'sales'">
 
             <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label>Receipt Mode</ion-label>
             </ion-item>
 
@@ -87,7 +88,8 @@
         <!-- region only for expense -->
         <ng-container *ngIf="requestModal.entryType === 'expense'">
             <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label>Payment Mode</ion-label>
             </ion-item>
 
@@ -117,7 +119,8 @@
         <!-- region only for withdrawal and deposit -->
         <ng-container *ngIf="requestModal.entryType === 'deposit'">
             <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label>Withdrawal from</ion-label>
             </ion-item>
 
@@ -126,7 +129,8 @@
             </ion-item>
 
             <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label>Deposit to</ion-label>
             </ion-item>
 
@@ -139,12 +143,13 @@
         <!-- region cheque details -->
         <ng-container>
             <ion-item>
-                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label>Reference/Cheque #</ion-label>
             </ion-item>
 
             <ion-item class="inner-item">
-                <ion-input></ion-input>
+                <ion-input [(ngModel)]="requestModal.chequeNumber" placeholder="Reference/Cheque No"></ion-input>
             </ion-item>
         </ng-container>
         <!-- endregion -->

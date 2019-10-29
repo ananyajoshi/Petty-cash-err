@@ -3,45 +3,24 @@
     <div class="login">
         <a class="logo" href="/"><img src="./assets/giddh-logo-white.png"></a>
         <h3 class="mb-3 ion-text-center"><strong> Login to your secure accounting space</strong></h3>
-        <br />
+        <br/>
         <div class="login-form">
 
             <form [formGroup]="loginWithPasswordForm">
-                <ion-input type="email" placeholder="Email Id" formControlName="uniqueKey" class="form-control"></ion-input>
-                <ion-input type="password" placeholder="Password" formControlName="password" class="form-control"></ion-input>
-
-                <!-- <ion-item class="form-control">
-                    <ion-label>Email</ion-label>
-                    <ion-input type="email" placeholder="Email" formControlName="uniqueKey"></ion-input>
-                </ion-item> -->
-
-                <!-- <ion-item class="form-control">
-                    <ion-label>Password</ion-label>
-                    <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
-                </ion-item> -->
-
+                <ion-input type="email" placeholder="Email Id" formControlName="uniqueKey"
+                           class="form-control"></ion-input>
+                <ion-input type="password" placeholder="Password" formControlName="password"
+                           class="form-control"></ion-input>
             </form>
-            <!--      <div class="form-group">-->
-            <!--        <label>Password</label>-->
-            <!--        -->
-            <!--      </div>-->
-
-            <!-- <button mat-button class="btn-custom btn-block">Login</button> -->
-            <!-- <button type="butotn" class="btn-google btn-block mt-3" routerLink="/home">
-              <span><img src="assets/images/google_ico.svg" alt=""></span>
-              Login With Google
-            </button> -->
-
-            <!-- on click login & login with google button this is only example routing  see abow in button tag -->
-            <!--  [disabled]="loginWithPasswordForm.invalid" -->
+            
             <ion-button (click)="login()" class="btn btn-success btn-lg btn-block" expand="block">
                 Login
             </ion-button>
 
-            <a href="javascript:void(0)" type="butotn" class="btn-google btn-block mt-3" routerLink="/">
-                <span><img src="assets/google_ico.svg" alt=""></span>
-                Login with Google
-            </a>
+            <!--            <a href="javascript:void(0)" type="butotn" class="btn-google btn-block mt-3" routerLink="/">-->
+            <!--                <span><img src="assets/google_ico.svg" alt=""></span>-->
+            <!--                Login with Google-->
+            <!--            </a>-->
 
         </div>
     </div>

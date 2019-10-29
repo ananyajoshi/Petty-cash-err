@@ -6,7 +6,7 @@ import {SelectCompanyComponent} from '../select-company/select-company.component
 import {AppState} from '../store/reducer';
 import {Store} from '@ngrx/store';
 import {LogoutUserAction} from '../actions/auth/auth.action';
-import {AuthEffect} from '../actions/auth/auth.effect';
+import {UserDetails} from '../models/user.model';
 
 @Component({
     selector: 'app-layout',
@@ -15,12 +15,14 @@ import {AuthEffect} from '../actions/auth/auth.effect';
 })
 export class LayoutPage implements OnInit {
     public activeCompany: CompanyResponse;
+    public user: UserDetails;
 
     constructor(private _generalService: GeneralService, private modalController: ModalController, private store: Store<AppState>,
-                private menu: MenuController, private authEffects: AuthEffect) {
+                private menu: MenuController) {
     }
 
     ngOnInit() {
+        this.user = this._generalService.user;
         // subscribe to active company
         this._generalService.companyChangeEvent.subscribe(isChanged => {
             if (isChanged) {

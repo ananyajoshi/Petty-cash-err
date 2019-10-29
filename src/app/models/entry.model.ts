@@ -7,6 +7,7 @@ export class EntryModel {
     baseAccountName: string;
     attachedFiles: string[];
     description: string;
+    chequeNumber?: string;
 
     constructor() {
         this.transactions = [new EntryTransaction()];
