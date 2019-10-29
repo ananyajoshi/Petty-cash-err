@@ -22,7 +22,9 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
     ngOnInit() {
 
         this.store.pipe(select(s => s.session.forgotPasswordSuccess), untilDestroyed(this)).subscribe(res => {
-            this.showResetPasswordForm = res;
+            if (res) {
+                this.showResetPasswordForm = res;
+            }
         });
 
         this.forgotPasswordForm = new FormGroup({
@@ -37,7 +39,7 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
     }
 
     public forgotPassword() {
-        const userId = this.forgotPasswordForm.getRawValue();
+        const userId = this.forgotPasswordForm.getRawValue().userId;
         this.resetPasswordForm.patchValue({uniqueKey: userId});
         this.store.dispatch(new ForgotPasswordAction(userId));
     }
