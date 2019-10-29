@@ -46,7 +46,8 @@ export class EntryEffect {
                 animated: true,
                 color: 'success',
                 showCloseButton: true,
-                position: 'top'
+                position: 'top',
+                duration: 3000
             }).then(t => {
                 t.present();
             });

@@ -19,7 +19,8 @@ export class BaseService {
             animated: true,
             color: 'danger',
             showCloseButton: true,
-            position: 'top'
+            position: 'top',
+            duration: 3000
         }).then(t => {
             t.present();
         });
