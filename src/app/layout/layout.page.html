@@ -21,9 +21,9 @@
         <ion-list>
             <ion-menu-toggle auto-hide="true">
 
-                <ion-item routerLink="/pages/home">Balance</ion-item>
-                <ion-item routerLink="/pages/home">Home</ion-item>
-                <ion-item routerLink="/pages/setting">Settings</ion-item>
+                <ion-item routerLink="/pages/home">{{ 'menu.balance' | translate }}</ion-item>
+                <ion-item routerLink="/pages/home">{{ 'menu.home' | translate }}</ion-item>
+                <ion-item routerLink="/pages/setting">{{ 'menu.settings' | translate }}</ion-item>
 
                 <ion-item>
                     <ion-label class="boldFont">
@@ -32,7 +32,7 @@
                     <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()"></ion-icon>
                 </ion-item>
 
-                <ion-item (click)="logout()">Logout</ion-item>
+                <ion-item (click)="logout()">{{ 'menu.logout' | translate }}</ion-item>
 
             </ion-menu-toggle>
 

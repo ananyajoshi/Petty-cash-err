@@ -1,28 +1,46 @@
-<app-header [title]="'Setting'"></app-header>
+<ion-header>
+
+    <ion-toolbar>
+
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+
+        <ion-title size="large">
+            {{ 'menu.settings' | translate | uppercase }}
+        </ion-title>
+
+    </ion-toolbar>
+
+</ion-header>
 
 <ion-content class="home-container">
     <ion-card>
         <ion-card-header>
             <ion-card-subtitle><strong>App Language</strong></ion-card-subtitle>
         </ion-card-header>
-        
+
         <ion-card-content>
-                <ion-list>
-                        <ion-item>
-                          <!-- <ion-label>Gender</ion-label> -->
-                          <ion-select placeholder="Select One" interface="popover">
-                            <ion-select-option value="a" selected>Arabic</ion-select-option>
-                            <ion-select-option value="e">English</ion-select-option>
-                          </ion-select>
-                        </ion-item>
-                      </ion-list>
+            <ion-list>
+                <ion-item>
+
+                    <!-- <ion-label>Gender</ion-label> -->
+                    <ion-select placeholder="Select One" interface="popover"
+                                (ionChange)="changeLanguage($event.target.value)" [(ngModel)]="selectedLanguage">
+                        <ion-select-option value="ar" selected>Arabic</ion-select-option>
+                        <ion-select-option value="en">English</ion-select-option>
+                        <ion-select-option value="hi">Hindi</ion-select-option>
+                    </ion-select>
+
+                </ion-item>
+            </ion-list>
         </ion-card-content>
     </ion-card>
     <ion-card>
         <ion-card-header>
             <ion-card-subtitle><strong>Reminder</strong></ion-card-subtitle>
         </ion-card-header>
-        
+
         <ion-card-content>
             <ion-item>
                 <ion-toggle slot="end"></ion-toggle>
@@ -30,12 +48,13 @@
             </ion-item>
 
             <ion-item>
-                <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z" slot="end"></ion-datetime>
+                <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"
+                              slot="end"></ion-datetime>
                 <!-- <ion-toggle slot="end"></ion-toggle> -->
                 <ion-label>Time</ion-label>
             </ion-item>
-              
+
         </ion-card-content>
     </ion-card>
-              
+
 </ion-content>

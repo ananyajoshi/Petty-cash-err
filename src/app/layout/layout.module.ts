@@ -8,6 +8,7 @@ import {IonicModule} from '@ionic/angular';
 import {LayoutPage} from './layout.page';
 import {SharedModule} from '../shared/shared.module';
 import {EntryGuard} from '../guards/entry.guard';
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [
     {
@@ -37,7 +38,8 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        SharedModule
+        SharedModule,
+        TranslateModule
     ],
     declarations: [LayoutPage],
     providers: []

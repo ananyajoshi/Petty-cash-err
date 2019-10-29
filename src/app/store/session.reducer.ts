@@ -5,12 +5,14 @@ export interface SessionState {
     data: LoginResponseModel;
     isLoginWithPasswordInProcess: boolean;
     activeCompany: string;
+    selectedLanguage: string;
 }
 
 const initialState: SessionState = {
     activeCompany: '',
     data: null,
-    isLoginWithPasswordInProcess: false
+    isLoginWithPasswordInProcess: false,
+    selectedLanguage: 'en'
 };
 
 
@@ -36,6 +38,13 @@ export function SessionReducer(state: SessionState = initialState, action: AuthA
             return {
                 ...state,
                 activeCompany: action.uniqueName
+            };
+        }
+
+        case AuthActionType.SetActiveLanguage: {
+            return {
+                ...state,
+                selectedLanguage: action.lang
             };
         }
 

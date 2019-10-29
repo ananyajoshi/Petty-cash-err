@@ -3,7 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {SettingPage} from './settings.page';
 import {SharedModule} from '../shared/shared.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [
     {
@@ -16,7 +17,9 @@ const routes: Routes = [
     imports: [
         SharedModule,
         RouterModule.forChild(routes),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TranslateModule,
+        FormsModule
     ],
     declarations: [SettingPage]
 })

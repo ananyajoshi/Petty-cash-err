@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import {HomePage} from './home.page';
 import {SharedModule} from '../shared/shared.module';
 import {SelectActionModalComponent} from './select-action/select-action.modal.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {SelectActionModalComponent} from './select-action/select-action.modal.co
                 path: '',
                 component: HomePage
             }
-        ])
+        ]),
+        TranslateModule
     ],
     declarations: [HomePage, SelectActionModalComponent],
     entryComponents: [SelectActionModalComponent]

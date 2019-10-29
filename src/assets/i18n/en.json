@@ -1,0 +1,8 @@
+{
+  "menu": {
+    "balance": "Balance",
+    "home": "Home",
+    "settings": "Settings",
+    "logout": "Logout"
+  }
+}

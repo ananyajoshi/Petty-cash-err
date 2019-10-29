@@ -9,6 +9,7 @@ export enum AuthActionType {
     LogoutUser = '[User] Logout',
 
     SetActiveCompany = '[User] Set Active Company',
+    SetActiveLanguage = '[User] Set Active Language',
 
     ForgotPassword = '[User] ForgotPassword',
     ForgotPasswordError = '[User] ForgotPassword Error',
@@ -51,6 +52,13 @@ export class SetActiveCompanyAction implements Action {
     }
 }
 
+export class SetActiveLanguage implements Action {
+    readonly type = AuthActionType.SetActiveLanguage;
+
+    constructor(public lang: string) {
+    }
+}
+
 export class LogoutUserAction implements Action {
     readonly type = AuthActionType.LogoutUser;
 }
@@ -60,4 +68,5 @@ export type AuthActionsUnion =
     | LoginUserCompleteAction
     | LoginUserErrorAction
     | SetActiveCompanyAction
+    | SetActiveLanguage
     | LogoutUserAction;

@@ -21,7 +21,7 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-    return localStorageSync({keys: [{session: ['data', 'activeCompany']}], rehydrate: true, storage: localStorage})(reducer);
+    return localStorageSync({keys: [{session: ['data', 'activeCompany', 'selectedLanguage']}], rehydrate: true, storage: localStorage})(reducer);
 }
 
 // @ts-ignore
