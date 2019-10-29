@@ -104,12 +104,15 @@ export function SessionReducer(state: SessionState = initialState, action: AuthA
         }
 
         case AuthActionType.LogoutUser: {
-            return {
-                ...state,
-                isLoginWithPasswordInProcess: false,
-                data: null,
-                activeCompany: ''
-            };
+            return initialState;
+        }
+
+        case AuthActionType.LoginUserError: {
+            return initialState;
+        }
+
+        case AuthActionType.ResetStoreFlags: {
+            return initialState;
         }
 
         default:

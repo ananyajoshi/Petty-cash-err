@@ -19,6 +19,8 @@ export enum AuthActionType {
     ResetPasswordComplete = '[User] Reset Password Complete',
     ResetPasswordError = '[User] Reset Password Error',
 
+    ResetStoreFlags = '[User] Reset Store Flags',
+
     ChangePassword = '[User] Change Password',
     ChangePasswordComplete = '[User] Change Password Complete',
     ChangePasswordError = '[User] Change Password Error',
@@ -87,6 +89,13 @@ export class ResetPasswordErrorAction implements Action {
     }
 }
 
+export class ResetStoreFlags implements Action {
+    readonly type = AuthActionType.ResetStoreFlags;
+
+    constructor() {
+    }
+}
+
 export class SetActiveCompanyAction implements Action {
     readonly type = AuthActionType.SetActiveCompany;
 
@@ -117,4 +126,5 @@ export type AuthActionsUnion =
     | ResetPasswordErrorAction
     | SetActiveCompanyAction
     | SetActiveLanguage
-    | LogoutUserAction;
+    | LogoutUserAction
+    | ResetStoreFlags;

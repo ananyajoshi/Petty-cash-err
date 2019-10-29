@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../store/reducer';
-import {ForgotPasswordAction, ResetPasswordAction} from '../actions/auth/auth.action';
+import {ForgotPasswordAction, ResetPasswordAction, ResetStoreFlags} from '../actions/auth/auth.action';
 import {ResetPasswordRequest} from '../models/login.model';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 
@@ -20,7 +20,6 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
         this.store.pipe(select(s => s.session.forgotPasswordSuccess), untilDestroyed(this)).subscribe(res => {
             if (res) {
                 this.showResetPasswordForm = res;
@@ -50,5 +49,6 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this.store.dispatch(new ResetStoreFlags());
     }
 }
