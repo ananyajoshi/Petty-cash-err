@@ -73,3 +73,8 @@ export class CompanyResponse {
     public balanceDisplayFormat?: string;
     public balanceDecimalPlaces?: string;
 }
+
+export class ICurrencyDetails {
+    code: string;
+    symbol: string;
+}

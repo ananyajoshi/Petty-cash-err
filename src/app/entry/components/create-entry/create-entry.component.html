@@ -8,7 +8,10 @@
 
         <ion-title>
             <h3>{{ requestModal.entryType | titlecase }}</h3>
-            <h4>{{ requestModal?.transactions[0]?.amount }}</h4>
+            <h4>
+                {{ requestModal.isMultiCurrencyAvailable ? requestModal.baseCurrencyDetails.symbol : '' }}
+                {{ requestModal?.transactions[0]?.amount }}
+            </h4>
         </ion-title>
 
     </ion-toolbar>
@@ -31,6 +34,7 @@
             <ion-textarea placeholder="Write a note" [(ngModel)]="requestModal.description"></ion-textarea>
         </ion-item>
 
+        <!-- region attachment -->
         <ion-item detail="">
             <ion-icon class="icon" slot="start"
                       src="../../../../assets/icon/attachment.svg"
@@ -53,6 +57,7 @@
 
             </ion-grid>
         </ion-item>
+        <!-- endregion -->
 
         <!-- region only for sales -->
         <ng-container *ngIf="requestModal.entryType === 'sales'">
@@ -154,23 +159,28 @@
         </ng-container>
         <!-- endregion -->
 
-        <ion-item>
-            <ion-icon class="icon" slot="start"
-                      src="../../../../assets/icon/Switch_icon.svg" [color]="requestModal.entryType"></ion-icon>
-            <ion-label>Conversion Rates</ion-label>
-        </ion-item>
-
-        <ion-item class="inner-item">
-
-            <ion-item class="inner-t-list">
-                <ion-label>1 USD =</ion-label>
-                <ion-input class="text-box"></ion-input>
-                <ion-label>AED</ion-label>
-            </ion-item>
+        <!-- region multi-currency tools -->
+        <ng-container *ngIf="requestModal.isMultiCurrencyAvailable">
             <ion-item>
-                <ion-icon name="swap"></ion-icon>
+                <ion-icon class="icon" slot="start"
+                          src="../../../../assets/icon/Switch_icon.svg" [color]="requestModal.entryType"></ion-icon>
+                <ion-label>Conversion Rates</ion-label>
             </ion-item>
-        </ion-item>
+
+            <ion-item class="inner-item">
+
+                <ion-item class="inner-t-list">
+                    <ion-label>1 USD =</ion-label>
+                    <ion-input class="text-box"></ion-input>
+                    <ion-label>AED</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon name="swap"></ion-icon>
+                </ion-item>
+            </ion-item>
+        </ng-container>
+        <!-- endregion -->
+
     </ion-list>
 
     <!-- fab placed to the bottom end -->

@@ -11,7 +11,8 @@ import {EntryEffect} from './entry/entry.effect';
             AuthEffect,
             CompanyEffect,
             AccountEffect,
-            EntryEffect
+            EntryEffect,
+            CompanyEffect
         ])
     ],
     exports: [EffectsModule],

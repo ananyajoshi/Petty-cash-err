@@ -7,7 +7,7 @@ import {GeneralService} from '../../services/general.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {AppState} from '../../store/reducer';
-import {Observable, of, pipe} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {
     AuthActionType,
     LoginUserAction,
@@ -21,6 +21,7 @@ import {BaseResponse} from '../../models/base.model';
 import {LoginResponseModel, LoginWithPassword} from '../../models/login.model';
 import {CompanyResponse} from '../../models/company.model';
 import {GetFlattenAccountAction} from '../account/account.action';
+import {GetCurrenciesAction} from '../company/company.action';
 
 
 @Injectable()
@@ -73,6 +74,7 @@ export class AuthEffect {
             });
             this.generalService.activeCompany = {...companies.find(f => f.uniqueName === res.uniqueName)};
             this.generalService.companyChangeEvent.next(true);
+            this.store.dispatch(new GetCurrenciesAction());
             return of(new GetFlattenAccountAction());
         })
     );
@@ -81,11 +83,11 @@ export class AuthEffect {
     @Effect({dispatch: false})
     LogoutUser$: Observable<void> = this.actions$.pipe(
         ofType<LogoutUserAction>(AuthActionType.LogoutUser),
-        pipe(map((p) => {
+        map((p) => {
             this.generalService.sessionId = null;
             this.generalService.user = null;
             this.generalService.activeCompany = null;
             this.router.navigate(['/login']);
-        }))
+        })
     );
 }

@@ -1,3 +1,5 @@
+import {ICurrencyDetails} from './company.model';
+
 export class EntryModel {
     entryDate: string;
     transactions: EntryTransaction[];
@@ -8,9 +10,15 @@ export class EntryModel {
     attachedFiles: string[];
     description: string;
     chequeNumber?: string;
+    isMultiCurrencyAvailable?: boolean;
+    baseCurrencyDetails: ICurrencyDetails;
+    foreignCurrencyDetails: ICurrencyDetails;
 
     constructor() {
         this.transactions = [new EntryTransaction()];
+        this.isMultiCurrencyAvailable = false;
+        this.baseCurrencyDetails = null;
+        this.foreignCurrencyDetails = null;
     }
 }
 

@@ -9,6 +9,7 @@ import {untilDestroyed} from 'ngx-take-until-destroy';
 import {SelectAccountComponentComponent} from './components/select-account/select-account.component';
 import {ResetEntryAction, SetEntryAction} from '../actions/entry/entry.action';
 import {EntryModel, EntryTypes} from '../models/entry.model';
+import {GeneralService} from '../services/general.service';
 
 @Component({
     selector: 'app-entry',
@@ -21,11 +22,10 @@ export class EntryPage implements OnInit, OnDestroy {
     public depositAccounts: IFlattenAccountsResultItem[] = [];
     public accountList: IFlattenAccountsResultItem[] = [];
     public entryType: EntryTypes;
-
     public requestModal: EntryModel;
 
     constructor(private popoverCtrl: PopoverController, private activatedRouter: ActivatedRoute, private store: Store<AppState>,
-                private router: Router) {
+                private router: Router, private _generalService: GeneralService) {
     }
 
     async ngOnInit() {
@@ -46,7 +46,7 @@ export class EntryPage implements OnInit, OnDestroy {
         });
 
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
-            this.requestModal = req;
+            this.requestModal = {...req};
         });
     }
 
@@ -98,6 +98,17 @@ export class EntryPage implements OnInit, OnDestroy {
             if (res && res.data) {
                 this.requestModal.transactions[0].particular = res.data.uniqueName;
                 this.requestModal.transactions[0].name = res.data.name;
+
+                this.requestModal.isMultiCurrencyAvailable = (res.data.currency) && (res.data.currency !== this._generalService.activeCompany.baseCurrency);
+
+                if (this.requestModal.isMultiCurrencyAvailable) {
+                    const baseCurrencyDetails = this._generalService.currencies.find(f => f.code === res.data.currency);
+                    const foreignCurrencyDetails = this._generalService.currencies.find(f => f.code === this._generalService.activeCompany.baseCurrency);
+
+                    this.requestModal.baseCurrencyDetails = {...baseCurrencyDetails};
+                    this.requestModal.foreignCurrencyDetails = {...foreignCurrencyDetails};
+                }
+                this.updateRequestModal();
                 this.router.navigate(['pages', 'entry', this.entryType, 'create']);
             } else {
                 this.goToHome();
