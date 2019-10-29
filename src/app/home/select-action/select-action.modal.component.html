@@ -1,7 +1,7 @@
 <ion-content>
 
     <ion-item no-lines>
-        <ion-label class="heading"> Select Action</ion-label>
+        <ion-label class="heading"> {{ 'selectAction' | translate }}</ion-label>
     </ion-item>
 
     <ion-card *ngFor="let action of actions" class="ion-padding" [ngStyle]="action.style"
@@ -20,7 +20,7 @@
 
                 <ion-col>
                     <ion-text [color]="action.color">
-                     <h1> <strong>{{ action.name }}</strong></h1>
+                        <h1><strong>{{ action.name }}</strong></h1>
                     </ion-text>
                 </ion-col>
             </ion-row>

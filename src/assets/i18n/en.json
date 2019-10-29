@@ -4,5 +4,20 @@
     "home": "Home",
     "settings": "Settings",
     "logout": "Logout"
+  },
+  "selectAction": "Select Action",
+  "addAmount": "Add Amount",
+  "createEntry": {
+    "selectDate": "Select Date",
+    "writeANote": "Write a note",
+    "attachment": "Attachment",
+    "receiptMode": "Receipt Mode",
+    "debtor": "Debtor",
+    "paymentMode": "Payment Mode",
+    "creditor": "Creditor",
+    "withdrawalFrom": "Withdrawal From",
+    "depositTo": "Deposit To",
+    "Reference/Cheque": "Reference/Cheque",
+    "conversionRates": "Conversion Rates"
   }
 }

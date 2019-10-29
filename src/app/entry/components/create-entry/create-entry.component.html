@@ -25,14 +25,15 @@
             <ion-item>
                 <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
                 <ion-label>
-                    <ion-datetime placeholder="Select Date" name="entryDate"
+                    <ion-datetime placeholder="{{ 'createEntry.selectDate' | translate }}" name="entryDate"
                                   [(ngModel)]="requestModal.entryDate" required></ion-datetime>
                 </ion-label>
             </ion-item>
 
             <ion-item>
                 <ion-icon class="icon" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
-                <ion-textarea placeholder="Write a note" [(ngModel)]="requestModal.description" name="description"></ion-textarea>
+                <ion-textarea placeholder="{{ 'createEntry.writeANote' | translate }}"
+                              [(ngModel)]="requestModal.description" name="description"></ion-textarea>
             </ion-item>
 
             <!-- region attachment -->
@@ -40,7 +41,7 @@
                 <ion-icon class="icon" slot="start"
                           src="../../../../assets/icon/attachment.svg"
                           [color]="requestModal.entryType"></ion-icon>
-                <ion-label>Attachment</ion-label>
+                <ion-label>{{ 'createEntry.attachment' | translate }}</ion-label>
             </ion-item>
 
             <ion-item class="inner-item">
@@ -66,7 +67,7 @@
                 <ion-item>
                     <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
                               [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Receipt Mode</ion-label>
+                    <ion-label>{{ 'createEntry.receiptMode' | translate }}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
@@ -80,7 +81,7 @@
                         <ion-icon class="icon" slot="start"
                                   src="../../../../assets/icon/account.svg"
                                   [color]="requestModal.entryType"></ion-icon>
-                        <ion-label>Debtor</ion-label>
+                        <ion-label>{{ 'createEntry.debtor' | translate }}</ion-label>
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
@@ -96,7 +97,7 @@
                 <ion-item>
                     <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
                               [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Payment Mode</ion-label>
+                    <ion-label>{{ 'createEntry.paymentMode' | translate}}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
@@ -110,7 +111,7 @@
                         <ion-icon class="icon" slot="start"
                                   src="../../../../assets/icon/account.svg"
                                   [color]="requestModal.entryType"></ion-icon>
-                        <ion-label>Creditor</ion-label>
+                        <ion-label>{{ 'createEntry.creditor' | translate}}</ion-label>
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditor')">
@@ -127,7 +128,7 @@
                 <ion-item>
                     <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
                               [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Withdrawal from</ion-label>
+                    <ion-label>{{ 'createEntry.withdrawalFrom' | translate }}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
@@ -137,7 +138,7 @@
                 <ion-item>
                     <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
                               [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Deposit to</ion-label>
+                    <ion-label>{{ 'createEntry.depositTo' | translate }}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
@@ -151,11 +152,12 @@
                 <ion-item>
                     <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
                               [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Reference/Cheque #</ion-label>
+                    <ion-label>{{'createEntry.Reference/Cheque' | translate}} #</ion-label>
                 </ion-item>
 
                 <ion-item class="inner-item">
-                    <ion-input [(ngModel)]="requestModal.chequeNumber" name="chequeNumber" placeholder="Reference/Cheque No"></ion-input>
+                    <ion-input [(ngModel)]="requestModal.chequeNumber" name="chequeNumber"
+                               placeholder="{{'createEntry.Reference/Cheque' | translate}} #"></ion-input>
                 </ion-item>
             </ng-container>
             <!-- endregion -->
@@ -165,7 +167,7 @@
                 <ion-item>
                     <ion-icon class="icon" slot="start"
                               src="../../../../assets/icon/Switch_icon.svg" [color]="requestModal.entryType"></ion-icon>
-                    <ion-label>Conversion Rates</ion-label>
+                    <ion-label>{{'createEntry.conversionRates' | translate}}</ion-label>
                 </ion-item>
 
                 <ion-item class="inner-item">
@@ -178,7 +180,8 @@
                             =
                         </ion-label>
 
-                        <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" name="exchangeRate" type="number"></ion-input>
+                        <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" name="exchangeRate"
+                                   type="number"></ion-input>
 
                         <ion-label>
                             {{ activeCurrency === 0 ? requestModal.foreignCurrencyDetails.code : requestModal.baseCurrencyDetails.code }}

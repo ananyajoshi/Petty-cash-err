@@ -10,6 +10,7 @@ import {CreateEntryComponent} from './components/create-entry/create-entry.compo
 import {PaymentModeComponent} from './components/payment-mode/payment-mode.component';
 import {SelectDebtorCreditorComponent} from './components/select-debtor-creditor/select-debtor-creditor.component';
 import {SelectWithdrawalDepositAccountComponent} from './components/select-withdrawal-deposit-account/select-withdrawal-deposit-account.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [
     {
@@ -27,7 +28,8 @@ const routes: Routes = [
     imports: [
         SharedModule,
         RouterModule.forChild(routes),
-        FormsModule
+        FormsModule,
+        TranslateModule
     ],
     declarations: [EntryPage, AddAmountComponent, SelectAccountComponentComponent, CreateEntryComponent,
         PaymentModeComponent, SelectDebtorCreditorComponent, SelectWithdrawalDepositAccountComponent],
