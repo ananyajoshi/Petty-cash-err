@@ -25,7 +25,8 @@ export class HomePage implements OnInit {
         const modal = await this.popover.create({
             component: SelectActionModalComponent,
             cssClass: 'select-action-popover',
-            backdropDismiss: true
+            backdropDismiss: true,
+            showBackdrop: true
         });
         modal.present();
 

@@ -77,7 +77,8 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             component: PaymentModeComponent,
             animated: true,
             backdropDismiss: false,
-            cssClass: 'select-amount-popover'
+            cssClass: 'select-amount-popover',
+            showBackdrop: true
         });
 
         await paymentModePopover.present();
@@ -113,7 +114,8 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             component: SelectDebtorCreditorComponent,
             animated: true,
             backdropDismiss: false,
-            cssClass: 'select-amount-popover'
+            cssClass: 'select-amount-popover',
+            showBackdrop: true
         });
 
         await accountListPopover.present();
@@ -139,7 +141,8 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             component: SelectWithdrawalDepositAccountComponent,
             animated: true,
             backdropDismiss: false,
-            cssClass: 'select-amount-popover'
+            cssClass: 'select-amount-popover',
+            showBackdrop: true
         });
 
         await accountListPopover.present();
