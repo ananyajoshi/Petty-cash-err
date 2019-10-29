@@ -9,6 +9,10 @@ ion-card {
   margin: 10px 15px 20px;
   padding: 14px 10px 2px;
   box-shadow: none;
+  box-shadow: 0px 6px 5px #0000002e;
+  &:hover{
+    box-shadow: unset;
+  }
 }
 
 ion-item {
