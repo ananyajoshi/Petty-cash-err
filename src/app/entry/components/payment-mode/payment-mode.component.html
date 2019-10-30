@@ -6,10 +6,10 @@
 
     <ion-grid>
 
-        <ion-row class="main-container">
+        <ion-row>
 
             <ion-col>
-                <ion-list lines="none">
+                <ion-list lines="none" class="main-container scroll">
 
                     <ion-item *ngIf="entryType === 'sales'"
                               (click)="accountSelected({ name: 'Not Yet Received', uniqueName: 'notYetReceived' })">
@@ -33,7 +33,8 @@
 
                 </ion-list>
             </ion-col>
-
+        </ion-row>
+        <ion-row>
             <ion-col size="12" class="ion-align-self-end model-footer">
 
 

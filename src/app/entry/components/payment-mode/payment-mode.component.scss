@@ -1,3 +1,19 @@
-.model-footer{
+
+.model-footer {
   border-top: 1px solid gainsboro;
+}
+
+::ng-deep.search-box {
+  input.searchbar-input.sc-ion-searchbar-md {
+    box-shadow: unset;
+    border: 1px solid gainsboro;
+    padding: 4px;
+    padding-left: 48px;
+  }
+}
+.scroll{
+  overflow: auto;
+}
+.main-container {
+  height: 300px;
 }
