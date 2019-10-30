@@ -192,8 +192,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         this.requestModal.exchangeRate = Number(this.requestModal.exchangeRate) || 0;
     }
 
-    chooseFile() {
-        this.isFileUploading = true;
+    async chooseFile() {
         if (this.platform.is('android')) {
             const fc = new FileChooser();
             fc.open({mime: 'image/*'})

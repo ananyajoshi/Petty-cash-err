@@ -42,7 +42,7 @@ ion-datetime {
 
 form, ion-list {
   background: #F7F8FA;
-  height: 100%;
+  min-height: 100%;
 }
 
 ::ng-deep.inner-item {
