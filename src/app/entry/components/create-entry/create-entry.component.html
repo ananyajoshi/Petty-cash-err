@@ -45,14 +45,15 @@
             </ion-item>
 
             <ion-item class="inner-item">
-                <ion-button class="attachment" color="medium" fill="clear">
+                <ion-button class="attachment" color="medium" fill="clear" (click)="chooseFile()">
                     <ion-icon name="camera">
                     </ion-icon>
                 </ion-button>
                 <ion-grid style="overflow-x: auto;">
                     <ion-row nowrap>
-                        <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6" *ngFor="let a of [1,2,3,4,5,6]">
-                            <ion-img src="../../../../assets/icon/alhamdlulillah_1x.png"></ion-img>
+                        <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6"
+                                 *ngFor="let file of requestModal.attachedFilesVm">
+                            <ion-img [src]="file"></ion-img>
                         </ion-col>
 
                     </ion-row>
@@ -190,7 +191,9 @@
                     </ion-item>
 
                     <ion-item>
-                        <ion-button class="btn-tran" (click)="switchExchangeRate()" color="light"><ion-icon name="swap"></ion-icon></ion-button>
+                        <ion-button class="btn-tran" (click)="switchExchangeRate()" color="light">
+                            <ion-icon name="swap"></ion-icon>
+                        </ion-button>
                     </ion-item>
 
                 </ion-item>
@@ -203,7 +206,8 @@
     <!-- fab placed to the bottom end -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 
-        <ion-fab-button (click)="createEntry()" [disabled]="entryForm.invalid || createEntryInProcess">
+        <ion-fab-button (click)="createEntry()"
+                        [disabled]="entryForm.invalid || createEntryInProcess || isFileUploading">
             <ion-icon name="checkmark"></ion-icon>
         </ion-fab-button>
 

@@ -5,7 +5,7 @@ import {select, Store} from '@ngrx/store';
 import {AppState} from '../../../store/reducer';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {CreateEntryAction, ResetEntryAction} from '../../../actions/entry/entry.action';
-import {PopoverController} from '@ionic/angular';
+import {Platform, PopoverController, ToastController} from '@ionic/angular';
 import {IFlattenAccountsResultItem} from '../../../models/account.model';
 import {PaymentModeComponent} from '../payment-mode/payment-mode.component';
 import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-debtor-creditor.component';
@@ -13,6 +13,9 @@ import * as moment from 'moment';
 import {SelectWithdrawalDepositAccountComponent} from '../select-withdrawal-deposit-account/select-withdrawal-deposit-account.component';
 import {CompanyService} from '../../../services/company/company.service';
 import {GeneralService} from '../../../services/general.service';
+import {FileChooser} from '@ionic-native/file-chooser/ngx';
+import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native/file-transfer/ngx';
+import {EntryUrls} from '../../../services/entry/entry.url';
 
 @Component({
     selector: 'create-entry',
@@ -31,12 +34,14 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public createEntryInProcess: boolean = false;
     public activeCurrency: 0 | 1 = 0;
     public isBankAccountSelected: boolean = false;
+
+    public isFileUploading: boolean;
     public paymentModePopover;
     public debtorListPopover;
     public depositListPopover;
 
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService,
-                private _generalService: GeneralService) {
+                private _generalService: GeneralService, private platform: Platform, private toasterCtrl: ToastController) {
     }
 
     ngOnInit() {
@@ -184,6 +189,58 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
     exchangeRateChanged() {
         this.requestModal.exchangeRate = Number(this.requestModal.exchangeRate) || 0;
+    }
+
+    chooseFile() {
+        this.isFileUploading = true;
+        if (this.platform.is('android')) {
+            const fc = new FileChooser();
+            fc.open({mime: 'image/*'})
+                .then(uri => {
+                    const transfer = new FileTransfer();
+                    const fileTransfer: FileTransferObject = transfer.create();
+                    const options: FileUploadOptions = {
+                        fileKey: 'file',
+                        headers: {
+                            'Session-Id': this._generalService.sessionId
+                        }
+                    };
+                    const httpUrl = EntryUrls.uploadAttachment.replace(':companyUniqueName', this._generalService.activeCompany.uniqueName);
+                    fileTransfer.upload(uri, httpUrl, options)
+                        .then((data) => {
+                            if (data && data.response) {
+                                const result = JSON.parse(data.response);
+                                this.requestModal.attachedFiles.push(result.body.uniqueName);
+                                this.requestModal.attachedFilesVm.push(result.body.path + '.' + result.body.imageFormat);
+                                this.showToaster('Attachment uploaded successfully');
+                                this.isFileUploading = false;
+                            }
+                        }, (err) => {
+                            // show toaster
+                            this.showToaster('Something Went Wrong');
+                            this.isFileUploading = false;
+                        });
+
+                })
+                .catch(e => {
+                    // show toaster
+                    this.showToaster('Something Went Wrong');
+                    this.isFileUploading = false;
+                });
+        } else if (this.platform.is('ios')) {
+            //
+        }
+    }
+
+    private async showToaster(msg: string, type: string = 'success') {
+        const toaster = await this.toasterCtrl.create({
+            duration: 3000,
+            color: type,
+            message: msg,
+            showCloseButton: true,
+            position: 'top'
+        });
+        await toaster.present();
     }
 
     private getAccounts(type: string): IFlattenAccountsResultItem[] {

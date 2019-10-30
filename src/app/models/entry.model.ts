@@ -8,6 +8,7 @@ export class EntryModel {
     baseAccount: string;
     baseAccountName: string;
     attachedFiles: string[];
+    attachedFilesVm: string[];
     description: string;
     chequeNumber?: string;
     isMultiCurrencyAvailable?: boolean;
@@ -19,6 +20,8 @@ export class EntryModel {
         this.isMultiCurrencyAvailable = false;
         this.baseCurrencyDetails = null;
         this.foreignCurrencyDetails = null;
+        this.attachedFiles = [];
+        this.attachedFilesVm = [];
     }
 }
 
