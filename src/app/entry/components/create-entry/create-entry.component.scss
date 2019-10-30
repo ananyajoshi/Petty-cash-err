@@ -92,3 +92,6 @@ form, ion-list {
 .ios .mt-22-io{
   margin-top: 22px;
 }
+::ng-deep.btn-tran button{
+  box-shadow: unset !important;
+}
