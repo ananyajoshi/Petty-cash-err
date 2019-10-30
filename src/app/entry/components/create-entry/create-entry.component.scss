@@ -54,16 +54,19 @@ form, ion-list {
   flex-wrap: wrap;
   width: 100%;
 }
-.attachment{
+
+.attachment {
   height: 60px;
   width: 60px;
   background-color: #E3E3E5;
   margin-right: 10px;
-  ion-icon{
+
+  ion-icon {
     font-size: 30px;
   }
 }
-.text-box{
+
+.text-box {
   background-color: white;
   margin-left: 15px;
   margin-right: 9px;
@@ -71,27 +74,40 @@ form, ion-list {
   text-align: end;
 
 }
-::ng-deep.text-box input{
+
+::ng-deep.text-box input {
   padding: 3px !important;
   width: 63px !important;
 
 }
-::ng-deep.inner-t-list .item-native{
+
+::ng-deep.inner-t-list .item-native {
   padding: 0 !important;
 }
-.mt-0{margin-top: 0}
-.ios .header-io{
+
+.mt-0 {
+  margin-top: 0
+}
+
+.ios .header-io {
   font-size: 20px;
   margin: 0;
 }
-.ios .header-value-io{
+
+.ios .header-value-io {
   font-size: 17px;
   margin: 0;
 }
 
-.ios .mt-22-io{
+.ios .mt-22-io {
   margin-top: 22px;
 }
-::ng-deep.btn-tran button{
+
+::ng-deep.btn-tran button {
   box-shadow: unset !important;
+}
+
+.attachmentImg {
+  height: 61px;
+  object-fit: cover;
 }
