@@ -3,7 +3,7 @@
     <name>Petty Cash</name>
     <description>Petty Cash Management App</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Giddh Inc.</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -107,4 +107,5 @@
     <plugin name="cordova-plugin-device" spec="2.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
+    <allow-navigation href="http://localhost:8100" sessionid="8236ade6" />
 </widget>

@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PopoverController} from '@ionic/angular';
-import {Router} from '@angular/router';
+import {PopoverController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'add-amount',
@@ -12,7 +11,7 @@ export class AddAmountComponent implements OnInit {
     @Input() public actionType: string;
     public amount: number = 0;
 
-    constructor(private popoverCtrl: PopoverController) {
+    constructor(private popoverCtrl: PopoverController, private toasterController: ToastController) {
     }
 
     ngOnInit() {
@@ -29,6 +28,20 @@ export class AddAmountComponent implements OnInit {
     }
 
     onAmountAdded() {
-        this.popoverCtrl.dismiss({amount: this.amount});
+        const amount = Number(this.amount);
+        if (Number.isNaN(amount) || amount < 0) {
+            this.toasterController.create({
+                color: 'danger',
+                duration: 3000,
+                message: 'Please add valid amount',
+                showCloseButton: true,
+                position: 'top'
+            }).then((res => {
+                res.present();
+                return;
+            }));
+        } else {
+            this.popoverCtrl.dismiss({amount: this.amount});
+        }
     }
 }
