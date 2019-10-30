@@ -32,7 +32,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     entryComponents: [NoCompanyModalComponent, SelectCompanyComponent],
     imports: [
         BrowserModule,
-        IonicModule.forRoot(),
+        IonicModule.forRoot({
+            scrollPadding: false,
+            scrollAssist: false
+        }),
         AppRoutingModule,
         HttpClientModule,
         TranslateModule.forRoot({

@@ -12,6 +12,7 @@ import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-de
 import * as moment from 'moment';
 import {SelectWithdrawalDepositAccountComponent} from '../select-withdrawal-deposit-account/select-withdrawal-deposit-account.component';
 import {CompanyService} from '../../../services/company/company.service';
+import {GeneralService} from '../../../services/general.service';
 
 @Component({
     selector: 'create-entry',
@@ -30,8 +31,12 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public createEntryInProcess: boolean = false;
     public activeCurrency: 0 | 1 = 0;
     public isBankAccountSelected: boolean = false;
+    public paymentModePopover;
+    public debtorListPopover;
+    public depositListPopover;
 
-    constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService) {
+    constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService,
+                private _generalService: GeneralService) {
     }
 
     ngOnInit() {
@@ -68,8 +73,12 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         this.store.dispatch(new CreateEntryAction(this.requestModal));
     }
 
+    ionViewDidLoad() {
+        this._generalService.manageInputFocusScroll(90);
+    }
+
     async showPaymentMode() {
-        const paymentModePopover = await this.popoverCtrl.create({
+        this.paymentModePopover = await this.popoverCtrl.create({
             componentProps: {
                 accountList: [...this.depositAccounts],
                 entryType: this.requestModal.entryType
@@ -81,9 +90,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             showBackdrop: true
         });
 
-        await paymentModePopover.present();
+        await this.paymentModePopover.present();
 
-        paymentModePopover.onDidDismiss().then(res => {
+        this.paymentModePopover.onDidDismiss().then(res => {
             if (res && res.data) {
                 if (['notYetReceived', 'notYetPaid'].includes(res.data.uniqueName)) {
                     this.otherPaymentMode = res.data;
@@ -105,7 +114,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     async showDebtorCreditor(type: string) {
-        const accountListPopover = await this.popoverCtrl.create({
+        this.debtorListPopover = await this.popoverCtrl.create({
             componentProps: {
                 accountList: [...this.getAccounts(type)],
                 entryType: this.requestModal.entryType,
@@ -118,9 +127,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             showBackdrop: true
         });
 
-        await accountListPopover.present();
+        await this.debtorListPopover.present();
 
-        accountListPopover.onDidDismiss().then(res => {
+        this.debtorListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
                 this.requestModal.baseAccount = res.data.uniqueName;
                 this.requestModal.baseAccountName = res.data.name;
@@ -133,7 +142,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     async showWithdrawalDepositAcc(type: string) {
-        const accountListPopover = await this.popoverCtrl.create({
+        this.depositListPopover = await this.popoverCtrl.create({
             componentProps: {
                 accountList: [...this.depositAccounts.filter(f => f.uniqueName !== this.requestModal.transactions[0].particular)],
                 type
@@ -145,9 +154,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             showBackdrop: true
         });
 
-        await accountListPopover.present();
+        await this.depositListPopover.present();
 
-        accountListPopover.onDidDismiss().then(res => {
+        this.depositListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
                 if (type === 'withdrawal') {
                     this.requestModal.transactions[0].particular = res.data.uniqueName;
@@ -197,5 +206,16 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        if (this.paymentModePopover) {
+            this.paymentModePopover.dismiss();
+        }
+
+        if (this.debtorListPopover) {
+            this.debtorListPopover.dismiss();
+        }
+
+        if (this.depositListPopover) {
+            this.depositListPopover.dismiss();
+        }
     }
 }
