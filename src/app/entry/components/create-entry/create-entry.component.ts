@@ -73,8 +73,8 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         this.store.dispatch(new CreateEntryAction(this.requestModal));
     }
 
-    ionViewDidLoad() {
-        this._generalService.manageInputFocusScroll(90);
+    ionViewDidEnter() {
+        // this._generalService.manageInputFocusScroll(90);
     }
 
     async showPaymentMode() {
