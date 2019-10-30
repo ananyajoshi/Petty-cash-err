@@ -15,6 +15,7 @@ import {CompanyService} from '../../../services/company/company.service';
 import {GeneralService} from '../../../services/general.service';
 import {FileChooser} from '@ionic-native/file-chooser/ngx';
 import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native/file-transfer/ngx';
+import {IOSFilePicker} from '@ionic-native/file-picker/ngx';
 import {EntryUrls} from '../../../services/entry/entry.url';
 
 @Component({
@@ -197,39 +198,48 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             const fc = new FileChooser();
             fc.open({mime: 'image/*'})
                 .then(uri => {
-                    const transfer = new FileTransfer();
-                    const fileTransfer: FileTransferObject = transfer.create();
-                    const options: FileUploadOptions = {
-                        fileKey: 'file',
-                        headers: {
-                            'Session-Id': this._generalService.sessionId
-                        }
-                    };
-                    const httpUrl = EntryUrls.uploadAttachment.replace(':companyUniqueName', this._generalService.activeCompany.uniqueName);
-                    fileTransfer.upload(uri, httpUrl, options)
-                        .then((data) => {
-                            if (data && data.response) {
-                                const result = JSON.parse(data.response);
-                                this.requestModal.attachedFiles.push(result.body.uniqueName);
-                                this.requestModal.attachedFilesVm.push(result.body.path + '.' + result.body.imageFormat);
-                                this.showToaster('Attachment uploaded successfully');
-                                this.isFileUploading = false;
-                            }
-                        }, (err) => {
-                            // show toaster
-                            this.showToaster('Something Went Wrong');
-                            this.isFileUploading = false;
-                        });
-
+                    this.uploadFile(uri);
                 })
                 .catch(e => {
-                    // show toaster
                     this.showToaster('Something Went Wrong');
                     this.isFileUploading = false;
                 });
         } else if (this.platform.is('ios')) {
-            //
+            const filePicker = new IOSFilePicker();
+            filePicker.pickFile()
+                .then(uri => {
+                    this.uploadFile(uri);
+                }).catch(err => {
+                this.showToaster('Something Went Wrong');
+                this.isFileUploading = false;
+            });
         }
+    }
+
+    private uploadFile(uri) {
+        const transfer = new FileTransfer();
+        const fileTransfer: FileTransferObject = transfer.create();
+        const options: FileUploadOptions = {
+            fileKey: 'file',
+            headers: {
+                'Session-Id': this._generalService.sessionId
+            }
+        };
+        const httpUrl = EntryUrls.uploadAttachment.replace(':companyUniqueName', this._generalService.activeCompany.uniqueName);
+        fileTransfer.upload(uri, httpUrl, options)
+            .then((data) => {
+                if (data && data.response) {
+                    const result = JSON.parse(data.response);
+                    this.requestModal.attachedFiles.push(result.body.uniqueName);
+                    this.requestModal.attachedFilesVm.push(result.body.path + '.' + result.body.imageFormat);
+                    this.showToaster('Attachment uploaded successfully');
+                    this.isFileUploading = false;
+                }
+            }, (err) => {
+                // show toaster
+                this.showToaster('Something Went Wrong');
+                this.isFileUploading = false;
+            });
     }
 
     private async showToaster(msg: string, type: string = 'success') {
