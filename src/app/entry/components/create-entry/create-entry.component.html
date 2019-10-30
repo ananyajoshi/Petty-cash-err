@@ -7,8 +7,8 @@
         </ion-buttons>
 
         <ion-title>
-            <h3>{{ requestModal.entryType | titlecase }}</h3>
-            <h4>
+            <h3 class="header-io">{{ requestModal.entryType | titlecase }}</h3>
+            <h4 class="header-value-io">
                 {{ requestModal.isMultiCurrencyAvailable ? requestModal.baseCurrencyDetails.symbol : '' }}
                 {{ requestModal?.transactions[0]?.amount }}
             </h4>
@@ -33,7 +33,7 @@
             <ion-item>
                 <ion-icon class="icon mt-0" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
                 <ion-textarea placeholder="{{ 'createEntry.writeANote' | translate }}"
-                              [(ngModel)]="requestModal.description" name="description"></ion-textarea>
+                              [(ngModel)]="requestModal.description" name="description" class="mt-22-io"></ion-textarea>
             </ion-item>
 
             <!-- region attachment -->
