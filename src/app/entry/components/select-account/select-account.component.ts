@@ -14,7 +14,7 @@ export class SelectAccountComponentComponent implements OnInit {
     @Input() public accountList: IFlattenAccountsResultItem[] = [];
     public searchModal: string = '';
     public title: string;
-
+    public selectedAcc: IFlattenAccountsResultItem = {name: 'others', uniqueName: 'others'};
     public filteredAccounts: IFlattenAccountsResultItem[] = [];
 
     constructor(private popoverCtrl: PopoverController) {
@@ -44,7 +44,11 @@ export class SelectAccountComponentComponent implements OnInit {
     }
 
     accountSelected(account: IFlattenAccountsResultItem) {
-        this.popoverCtrl.dismiss(account);
+        this.selectedAcc = account;
+    }
+
+    next() {
+        this.popoverCtrl.dismiss(this.selectedAcc);
     }
 
     cancelModal() {

@@ -100,8 +100,19 @@ export class EntryPage implements OnInit, OnDestroy {
 
         this.accountListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                this.requestModal.transactions[0].particular = res.data.uniqueName;
-                this.requestModal.transactions[0].name = res.data.name;
+                if (res.data.uniqueName === 'others') {
+                    const isThereOthersAcc = this.accountList.find(d => d.uniqueName === 'others');
+                    if (isThereOthersAcc) {
+                        this.requestModal.transactions[0].particular = isThereOthersAcc.uniqueName;
+                        this.requestModal.transactions[0].name = isThereOthersAcc.name;
+                    } else {
+                        this.requestModal.transactions[0].particular = '';
+                        this.requestModal.transactions[0].name = 'Others';
+                    }
+                } else {
+                    this.requestModal.transactions[0].particular = res.data.uniqueName;
+                    this.requestModal.transactions[0].name = res.data.name;
+                }
 
                 this.requestModal.isMultiCurrencyAvailable = (res.data.currency) && (res.data.currency !== this._generalService.activeCompany.baseCurrency);
 
