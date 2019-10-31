@@ -8,33 +8,27 @@
                    (ionChange)="searchInputChanged()" [(ngModel)]="searchModal"
                    placeholder="Search Account"></ion-searchbar>
 
-    <ion-grid>
-
+    <ion-grid class="p-0">
 
         <ion-row>
 
-            <ion-col>
+            <ion-col class="p-0">
                 <ion-list lines="none" class="main-container scroll">
 
                     <ion-item *ngFor="let account of filteredAccounts" class=""
-                              (click)="accountSelected(account)">
-                        <ion-label>
+                              (click)="accountSelected(account)" button="true" type="button">
+                        <ion-label class="ion-padding-start">
                             {{ account.name }} a/c
                         </ion-label>
-
-                        <ion-icon *ngIf="account.uniqueName === selectedAcc.uniqueName"
-                                  src="../assets/icon/selected.svg" [color]="entryType">
-                        </ion-icon>
                         <!--<ion-note slot="end">$7,980</ion-note>-->
                     </ion-item>
 
-                    <ion-item (click)="accountSelected({ uniqueName: 'others', name: 'others' })">
-                        <ion-label>
+                    <ion-item (click)="accountSelected({ uniqueName: 'others', name: 'others' })" button="true"
+                              type="button">
+                        <ion-label class="ion-padding-start">
                             Others
                         </ion-label>
 
-                        <ion-icon *ngIf="selectedAcc.uniqueName === 'others'"
-                                  src="../assets/icon/selected.svg" [color]="entryType"></ion-icon>
                     </ion-item>
 
                 </ion-list>
@@ -46,8 +40,7 @@
 
             <ion-col size="12" class="ion-align-self-end model-footer">
 
-                <ion-button (click)="next()" class="ion-float-right" [color]="entryType" fill="clear">Next</ion-button>
-                <ion-button (click)="cancelModal()" class="ion-float-right" fill="clear" color="medium">Cancel
+                <ion-button (click)="cancelModal()" expand="full" fill="clear" color="medium">Cancel
                 </ion-button>
 
             </ion-col>
