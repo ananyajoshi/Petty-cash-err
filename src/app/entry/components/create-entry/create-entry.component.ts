@@ -17,9 +17,9 @@ import {FileChooser} from '@ionic-native/file-chooser/ngx';
 import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native/file-transfer/ngx';
 import {IOSFilePicker} from '@ionic-native/file-picker/ngx';
 import {EntryUrls} from '../../../services/entry/entry.url';
-import {Plugins} from '@capacitor/core';
+// import {Plugins} from '@capacitor/core'
 
-const {Device} = Plugins;
+// const {Device} = Plugins;
 
 @Component({
     selector: 'create-entry',
@@ -240,10 +240,27 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             filePicker.pickFile()
                 .then(uri => {
                     this.uploadFile(uri);
-                }).catch(err => {
-                this.showToaster('Something Went Wrong', 'danger');
-                this.isFileUploading = false;
-            });
+                })
+                .catch(e => {
+                    if (e !== 'canceled') {
+                        this.showToaster('Something Went Wrong', 'danger');
+                        this.isFileUploading = false;
+                    }
+                });
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.paymentModePopover) {
+            this.paymentModePopover.dismiss();
+        }
+
+        if (this.debtorListPopover) {
+            this.debtorListPopover.dismiss();
+        }
+
+        if (this.depositListPopover) {
+            this.depositListPopover.dismiss();
         }
     }
 
@@ -301,19 +318,5 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     this.requestModal.exchangeRate = rate;
                 }
             });
-    }
-
-    ngOnDestroy(): void {
-        if (this.paymentModePopover) {
-            this.paymentModePopover.dismiss();
-        }
-
-        if (this.debtorListPopover) {
-            this.debtorListPopover.dismiss();
-        }
-
-        if (this.depositListPopover) {
-            this.depositListPopover.dismiss();
-        }
     }
 }
