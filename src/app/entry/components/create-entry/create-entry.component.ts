@@ -238,10 +238,13 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             filePicker.pickFile()
                 .then(uri => {
                     this.uploadFile(uri);
-                }).catch(err => {
-                this.showToaster('Something Went Wrong', 'danger');
-                this.isFileUploading = false;
-            });
+                })
+                .catch(err => {
+                    if (err !== 'canceled') {
+                        this.showToaster('Something Went Wrong', 'danger');
+                    }
+                    this.isFileUploading = false;
+                });
         } else if (this.platform.is('desktop')) {
             // web
             this.webFileInput.nativeElement.click();
