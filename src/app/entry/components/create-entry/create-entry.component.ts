@@ -150,7 +150,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     async showWithdrawalDepositAcc(type: string) {
         this.depositListPopover = await this.popoverCtrl.create({
             componentProps: {
-                accountList: [...this.depositAccounts.filter(f => f.uniqueName !== this.requestModal.transactions[0].particular)],
+                accountList: [...this.depositAccounts],
                 type
             },
             component: SelectWithdrawalDepositAccountComponent,
@@ -164,12 +164,36 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
         this.depositListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                if (type === 'withdrawal') {
-                    this.requestModal.transactions[0].particular = res.data.uniqueName;
-                    this.requestModal.transactions[0].name = res.data.name;
+
+                if (res.data.uniqueName === 'others') {
+                    const isThereOthersAcc = this.depositAccounts.find(d => d.uniqueName === 'others');
+                    if (isThereOthersAcc) {
+                        if (type === 'withdrawal') {
+                            this.requestModal.transactions[0].particular = isThereOthersAcc.uniqueName;
+                            this.requestModal.transactions[0].name = isThereOthersAcc.name;
+                        } else {
+                            this.requestModal.baseAccount = isThereOthersAcc.uniqueName;
+                            this.requestModal.baseAccountName = isThereOthersAcc.name;
+                        }
+                    } else {
+                        if (type === 'withdrawal') {
+                            this.requestModal.transactions[0].particular = '';
+                            this.requestModal.transactions[0].name = 'Others';
+                        } else {
+                            this.requestModal.baseAccount = '';
+                            this.requestModal.baseAccountName = 'Others';
+                        }
+                    }
                 } else {
-                    this.requestModal.baseAccount = res.data.uniqueName;
-                    this.requestModal.baseAccountName = res.data.name;
+                    if (type === 'withdrawal') {
+                        this.requestModal.transactions[0].particular = res.data.uniqueName;
+                        this.requestModal.transactions[0].name = res.data.name;
+                    } else {
+                        this.requestModal.baseAccount = res.data.uniqueName;
+                        this.requestModal.baseAccountName = res.data.name;
+
+                        this.isBankAccountSelected = res.data.parentGroups.some(s => s.uniqueName === 'bankaccounts');
+                    }
                 }
             } else {
                 // this.goToHome();
@@ -200,7 +224,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     this.uploadFile(uri);
                 })
                 .catch(e => {
-                    this.showToaster('Something Went Wrong');
+                    this.showToaster('Something Went Wrong', 'danger');
                     this.isFileUploading = false;
                 });
         } else if (this.platform.is('ios')) {
@@ -209,7 +233,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                 .then(uri => {
                     this.uploadFile(uri);
                 }).catch(err => {
-                this.showToaster('Something Went Wrong');
+                this.showToaster('Something Went Wrong', 'danger');
                 this.isFileUploading = false;
             });
         }
