@@ -12,6 +12,10 @@ ion-list ion-item {
   --inner-padding-top: 0;
 }
 
+.modal-header {
+  border-bottom: 1px solid gainsboro;
+}
+
 .model-footer {
   border-top: 1px solid gainsboro;
 }

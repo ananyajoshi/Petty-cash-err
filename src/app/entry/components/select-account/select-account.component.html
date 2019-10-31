@@ -1,8 +1,12 @@
 <ion-content>
 
-    <ion-item>
-        <ion-label color="dark"><strong>Select {{ title }}</strong></ion-label>
-    </ion-item>
+    <ion-grid class="p-0">
+        <ion-row>
+            <ion-col class="modal-header ion-padding">
+                <ion-label color="dark"><strong>Select {{ title }}</strong></ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
     <ion-searchbar showCancelButton="focus" debounce="500" class="search-box"
                    (ionChange)="searchInputChanged()" [(ngModel)]="searchModal"
