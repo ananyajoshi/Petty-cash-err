@@ -72,7 +72,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label>{{
+                    <ion-label class="boldFont">{{
                         otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Receipt Mode')
                         }}</ion-label>
                 </ion-item>
@@ -86,7 +86,7 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
-                        <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
+                        <ion-label class="boldFont">{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
                     </ion-item>
                 </ng-container>
 
@@ -102,7 +102,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label>{{
+                    <ion-label class="boldFont">{{
                         otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Payment Mode')
                         }}</ion-label>
                 </ion-item>
@@ -133,7 +133,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
-                    <ion-label>{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
+                    <ion-label class="boldFont">{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
                 </ion-item>
 
                 <ion-item>
@@ -143,7 +143,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
-                    <ion-label>{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
+                    <ion-label class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
                 </ion-item>
             </ng-container>
             <!-- endregion -->

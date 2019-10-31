@@ -17,6 +17,9 @@ import {FileChooser} from '@ionic-native/file-chooser/ngx';
 import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native/file-transfer/ngx';
 import {IOSFilePicker} from '@ionic-native/file-picker/ngx';
 import {EntryUrls} from '../../../services/entry/entry.url';
+import {Plugins} from '@capacitor/core';
+
+const {Device} = Plugins;
 
 @Component({
     selector: 'create-entry',
@@ -217,6 +220,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     async chooseFile() {
+        const info = await Device.getInfo();
+        console.log(info);
+
         if (this.platform.is('android')) {
             const fc = new FileChooser();
             fc.open({mime: 'image/*'})

@@ -1,7 +1,7 @@
 <ion-content>
 
     <ion-item [color]="actionType">
-        <ion-text>{{ 'addAmount' | translate }}</ion-text>
+        <ion-text color="light"><h2>{{ 'addAmount' | translate }}</h2></ion-text>
     </ion-item>
 
     <ion-item>
@@ -13,7 +13,7 @@
 
         <ion-buttons slot="end">
 
-            <ion-button (click)="cancelModal()">Cancel</ion-button>
+            <ion-button (click)="cancelModal()" class="cancel-button">Cancel</ion-button>
             <ion-button [color]="actionType" (click)="onAmountAdded()">Done</ion-button>
 
         </ion-buttons>
