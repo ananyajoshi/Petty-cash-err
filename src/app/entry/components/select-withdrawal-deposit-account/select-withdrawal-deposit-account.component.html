@@ -11,7 +11,7 @@
             <ion-col>
                 <ion-list lines="none" class="main-container scroll">
 
-                    <ion-item *ngFor="let account of accountList" class=""
+                    <ion-item *ngFor="let account of accountList" button="true" type="button"
                               (click)="accountSelected(account)">
                         <ion-label>
                             {{ account.name }}
@@ -21,6 +21,7 @@
 
                 </ion-list>
             </ion-col>
+
         </ion-row>
 
         <ion-row>

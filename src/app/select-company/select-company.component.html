@@ -19,7 +19,7 @@
             <ion-label color="medium">Select Company</ion-label>
         </ion-list-header>
 
-        <ion-item *ngFor="let company of companies" type="button" (click)="selectCompany(company.uniqueName)">
+        <ion-item *ngFor="let company of companies" type="button" button="true" (click)="selectCompany(company.uniqueName)">
 
             <ion-label>
                 {{ company?.name }}

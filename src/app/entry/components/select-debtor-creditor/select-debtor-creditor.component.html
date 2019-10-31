@@ -4,28 +4,37 @@
         <ion-label color="dark"><strong>Select {{ accountType | titlecase }}</strong></ion-label>
     </ion-item>
 
-    <ion-grid>
+    <ion-grid class="p-0">
 
         <ion-row>
 
-            <ion-col>
+            <ion-col class="p-0">
                 <ion-list lines="none" class="main-container scroll">
 
-                    <ion-item *ngFor="let account of accountList" class=""
+                    <ion-item *ngFor="let account of accountList" button="true" type="button"
                               (click)="accountSelected(account)">
                         <ion-label>
                             {{ account.name }}
                         </ion-label>
+
+                        <ion-icon [color]="entryType" src="../../../assets/icon/selected.svg"
+                                  *ngIf="selectedItem && selectedItem.uniqueName === account.uniqueName"
+                        ></ion-icon>
                     </ion-item>
 
                 </ion-list>
             </ion-col>
+
         </ion-row>
+
         <ion-row>
             <ion-col size="12" class="ion-align-self-end model-footer">
 
-                <ion-button (click)="cancelModal()" class="ion-float-right" fill="clear" [color]="entryType">Next</ion-button>
-                <ion-button (click)="cancelModal()" class="ion-float-right" fill="clear" color="medium">Cancel</ion-button>
+                <ion-button (click)="next()" class="ion-float-right" fill="clear" [color]="entryType"
+                            [disabled]="!selectedItem">Next
+                </ion-button>
+                <ion-button (click)="cancelModal()" class="ion-float-right" fill="clear" color="medium">Cancel
+                </ion-button>
 
             </ion-col>
 

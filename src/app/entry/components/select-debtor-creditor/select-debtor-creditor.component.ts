@@ -13,13 +13,18 @@ export class SelectDebtorCreditorComponent {
     @Input() public entryType: EntryTypes;
     @Input() public accountList: IFlattenAccountsResultItem[] = [];
     @Input() public accountType: string;
+    public selectedItem: IFlattenAccountsResultItem;
 
     constructor(private popoverCtrl: PopoverController) {
 
     }
 
     accountSelected(account: IFlattenAccountsResultItem) {
-        this.popoverCtrl.dismiss(account);
+        this.selectedItem = account;
+    }
+
+    next() {
+        this.popoverCtrl.dismiss(this.selectedItem);
     }
 
     cancelModal() {
