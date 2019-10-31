@@ -220,8 +220,8 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     async chooseFile() {
-        const info = await Device.getInfo();
-        console.log(info);
+        // const info = await Device.getInfo();
+        // console.log(info);
 
         if (this.platform.is('android')) {
             const fc = new FileChooser();
@@ -230,7 +230,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     this.uploadFile(uri);
                 })
                 .catch(e => {
-                    this.showToaster('Something Went Wrong', 'danger');
+                    if (e !== 'User canceled.') {
+                        this.showToaster('Something Went Wrong', 'danger');
+                    }
                     this.isFileUploading = false;
                 });
         } else if (this.platform.is('ios')) {
