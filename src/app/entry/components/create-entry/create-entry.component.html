@@ -85,7 +85,7 @@
                         <ion-label>{{ 'createEntry.debtor' | translate }}</ion-label>
                     </ion-item>
 
-                    <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
+                    <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtors')">
                         <ion-label
                                 class="boldFont">{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
                     </ion-item>
@@ -116,7 +116,7 @@
                         <ion-label>{{ 'createEntry.creditor' | translate}}</ion-label>
                     </ion-item>
 
-                    <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditor')">
+                    <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditors')">
                         <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Creditor' }}</ion-label>
                     </ion-item>
 
