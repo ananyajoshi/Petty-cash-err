@@ -11,6 +11,7 @@ import {PaymentModeComponent} from './components/payment-mode/payment-mode.compo
 import {SelectDebtorCreditorComponent} from './components/select-debtor-creditor/select-debtor-creditor.component';
 import {SelectWithdrawalDepositAccountComponent} from './components/select-withdrawal-deposit-account/select-withdrawal-deposit-account.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {NgxUploaderModule} from 'ngx-uploader';
 
 const routes: Routes = [
     {
@@ -29,7 +30,8 @@ const routes: Routes = [
         SharedModule,
         RouterModule.forChild(routes),
         FormsModule,
-        TranslateModule
+        TranslateModule,
+        NgxUploaderModule
     ],
     declarations: [EntryPage, AddAmountComponent, SelectAccountComponentComponent, CreateEntryComponent,
         PaymentModeComponent, SelectDebtorCreditorComponent, SelectWithdrawalDepositAccountComponent],

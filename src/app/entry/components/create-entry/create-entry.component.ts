@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {EntryModel} from '../../../models/entry.model';
 import {select, Store} from '@ngrx/store';
@@ -18,6 +18,7 @@ import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native
 import {IOSFilePicker} from '@ionic-native/file-picker/ngx';
 import {EntryUrls} from '../../../services/entry/entry.url';
 import {Plugins} from '@capacitor/core';
+import {UploadInput, UploadOutput} from 'ngx-uploader';
 
 const {Device} = Plugins;
 
@@ -28,6 +29,7 @@ const {Device} = Plugins;
 })
 
 export class CreateEntryComponent implements OnInit, OnDestroy {
+    @ViewChild('webFileInput', {static: false}) public webFileInput: ElementRef;
     public requestModal: EntryModel;
     public salesAccounts: IFlattenAccountsResultItem[] = [];
     public expensesAccounts: IFlattenAccountsResultItem[] = [];
@@ -38,6 +40,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public createEntryInProcess: boolean = false;
     public activeCurrency: 0 | 1 = 0;
     public isBankAccountSelected: boolean = false;
+    public uploadInput: EventEmitter<UploadInput>;
 
     public isFileUploading: boolean;
     public paymentModePopover;
@@ -49,6 +52,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.uploadInput = new EventEmitter<UploadInput>();
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;
 
@@ -220,9 +224,6 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     async chooseFile() {
-        // const info = await Device.getInfo();
-        // console.log(info);
-
         if (this.platform.is('android')) {
             const fc = new FileChooser();
             fc.open({mime: 'image/*'})
@@ -244,6 +245,34 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                 this.showToaster('Something Went Wrong', 'danger');
                 this.isFileUploading = false;
             });
+        } else if (this.platform.is('desktop')) {
+            // web
+            this.webFileInput.nativeElement.click();
+        }
+    }
+
+    public webChooseFile(output: UploadOutput) {
+        if (output.type === 'allAddedToQueue') {
+            const event: UploadInput = {
+                type: 'uploadAll',
+                url: EntryUrls.uploadAttachment.replace(':companyUniqueName', this._generalService.activeCompany.uniqueName),
+                method: 'POST',
+                fieldName: 'file',
+                headers: {'Session-Id': this._generalService.sessionId},
+            };
+            this.uploadInput.emit(event);
+        } else if (output.type === 'start') {
+            this.isFileUploading = true;
+        } else if (output.type === 'done') {
+            if (output.file.response.status === 'success') {
+                this.requestModal.attachedFiles.push(output.file.response.body.uniqueName);
+                this.requestModal.attachedFilesVm.push(output.file.response.body.path + '.' + output.file.response.body.imageFormat);
+                this.isFileUploading = false;
+                this.showToaster('file uploaded successfully');
+            } else {
+                this.isFileUploading = false;
+                this.showToaster(output.file.response.message, 'danger');
+            }
         }
     }
 

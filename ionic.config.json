@@ -1,7 +1,8 @@
 {
   "name": "Petty-Cash",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

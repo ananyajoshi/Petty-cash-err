@@ -86,7 +86,8 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtor')">
-                        <ion-label class="boldFont">{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
+                        <ion-label
+                                class="boldFont">{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
                     </ion-item>
                 </ng-container>
 
@@ -133,7 +134,8 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
-                    <ion-label class="boldFont">{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
+                    <ion-label
+                            class="boldFont">{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
                 </ion-item>
 
                 <ion-item>
@@ -143,7 +145,8 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
-                    <ion-label class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
+                    <ion-label
+                            class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
                 </ion-item>
             </ng-container>
             <!-- endregion -->
@@ -201,6 +204,8 @@
             <!-- endregion -->
 
             <ion-item class="ion-padding"></ion-item>
+
+            <input type="file" hidden #webFileInput accept="image/*" ngFileSelect [uploadInput]="uploadInput" (uploadOutput)="webChooseFile($event)"/>
         </ion-list>
     </form>
 

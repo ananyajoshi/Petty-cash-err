@@ -21,6 +21,7 @@ import {SelectCompanyComponent} from './select-company/select-company.component'
 import {SharedModule} from './shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {NgxUploaderModule} from 'ngx-uploader';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -46,7 +47,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         ServiceModule.forRoot(),
         ActionsModule.forRoot(),
         [!environment.production ? StoreDevtoolsModule.instrument() : []],
-        SharedModule
+        SharedModule,
+        NgxUploaderModule
     ],
     providers: [
         StatusBar,
