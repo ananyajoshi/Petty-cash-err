@@ -2,13 +2,15 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './guards/auth.guard';
 import {LayoutResolver} from './resolver/layout.resolver';
+import {AlreadyAuthorizedGuard} from './guards/alreadyAuthorized.guard';
 
 const routes: Routes = [
     {
         path: '', redirectTo: 'pages/home', pathMatch: 'full'
     },
     {
-        path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+        path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
+        canActivate: [AlreadyAuthorizedGuard]
     },
     {
         path: 'forgot-password', loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
