@@ -33,32 +33,6 @@ export class DecimalDigitsDirective implements OnDestroy {
         //
     }
 
-    @HostListener('keydown', ['$event'])
-    public onKeyDown(event) {
-        const e = event as KeyboardEvent;
-        if (this.OnlyNumber) {
-            if (this.navigationKeys.indexOf(e.key) > -1 ||
-                // Allow: Ctrl+A
-                (e.key === 'a' && e.ctrlKey === true) || // Allow: Ctrl+A
-                (e.key === 'c' && e.ctrlKey === true) || // Allow: Ctrl+C
-                (e.key === 'v' && e.ctrlKey === true) || // Allow: Ctrl+V
-                (e.key === 'x' && e.ctrlKey === true) || // Allow: Ctrl+X
-                (e.key === 'a' && e.metaKey === true) || // Allow: Cmd+A (Mac)
-                (e.key === 'c' && e.metaKey === true) || // Allow: Cmd+C (Mac)
-                (e.key === 'v' && e.metaKey === true) || // Allow: Cmd+V (Mac)
-                (e.key === 'x' && e.metaKey === true) || // Allow: Cmd+X (Mac)
-                (e.key === '.')  // Allow: .
-            ) {
-                // let it happen, don't do anything
-                return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-        }
-    }
-
     @HostListener('keypress', ['$event'])
     public onKeyPress(event) {
         const e = event as any;
@@ -95,13 +69,12 @@ export class DecimalDigitsDirective implements OnDestroy {
             // If user has not entered a dot(.) e.target.value.split(".")[1] will be undefined
             const decimalLength = e.target.value.split('.')[1] ? e.target.value.split('.')[1].length : 0;
 
-            // (this.decimalPoints - 1) because we don't get decimalLength including currently pressed character
+            // (this.giddhDecimalPlaces - 1) because we don't get decimalLength including currently pressed character
             // currentCursorPos > e.target.value.indexOf(".") because we must allow user's to enter value before dot(.)
             // Checking Backspace etc.. keys because firefox doesn't pressing them while chrome does by default
             // tslint:disable-next-line:radix
-            if (dotLength > 1 || (dotLength === 1 && e.key === '.') || (currentCursorPos === 0 && e.key === '.')
-                || (decimalLength > (this.decimalPoints - 1) &&
-                    currentCursorPos > e.target.value.indexOf('.')) && ['Backspace', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) === -1) {
+            if (dotLength > 1 || (dotLength === 1 && e.key === '.') || (currentCursorPos === 0 && e.key === '.') || (decimalLength > (this.decimalPoints - 1) &&
+                currentCursorPos > e.target.value.indexOf('.')) && ['Backspace', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) === -1) {
                 e.preventDefault();
             }
         }
@@ -112,7 +85,7 @@ export class DecimalDigitsDirective implements OnDestroy {
         if ('decimaldigitsdirective' in event.target.attributes) {
             let cl = event.clipboardData.getData('text/plain');
             if (cl.includes('\'') || cl.includes(',') || cl.includes(' ')) {
-                cl = cl.replace(/\'/g, '');
+                cl = cl.replace(/'/g, '');
                 cl = cl.replace(/,/g, '');
                 cl = cl.replace(/ /g, '');
 
