@@ -10,7 +10,7 @@
             <h3 class="header-io">{{ requestModal.entryType | titlecase }}</h3>
             <h4 class="header-value-io">
                 {{ requestModal.isMultiCurrencyAvailable ? requestModal.baseCurrencyDetails.symbol : '' }}
-                {{ requestModal?.transactions[0]?.amount }}
+                {{ requestModal?.transactions[0]?.amount | myCurrency  }}
             </h4>
         </ion-title>
 
@@ -32,7 +32,7 @@
 
             <ion-item button="true" type="button">
                 <ion-icon class="icon mt-0" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
-                <ion-textarea placeholder="{{ 'createEntry.writeANote' | translate }}"
+                <ion-textarea placeholder="{{ 'createEntry.writeANote' | translate}}"
                               [(ngModel)]="requestModal.description" name="description" class="mt-22-io"></ion-textarea>
             </ion-item>
 
@@ -145,7 +145,8 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
-                    <ion-label class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
+                    <ion-label
+                            class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
                 </ion-item>
             </ng-container>
             <!-- endregion -->
