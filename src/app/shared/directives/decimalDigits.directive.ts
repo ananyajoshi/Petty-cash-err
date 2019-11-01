@@ -1,15 +1,17 @@
 import {Directive, ElementRef, HostListener, Input, OnDestroy} from '@angular/core';
 import {ReplaySubject} from 'rxjs';
+import {GeneralService} from '../../services/general.service';
 
 @Directive({
     selector: '[appDecimalDigitsDirective]'
 })
 export class DecimalDigitsDirective implements OnDestroy {
-    @Input() public decimalPoints: number = 2;
     @Input() public OnlyNumber: boolean = true;
     @Input() public DecimalPlaces: string;
     @Input() public minValue: string;
     @Input() public maxValue: string;
+
+    public decimalPoints: number = 2;
 
     private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
@@ -29,14 +31,18 @@ export class DecimalDigitsDirective implements OnDestroy {
     ];
 
     // tslint:disable-next-line:member-ordering
-    constructor(private elemRef: ElementRef) {
-        //
+    constructor(private elemRef: ElementRef, private _generalService: GeneralService) {
+        // tslint:disable-next-line:radix
+        this.decimalPoints = parseInt(this._generalService.activeCompany.balanceDecimalPlaces);
     }
 
     @HostListener('keypress', ['$event'])
     public onKeyPress(event) {
         const e = event as any;
 
+        if (!/^\d*\.?\d*$/.test(e.key)) {
+            e.preventDefault();
+        }
         const valInFloat: number = parseFloat(e.target.value);
 
         if (this.minValue) {
@@ -54,7 +60,7 @@ export class DecimalDigitsDirective implements OnDestroy {
             }
         }
 
-        if (this.decimalPoints) {
+        if (this.decimalPoints || this.decimalPoints === 0) {
             let currentCursorPos: number = -1;
             const el: HTMLInputElement = this.elemRef.nativeElement.children[0];
             if (typeof el.selectionStart === 'number') {
@@ -73,8 +79,10 @@ export class DecimalDigitsDirective implements OnDestroy {
             // currentCursorPos > e.target.value.indexOf(".") because we must allow user's to enter value before dot(.)
             // Checking Backspace etc.. keys because firefox doesn't pressing them while chrome does by default
             // tslint:disable-next-line:radix
-            if (dotLength > 1 || (dotLength === 1 && e.key === '.') || (currentCursorPos === 0 && e.key === '.') || (decimalLength > (this.decimalPoints - 1) &&
-                currentCursorPos > e.target.value.indexOf('.')) && ['Backspace', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) === -1) {
+            if (dotLength > 1 || (dotLength === 1 && e.key === '.') || (currentCursorPos === 0 && e.key === '.') ||
+                (e.target.value.indexOf('.') > -1 && currentCursorPos > e.target.value.indexOf('.') && this.decimalPoints === 0) ||
+                (decimalLength > (this.decimalPoints === 0 ? 0 : this.decimalPoints - 1) && currentCursorPos > e.target.value.indexOf('.'))
+                && ['Backspace', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) === -1) {
                 e.preventDefault();
             }
         }

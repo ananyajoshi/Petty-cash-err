@@ -41,7 +41,7 @@ export class AddAmountComponent implements OnInit {
                 return;
             }));
         } else {
-            this.popoverCtrl.dismiss({amount: this.amount});
+            this.popoverCtrl.dismiss({amount: parseFloat(this.amount.toString())});
         }
     }
 }

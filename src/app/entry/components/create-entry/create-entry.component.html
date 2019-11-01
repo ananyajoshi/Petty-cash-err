@@ -185,7 +185,7 @@
                         </ion-label>
 
                         <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" name="exchangeRate"
-                                   type="number"></ion-input>
+                                   type="text" appDecimalDigitsDirective></ion-input>
 
                         <ion-label>
                             {{ activeCurrency === 0 ? requestModal.foreignCurrencyDetails.code : requestModal.baseCurrencyDetails.code }}
@@ -205,7 +205,8 @@
 
             <ion-item class="ion-padding"></ion-item>
 
-            <input type="file" hidden #webFileInput accept="image/*" ngFileSelect [uploadInput]="uploadInput" (uploadOutput)="webChooseFile($event)"/>
+            <input type="file" hidden #webFileInput accept="image/*" ngFileSelect [uploadInput]="uploadInput"
+                   (uploadOutput)="webChooseFile($event)"/>
         </ion-list>
     </form>
 
