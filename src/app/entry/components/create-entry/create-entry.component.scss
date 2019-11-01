@@ -1,3 +1,10 @@
+::ng-deep.inner-item {
+  --inner-padding-start: 40px;
+
+}
+::ng-deep.inner-item ion-label{
+  --color: black !important;
+}
 ion-toolbar.sales {
   --background: var(--ion-color-sales);
 }
@@ -45,9 +52,7 @@ form, ion-list {
   min-height: 100%;
 }
 
-::ng-deep.inner-item {
-  --inner-padding-start: 40px;
-}
+
 
 ::ng-deep.main-lis {
   display: flex;
