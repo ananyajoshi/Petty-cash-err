@@ -31,10 +31,12 @@ ion-item {
 }
 
 ion-label {
-  --color: #999999 !important;
+
   font-size: 14px !important;
 }
-
+.g-color{
+  --color: #999999 !important;
+}
 .icon {
   margin-right: 15px;
 }
