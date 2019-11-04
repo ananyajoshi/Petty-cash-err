@@ -24,8 +24,8 @@
 
             <ion-item>
                 <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
-                <ion-label class="g-color">
-                    <ion-datetime placeholder="{{ 'createEntry.selectDate' | translate }}" name="entryDate" [(ngModel)]="requestModal.entryDate"
+                <ion-label class="boldFont">
+                    <ion-datetime class="boldFont" placeholder="{{ 'createEntry.selectDate' | translate }}" name="entryDate" [(ngModel)]="requestModal.entryDate"
                         required></ion-datetime>
                 </ion-label>
             </ion-item>
@@ -191,11 +191,9 @@
     </form>
 
     <!-- fab placed to the bottom end -->
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-
+    <ion-fab class="bg-success" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="createEntry()" [disabled]="entryForm.invalid || createEntryInProcess || isFileUploading">
             <ion-icon name="checkmark"></ion-icon>
         </ion-fab-button>
-
     </ion-fab>
 </ion-content>

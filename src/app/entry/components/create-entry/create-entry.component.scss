@@ -44,7 +44,9 @@ ion-label {
 ion-datetime {
   padding-left: 0;
 }
-
+ion-datetime {
+  --placeholder-: #333333 !important;
+}
 .item-native {
   border: 0;
 }
@@ -117,4 +119,7 @@ form, ion-list {
 .attachmentImg {
   height: 61px;
   object-fit: cover;
+}
+.bg-success .button-native {
+  --background: var(--ion-color-sales);
 }
