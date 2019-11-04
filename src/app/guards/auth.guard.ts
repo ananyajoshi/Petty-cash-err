@@ -16,7 +16,6 @@ export class AuthGuard implements CanActivate {
         this.store.pipe(
             take(1), select(s => s.session.data)
         ).subscribe(res => session = res);
-
         if (!session) {
             this.router.navigate(['/login']);
         }

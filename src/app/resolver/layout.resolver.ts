@@ -2,7 +2,7 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {Observable} from 'rxjs';
 import {AppState} from '../store/reducer';
 import {select, Store} from '@ngrx/store';
-import {AlertController, ModalController, PopoverController} from '@ionic/angular';
+import {AlertController, ModalController} from '@ionic/angular';
 import {CompanyService} from '../services/company/company.service';
 import {Injectable} from '@angular/core';
 import {UserDetails} from '../models/user.model';

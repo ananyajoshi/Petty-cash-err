@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {ModalController, PopoverController} from '@ionic/angular';
+import {ModalController} from '@ionic/angular';
+import {AppState} from '../store/reducer';
+import {Store} from '@ngrx/store';
+import {LogoutUserAction} from '../actions/auth/auth.action';
 
 @Component({
     selector: 'no-company-data',
@@ -10,14 +13,15 @@ import {ModalController, PopoverController} from '@ionic/angular';
 
 export class NoCompanyModalComponent implements OnInit {
     @Input() public email: string;
-    constructor(private router: Router, private modalController: ModalController) {
+
+    constructor(private router: Router, private modalController: ModalController, private store: Store<AppState>) {
     }
 
     ngOnInit() {
     }
 
     login() {
-        this.router.navigate(['login']);
+        this.store.dispatch(new LogoutUserAction());
         this.modalController.dismiss();
     }
 }

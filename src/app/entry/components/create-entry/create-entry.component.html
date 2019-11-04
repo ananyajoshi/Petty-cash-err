@@ -25,20 +25,30 @@
             <ion-item>
                 <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
                 <ion-label class="boldFont">
-                    <ion-datetime class="boldFont" placeholder="{{ 'createEntry.selectDate' | translate }}" name="entryDate" [(ngModel)]="requestModal.entryDate"
-                        required></ion-datetime>
+                    <ng-template [ngIf]="!isWeb">
+                        {{ requestModal.entryDate ? (requestModal.entryDate | date: 'dd MMM, yy') : 'Select Date' }}
+                    </ng-template>
+
+                    <ng-template [ngIf]="isWeb">
+                        <ion-datetime class="boldFont" placeholder="{{ 'createEntry.selectDate' | translate }}"
+                                      name="entryDate" [(ngModel)]="requestModal.entryDate"
+                                      required></ion-datetime>
+                    </ng-template>
+
                 </ion-label>
             </ion-item>
 
             <ion-item button="true" type="button">
                 <ion-icon class="icon mt-0" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
-                <ion-textarea placeholder="{{ 'createEntry.writeANote' | translate}}" [(ngModel)]="requestModal.description" name="description"
-                    class="mt-22-io"></ion-textarea>
+                <ion-textarea placeholder="{{ 'createEntry.writeANote' | translate}}"
+                              [(ngModel)]="requestModal.description" name="description"
+                              class="mt-22-io"></ion-textarea>
             </ion-item>
 
             <!-- region attachment -->
             <ion-item detail="">
-                <ion-icon class="icon" slot="start" src="../../../../assets/icon/attachment.svg" [color]="requestModal.entryType"></ion-icon>
+                <ion-icon class="icon" slot="start" src="../../../../assets/icon/attachment.svg"
+                          [color]="requestModal.entryType"></ion-icon>
                 <ion-label class="g-color">{{ 'createEntry.attachment' | translate }}</ion-label>
             </ion-item>
 
@@ -49,7 +59,8 @@
                 </ion-button>
                 <ion-grid style="overflow-x: auto;">
                     <ion-row nowrap>
-                        <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6" *ngFor="let file of requestModal.attachedFilesVm">
+                        <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6"
+                                 *ngFor="let file of requestModal.attachedFilesVm">
                             <ion-img class="attachmentImg" [src]="file"></ion-img>
                         </ion-col>
 
@@ -63,24 +74,28 @@
             <ng-container *ngIf="requestModal.entryType === 'sales'">
 
                 <ion-item>
-                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
                     <ion-label class="g-color">{{ 'createEntry.receiptMode' | translate }}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
+                    <ion-label
+                            class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
                         : 'Select Receipt Mode') }}
                     </ion-label>
                 </ion-item>
 
                 <ng-container *ngIf="otherPaymentMode">
                     <ion-item>
-                        <ion-icon class="icon" slot="start" src="../../../../assets/icon/account.svg" [color]="requestModal.entryType"></ion-icon>
+                        <ion-icon class="icon" slot="start" src="../../../../assets/icon/account.svg"
+                                  [color]="requestModal.entryType"></ion-icon>
                         <ion-label class="g-color">{{ 'createEntry.debtor' | translate }}</ion-label>
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtors')">
-                        <ion-label class="boldFont">{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
+                        <ion-label
+                                class="boldFont">{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
                     </ion-item>
                 </ng-container>
 
@@ -90,19 +105,22 @@
             <!-- region only for expense -->
             <ng-container *ngIf="requestModal.entryType === 'expense'">
                 <ion-item>
-                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
                     <ion-label class="g-color">{{ 'createEntry.paymentMode' | translate}}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
+                    <ion-label
+                            class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
                         : 'Select Payment Mode') }}
                     </ion-label>
                 </ion-item>
 
                 <ng-container *ngIf="otherPaymentMode">
                     <ion-item>
-                        <ion-icon class="icon" slot="start" src="../../../../assets/icon/account.svg" [color]="requestModal.entryType"></ion-icon>
+                        <ion-icon class="icon" slot="start" src="../../../../assets/icon/account.svg"
+                                  [color]="requestModal.entryType"></ion-icon>
                         <ion-label class="g-color">{{ 'createEntry.creditor' | translate}}</ion-label>
                     </ion-item>
 
@@ -118,21 +136,25 @@
             <!-- region only for withdrawal and deposit -->
             <ng-container *ngIf="requestModal.entryType === 'deposit'">
                 <ion-item>
-                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
                     <ion-label class="g-color">{{ 'createEntry.withdrawalFrom' | translate }}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
-                    <ion-label class="boldFont">{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
+                    <ion-label
+                            class="boldFont">{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
                 </ion-item>
 
                 <ion-item>
-                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
                     <ion-label class="g-color">{{ 'createEntry.depositTo' | translate }}</ion-label>
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
-                    <ion-label class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
+                    <ion-label
+                            class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
                 </ion-item>
             </ng-container>
             <!-- endregion -->
@@ -140,12 +162,14 @@
             <!-- region cheque details -->
             <ng-container *ngIf="isBankAccountSelected">
                 <ion-item>
-                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg" [color]="requestModal.entryType"></ion-icon>
+                    <ion-icon class="icon" slot="start" src="../../../assets/icon/copy.svg"
+                              [color]="requestModal.entryType"></ion-icon>
                     <ion-label class="g-color">{{'createEntry.Reference/Cheque' | translate}} #</ion-label>
                 </ion-item>
 
                 <ion-item class="inner-item" button="true" type="button">
-                    <ion-input [(ngModel)]="requestModal.chequeNumber" name="chequeNumber" placeholder="{{'createEntry.Reference/Cheque' | translate}} #"></ion-input>
+                    <ion-input [(ngModel)]="requestModal.chequeNumber" name="chequeNumber"
+                               placeholder="{{'createEntry.Reference/Cheque' | translate}} #"></ion-input>
                 </ion-item>
             </ng-container>
             <!-- endregion -->
@@ -153,7 +177,8 @@
             <!-- region multi-currency tools -->
             <ng-container *ngIf="requestModal.isMultiCurrencyAvailable">
                 <ion-item>
-                    <ion-icon class="icon" slot="start" src="../../../../assets/icon/Switch_icon.svg" [color]="requestModal.entryType"></ion-icon>
+                    <ion-icon class="icon" slot="start" src="../../../../assets/icon/Switch_icon.svg"
+                              [color]="requestModal.entryType"></ion-icon>
                     <ion-label class="g-color">{{'createEntry.conversionRates' | translate}}</ion-label>
                 </ion-item>
 
@@ -162,10 +187,12 @@
                     <ion-item class="inner-t-list">
 
                         <ion-label>
-                            1 {{ activeCurrency === 0 ? requestModal.baseCurrencyDetails.code : requestModal.foreignCurrencyDetails.code }} =
+                            1 {{ activeCurrency === 0 ? requestModal.baseCurrencyDetails.code : requestModal.foreignCurrencyDetails.code }}
+                            =
                         </ion-label>
 
-                        <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" name="exchangeRate" type="text" appDecimalDigitsDirective></ion-input>
+                        <ion-input class="text-box" [(ngModel)]="requestModal.exchangeRate" name="exchangeRate"
+                                   type="text" appDecimalDigitsDirective></ion-input>
 
                         <ion-label class="g-color">
                             {{ activeCurrency === 0 ? requestModal.foreignCurrencyDetails.code : requestModal.baseCurrencyDetails.code }}
@@ -185,14 +212,16 @@
 
             <ion-item class="ion-padding"></ion-item>
 
-            <input type="file" hidden #webFileInput accept="image/*" ngFileSelect [uploadInput]="uploadInput" (uploadOutput)="webChooseFile($event)"
+            <input type="file" hidden #webFileInput accept="image/*" ngFileSelect [uploadInput]="uploadInput"
+                   (uploadOutput)="webChooseFile($event)"
             />
         </ion-list>
     </form>
 
     <!-- fab placed to the bottom end -->
     <ion-fab class="bg-success" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="createEntry()" [disabled]="entryForm.invalid || createEntryInProcess || isFileUploading">
+        <ion-fab-button (click)="createEntry()"
+                        [disabled]="entryForm.invalid || createEntryInProcess || isFileUploading">
             <ion-icon name="checkmark"></ion-icon>
         </ion-fab-button>
     </ion-fab>

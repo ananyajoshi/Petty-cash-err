@@ -1,7 +1,7 @@
 import {ICurrencyDetails} from './company.model';
 
 export class EntryModel {
-    entryDate: string;
+    entryDate: any;
     transactions: EntryTransaction[];
     exchangeRate: number;
     entryType: EntryTypes;
@@ -22,6 +22,7 @@ export class EntryModel {
         this.foreignCurrencyDetails = null;
         this.attachedFiles = [];
         this.attachedFilesVm = [];
+        this.entryDate = new Date();
     }
 }
 

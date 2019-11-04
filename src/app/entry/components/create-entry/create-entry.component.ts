@@ -38,6 +38,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public activeCurrency: 0 | 1 = 0;
     public isBankAccountSelected: boolean = false;
     public uploadInput: EventEmitter<UploadInput>;
+    public isWeb: boolean = false;
 
     public isFileUploading: boolean;
     public paymentModePopover;
@@ -49,6 +50,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.isWeb = this.platform.is('desktop');
         this.uploadInput = new EventEmitter<UploadInput>();
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;
@@ -70,6 +72,18 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             this.depositAccounts = res.depositAccounts;
             this.debtorsAccounts = res.debtorsAccounts;
             this.creditorsAccount = res.creditorsAccounts;
+        });
+    }
+
+    showDatePicker() {
+        (cordova.plugins as any).DateTimePicker.show({
+            mode: 'date',
+            date: new Date(),
+            success: (newDate) => {
+                this.requestModal.entryDate = newDate;
+            },
+            error: (e) => {
+            },
         });
     }
 
