@@ -28,9 +28,25 @@ ion-list ion-item {
     padding-left: 48px;
   }
 }
-.scroll{
+
+.scroll {
   overflow: auto;
 }
-.p8{
+
+.p8 {
   padding: 8px;
+}
+
+.pb-0 {
+  padding-bottom: 0px;
+}
+
+.modal-header {
+  font-size: 20px;
+  padding: 20px 15px;
+}
+
+ion-button {
+  font-size: 16px !important;
+  font-weight: 600;
 }

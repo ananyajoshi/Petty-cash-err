@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController, PopoverController} from '@ionic/angular';
+import {ModalController, PopoverController, MenuController} from '@ionic/angular';
 import {SelectActionModalComponent} from './select-action/select-action.modal.component';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
@@ -14,11 +14,15 @@ import {ResetEntryAction, SetEntryAction} from '../actions/entry/entry.action';
 export class HomePage implements OnInit {
 
     constructor(private modalController: ModalController, private popover: PopoverController, private router: Router,
-                private store: Store<AppState>
+                private store: Store<AppState>, private menuController: MenuController
     ) {
     }
 
     ngOnInit(): void {
+    }
+
+    toggleMenu() {
+        this.menuController.toggle();
     }
 
     async openSelectActionModal() {

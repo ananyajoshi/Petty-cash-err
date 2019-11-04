@@ -8,21 +8,23 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
-
 :root {
   --ion-color-sales: #45A7E6;
   --ion-color-sales-rgb: 69, 167, 230;
@@ -30,28 +32,24 @@
   --ion-color-sales-contrast-rgb: 0, 0, 0;
   --ion-color-sales-shade: #3d93ca;
   --ion-color-sales-tint: #58b0e9;
-
   --ion-color-expense: #F2913B;
   --ion-color-expense-rgb: 242, 145, 59;
   --ion-color-expense-contrast: #000000;
   --ion-color-expense-contrast-rgb: 0, 0, 0;
   --ion-color-expense-shade: #d58034;
   --ion-color-expense-tint: #f39c4f;
-
   --ion-color-deposit: #67AA5A;
   --ion-color-deposit-rgb: 103, 170, 90;
   --ion-color-deposit-contrast: #000000;
   --ion-color-deposit-contrast-rgb: 0, 0, 0;
   --ion-color-deposit-shade: #5b964f;
   --ion-color-deposit-tint: #76b36b;
-
   --ion-color-selected: #19bc9c;
   --ion-color-selected-rgb: 25, 188, 156;
   --ion-color-selected-contrast: #000000;
   --ion-color-selected-contrast-rgb: 0, 0, 0;
   --ion-color-selected-shade: #16a589;
   --ion-color-selected-tint: #30c3a6;
-
   --ion-font-family: 'Lato' !important;
 }
 
@@ -91,6 +89,10 @@
   --ion-color-tint: var(--ion-color-selected-tint);
 }
 
+body {
+  background: #F7F8FA;
+}
+
 .p-0 {
   padding: 0 !important;
 }
@@ -101,4 +103,14 @@
 
 ion-button {
   text-transform: none !important;
+}
+
+.w350 {
+  --min-width: 330px;
+}
+
+.toggle-btn {
+  padding: 10px;
+  cursor: pointer;
+  width: 18px;
 }

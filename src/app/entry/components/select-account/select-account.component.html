@@ -3,14 +3,15 @@
     <ion-grid class="p-0">
         <ion-row>
             <ion-col class="modal-header ion-padding">
-                <ion-label color="dark"><strong>Select {{ title }}</strong></ion-label>
+                <ion-label color="dark">
+                    <strong>Select {{ title }}</strong>
+                </ion-label>
             </ion-col>
 
         </ion-row>
-        <div class="p8">
-            <ion-searchbar showCancelButton="focus" class="p-0" debounce="500" class="search-box"
-                           (ionChange)="searchInputChanged()" [(ngModel)]="searchModal"
-                           placeholder="Search Account"></ion-searchbar>
+        <div class="p8 pb-0">
+            <ion-searchbar showCancelButton="focus" class="p-0" debounce="500" class="search-box" (ionChange)="searchInputChanged()"
+                [(ngModel)]="searchModal" placeholder="Search Account"></ion-searchbar>
 
         </div>
     </ion-grid>
@@ -23,16 +24,14 @@
             <ion-col class="p-0">
                 <ion-list lines="none" class="main-container scroll">
 
-                    <ion-item *ngFor="let account of filteredAccounts" class=""
-                              (click)="accountSelected(account)" button="true" type="button">
+                    <ion-item *ngFor="let account of filteredAccounts" class="" (click)="accountSelected(account)" button="true" type="button">
                         <ion-label class="ion-padding-start">
                             {{ account.name }} a/c
                         </ion-label>
                         <!--<ion-note slot="end">$7,980</ion-note>-->
                     </ion-item>
 
-                    <ion-item (click)="accountSelected({ uniqueName: 'others', name: 'others' })" button="true"
-                              type="button">
+                    <ion-item (click)="accountSelected({ uniqueName: 'others', name: 'others' })" button="true" type="button">
                         <ion-label class="ion-padding-start">
                             Others
                         </ion-label>
