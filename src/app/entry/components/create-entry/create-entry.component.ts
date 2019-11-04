@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {EntryModel} from '../../../models/entry.model';
 import {select, Store} from '@ngrx/store';
@@ -46,11 +46,12 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public depositListPopover;
 
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService,
-                private _generalService: GeneralService, private platform: Platform, private toasterCtrl: ToastController) {
+                private _generalService: GeneralService, private platform: Platform, private toasterCtrl: ToastController,
+                private _cdr: ChangeDetectorRef) {
     }
 
     ngOnInit() {
-        this.isWeb = this.platform.is('desktop');
+        this.isWeb = !cordova && !this.platform.is('android') && !this.platform.is('ios');
         this.uploadInput = new EventEmitter<UploadInput>();
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;
@@ -78,9 +79,10 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     showDatePicker() {
         (cordova.plugins as any).DateTimePicker.show({
             mode: 'date',
-            date: new Date(),
+            date: this.requestModal.entryDate,
             success: (newDate) => {
                 this.requestModal.entryDate = newDate;
+                this._cdr.detectChanges();
             },
             error: (e) => {
             },
@@ -93,8 +95,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     createEntry() {
-        this.requestModal.entryDate = moment(this.requestModal.entryDate).format('DD-MM-YYYY');
-        this.store.dispatch(new CreateEntryAction(this.requestModal));
+        const modal = {...this.requestModal};
+        modal.entryDate = moment(modal.entryDate).format('DD-MM-YYYY');
+        this.store.dispatch(new CreateEntryAction(modal));
     }
 
     ionViewDidEnter() {

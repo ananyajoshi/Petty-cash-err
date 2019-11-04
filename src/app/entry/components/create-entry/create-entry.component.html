@@ -24,7 +24,7 @@
 
             <ion-item>
                 <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
-                <ion-label class="boldFont">
+                <ion-label class="boldFont" (click)="showDatePicker()">
                     <ng-template [ngIf]="!isWeb">
                         {{ requestModal.entryDate ? (requestModal.entryDate | date: 'dd MMM, yy') : 'Select Date' }}
                     </ng-template>
