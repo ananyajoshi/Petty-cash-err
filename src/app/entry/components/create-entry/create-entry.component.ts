@@ -51,7 +51,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.isWeb = !cordova && !this.platform.is('android') && !this.platform.is('ios');
+        this.isWeb = !(window.cordova) && !this.platform.is('android') && !this.platform.is('ios');
         this.uploadInput = new EventEmitter<UploadInput>();
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;
