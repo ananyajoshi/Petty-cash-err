@@ -1,23 +1,16 @@
 <ion-content>
-
-    <ion-item [color]="actionType">
+    <ion-item class="modal-heading" [color]="actionType">
         <ion-text color="light"><h2>{{ 'addAmount' | translate }}</h2></ion-text>
     </ion-item>
 
-    <ion-item>
-        <ion-input type="text" appDecimalDigitsDirective name="amount" [(ngModel)]="amount"
-                   (ionFocus)="focusOnInput()"></ion-input>
+    <ion-item class="action-input">
+        <ion-input type="text" appDecimalDigitsDirective name="amount" [(ngModel)]="amount" (ionFocus)="focusOnInput()"></ion-input>
     </ion-item>
 
-    <ion-item>
-
+    <ion-item class="footer-modal">
         <ion-buttons slot="end">
-
             <ion-button (click)="cancelModal()" class="cancel-button">Cancel</ion-button>
             <ion-button [color]="actionType" (click)="onAmountAdded()">Done</ion-button>
-
         </ion-buttons>
-
     </ion-item>
-
 </ion-content>
