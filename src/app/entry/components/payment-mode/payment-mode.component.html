@@ -12,9 +12,9 @@
                 <ion-list lines="none" class="main-container scroll">
 
                     <ion-item *ngIf="entryType === 'sales'" type="button" button="true"
-                              (click)="accountSelected({ name: 'Not Yet Received', uniqueName: 'notYetReceived' })">
+                              (click)="accountSelected({ name: 'Not yet received', uniqueName: 'notYetReceived' })">
                         <ion-icon slot="start" src="../../../../assets/icon/currency-dollar.svg"></ion-icon>
-                        <ion-label>Not Yet Received</ion-label>
+                        <ion-label>Not yet received</ion-label>
                     </ion-item>
 
                     <ion-item *ngIf="entryType === 'expense'" type="button" button="true"
@@ -38,7 +38,7 @@
         <ion-row>
             <ion-col size="12" class="ion-align-self-end model-footer">
 
-                <ion-button class="ion-float-right" (click)="cancelModal()" fill="clear" [color]="entryType">Next
+                <ion-button class="ion-float-right btn-text" (click)="cancelModal()" fill="clear" [color]="entryType">Next
                 </ion-button>
 
             </ion-col>

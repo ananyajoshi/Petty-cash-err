@@ -114,3 +114,13 @@ ion-button {
   cursor: pointer;
   width: 18px;
 }
+.btn-text {
+  font-size: 16px;
+  --ion-color-base: #19BC9C;
+  font-weight: 600;
+}
+.btn-text-gray {
+  font-size: 16px;
+  --ion-color-base: #999999;
+  font-weight: 600;
+}
