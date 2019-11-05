@@ -26,13 +26,20 @@
                 <ion-item routerLink="/pages/setting">{{ 'menu.settings' | translate }}</ion-item>
 
                 <ion-item class="company-name" type="button" button="true">
-                    <ion-label class="boldFont">
-                        <strong>{{ activeCompany?.name }}</strong>
-                    </ion-label>
                     
-                    <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()"></ion-icon>
+                  <div class="w-100">
+                      <div class="company-title">
+                          <ion-label class="boldFont">
+                              <strong>{{ activeCompany?.name }}</strong>
+                          </ion-label>
+                          <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()"></ion-icon>
 
-                    <ion-label class="branch">(Branch)</ion-label>
+                      </div>
+
+                      <div class="mt-10">
+                          <ion-label class="branch"><small>(Branch)</small></ion-label>
+                      </div>
+                  </div>
                     
                 </ion-item>
 
