@@ -19,22 +19,25 @@
             <ion-label color="medium">Select Company</ion-label>
         </ion-list-header>
 
-        <ion-item *ngFor="let company of companies" type="button" button="true" (click)="selectCompany(company.uniqueName)">
+        <ion-item *ngFor="let company of companies" type="button" button="true"
+                  (click)="selectCompany(company.uniqueName)">
 
-          <div class="w-100 head-title">
-              <div class="company-title">
-                  <ion-label>
-                      {{ company?.name }}
-                  </ion-label>
+            <div class="w-100 head-title">
+                <div class="company-title">
+                    <ion-label>
+                        {{ company?.name }}
+                    </ion-label>
 
-                  <ion-icon class="icon-checked" *ngIf="company.uniqueName === activeCompanyUniqueName" src="../assets/icon/selected-company.svg">
+                    <ion-icon class="icon-checked" *ngIf="company.uniqueName === activeCompanyUniqueName"
+                              src="../assets/icon/selected-company.svg">
 
-                  </ion-icon>
-              </div>
-              <div>
-                  <ion-label class="branch"><small>(Branch)</small></ion-label>
-              </div>
-          </div>
+                    </ion-icon>
+                </div>
+
+                <div *ngIf="company?.nameAlias">
+                    <ion-label class="branch"><small>({{ company?.nameAlias }})</small></ion-label>
+                </div>
+            </div>
 
         </ion-item>
         <ion-item>

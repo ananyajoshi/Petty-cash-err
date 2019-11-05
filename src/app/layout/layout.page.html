@@ -26,21 +26,22 @@
                 <ion-item routerLink="/pages/setting">{{ 'menu.settings' | translate }}</ion-item>
 
                 <ion-item class="company-name" type="button" button="true">
-                    
-                  <div class="w-100">
-                      <div class="company-title">
-                          <ion-label class="boldFont">
-                              <strong>{{ activeCompany?.name }}</strong>
-                          </ion-label>
-                          <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()"></ion-icon>
 
-                      </div>
+                    <div class="w-100">
+                        <div class="company-title">
+                            <ion-label class="boldFont">
+                                <strong>{{ activeCompany?.name }}</strong>
+                            </ion-label>
+                            <ion-icon src="../assets/icon/company-switcher.svg"
+                                      (click)="showCompanySwitchModal()"></ion-icon>
 
-                      <div class="mt-10">
-                          <ion-label class="branch"><small>(Branch)</small></ion-label>
-                      </div>
-                  </div>
-                    
+                        </div>
+
+                        <div class="mt-10" *ngIf="activeCompany?.nameAlias">
+                            <ion-label class="branch"><small>({{ activeCompany?.nameAlias }})</small></ion-label>
+                        </div>
+                    </div>
+
                 </ion-item>
 
                 <ion-item type="button" button="true" (click)="logout()">{{ 'menu.logout' | translate }}</ion-item>
