@@ -1,3 +1,11 @@
 .no-padding {
   --inner-padding-start: 0;
 }
+.navi-list  {
+  ion-item {
+    --color: #484848;
+    ion-icon {
+      width: 15px;
+    }
+  }
+}
