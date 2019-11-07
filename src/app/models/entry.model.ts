@@ -1,13 +1,13 @@
 import {ICurrencyDetails} from './company.model';
+import {INameUniqueName} from './general.model';
 
 export class EntryModel {
     entryDate: any;
     transactions: EntryTransaction[];
     exchangeRate: number;
     entryType: EntryTypes;
-    baseAccount: string;
-    baseAccountName: string;
-    attachedFiles: string[];
+    particular: INameUniqueName;
+    attachedFilesName: string[];
     attachedFilesVm: string[];
     description: string;
     chequeNumber?: string;
@@ -20,7 +20,7 @@ export class EntryModel {
         this.isMultiCurrencyAvailable = false;
         this.baseCurrencyDetails = null;
         this.foreignCurrencyDetails = null;
-        this.attachedFiles = [];
+        this.attachedFilesName = [];
         this.attachedFilesVm = [];
         this.entryDate = new Date();
     }
@@ -28,8 +28,7 @@ export class EntryModel {
 
 export class EntryTransaction {
     amount: number;
-    particular: string;
-    name: string;
+    particular: INameUniqueName;
     type: string;
     description: string;
 

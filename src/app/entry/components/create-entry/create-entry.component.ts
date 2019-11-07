@@ -123,13 +123,11 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             if (res && res.data) {
                 if (['notYetReceived', 'notYetPaid'].includes(res.data.uniqueName)) {
                     this.otherPaymentMode = res.data;
-                    this.requestModal.baseAccount = null;
-                    this.requestModal.baseAccountName = null;
+                    this.requestModal.particular = null;
                     this.isBankAccountSelected = false;
                 } else {
                     this.otherPaymentMode = null;
-                    this.requestModal.baseAccount = res.data.uniqueName;
-                    this.requestModal.baseAccountName = res.data.name;
+                    this.requestModal.particular = {uniqueName: res.data.uniqueName, name: res.data.name};
                     this.isBankAccountSelected = res.data.parentGroups.some(s => s.uniqueName === 'bankaccounts');
                 }
             } else {
@@ -158,8 +156,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
         this.debtorListPopover.onDidDismiss().then(res => {
             if (res && res.data) {
-                this.requestModal.baseAccount = res.data.uniqueName;
-                this.requestModal.baseAccountName = res.data.name;
+                this.requestModal.particular = {uniqueName: res.data.uniqueName, name: res.data.name};
             } else {
                 //
             }
@@ -190,28 +187,28 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     const isThereOthersAcc = this.depositAccounts.find(d => d.uniqueName === 'others');
                     if (isThereOthersAcc) {
                         if (type === 'withdrawal') {
-                            this.requestModal.transactions[0].particular = isThereOthersAcc.uniqueName;
-                            this.requestModal.transactions[0].name = isThereOthersAcc.name;
+                            this.requestModal.transactions[0].particular = {
+                                uniqueName: isThereOthersAcc.uniqueName,
+                                name: 'isThereOthersAcc.name'
+                            };
                         } else {
-                            this.requestModal.baseAccount = isThereOthersAcc.uniqueName;
-                            this.requestModal.baseAccountName = isThereOthersAcc.name;
+                            this.requestModal.particular = {uniqueName: isThereOthersAcc.uniqueName, name: isThereOthersAcc.name};
                         }
                     } else {
                         if (type === 'withdrawal') {
-                            this.requestModal.transactions[0].particular = '';
-                            this.requestModal.transactions[0].name = 'Others';
+                            this.requestModal.transactions[0].particular = {uniqueName: '', name: 'Others'};
                         } else {
-                            this.requestModal.baseAccount = '';
-                            this.requestModal.baseAccountName = 'Others';
+                            this.requestModal.particular = {
+                                uniqueName: '',
+                                name: 'Others'
+                            };
                         }
                     }
                 } else {
                     if (type === 'withdrawal') {
-                        this.requestModal.transactions[0].particular = res.data.uniqueName;
-                        this.requestModal.transactions[0].name = res.data.name;
+                        this.requestModal.transactions[0].particular = {uniqueName: res.data.uniqueName, name: res.data.name};
                     } else {
-                        this.requestModal.baseAccount = res.data.uniqueName;
-                        this.requestModal.baseAccountName = res.data.name;
+                        this.requestModal.particular = {uniqueName: res.data.uniqueName, name: res.data.name};
 
                         this.isBankAccountSelected = res.data.parentGroups.some(s => s.uniqueName === 'bankaccounts');
                     }
@@ -282,7 +279,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             this.isFileUploading = true;
         } else if (output.type === 'done') {
             if (output.file.response.status === 'success') {
-                this.requestModal.attachedFiles.push(output.file.response.body.uniqueName);
+                this.requestModal.attachedFilesName.push(output.file.response.body.uniqueName);
                 this.requestModal.attachedFilesVm.push(output.file.response.body.path + '.' + output.file.response.body.imageFormat);
                 this.isFileUploading = false;
                 this.showToaster('file uploaded successfully');
@@ -307,7 +304,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             .then((data) => {
                 if (data && data.response) {
                     const result = JSON.parse(data.response);
-                    this.requestModal.attachedFiles.push(result.body.uniqueName);
+                    this.requestModal.attachedFilesName.push(result.body.uniqueName);
                     this.requestModal.attachedFilesVm.push(result.body.path + '.' + result.body.imageFormat);
                     this.showToaster('Attachment uploaded successfully');
                     this.isFileUploading = false;

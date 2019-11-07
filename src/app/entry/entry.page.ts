@@ -103,15 +103,15 @@ export class EntryPage implements OnInit, OnDestroy {
                 if (res.data.uniqueName === 'others') {
                     const isThereOthersAcc = this.accountList.find(d => d.uniqueName === 'others');
                     if (isThereOthersAcc) {
-                        this.requestModal.transactions[0].particular = isThereOthersAcc.uniqueName;
-                        this.requestModal.transactions[0].name = isThereOthersAcc.name;
+                        this.requestModal.transactions[0].particular = {
+                            uniqueName: isThereOthersAcc.uniqueName,
+                            name: isThereOthersAcc.name
+                        };
                     } else {
-                        this.requestModal.transactions[0].particular = '';
-                        this.requestModal.transactions[0].name = 'Others';
+                        this.requestModal.transactions[0].particular = {uniqueName: '', name: 'Others'};
                     }
                 } else {
-                    this.requestModal.transactions[0].particular = res.data.uniqueName;
-                    this.requestModal.transactions[0].name = res.data.name;
+                    this.requestModal.transactions[0].particular = {uniqueName: res.data.uniqueName, name: res.data.name};
                 }
 
                 this.requestModal.isMultiCurrencyAvailable = (res.data.currency) && (res.data.currency !== this._generalService.activeCompany.baseCurrency);
