@@ -124,3 +124,15 @@ ion-button {
   --ion-color-base: #999999;
   font-weight: 600;
 }
+::ng-deep.toolbar-container {
+  align-items: self-start !important;
+}
+
+app-layout.ion-page {
+  width: 380px;
+  margin: 0 auto;
+  border: 1px solid #ececec;
+}
+.font-14 {
+  font-size: 14px;
+}

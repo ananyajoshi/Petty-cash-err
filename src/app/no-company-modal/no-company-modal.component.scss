@@ -6,6 +6,10 @@
   color: white;
   background-color: #0B1B46;
 }
+.main-no-company .inner-container {
+  max-width: 330px;
+  margin: 0 auto;
+}
 
 ::ng-deep.new-btn{
   color: black !important;

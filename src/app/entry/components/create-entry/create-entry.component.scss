@@ -99,6 +99,9 @@ form, ion-list {
   font-size: 20px;
   margin: 0;
 }
+.header-io {
+  font-weight: 600;
+}
 
 .ios .header-value-io {
   font-size: 17px;
@@ -119,4 +122,12 @@ form, ion-list {
 }
 .bg-success .button-native {
   --background: var(--ion-color-sales);
+}
+.header-arrow {
+  position: relative;
+  top: -16px;
+  cursor: pointer;
+}
+.date-color {
+  color: #333333 !important;
 }

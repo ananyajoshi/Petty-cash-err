@@ -1,7 +1,10 @@
 .navi-list  {
   ion-item {
-    --color: #484848;
-    --padding-start: 10px;
+    --padding-start: 0px;
+    .item-inner {
+      --padding-start: 0px;
+      padding-left: 20px !important;
+    }
     ion-icon {
       width: 15px;
     }

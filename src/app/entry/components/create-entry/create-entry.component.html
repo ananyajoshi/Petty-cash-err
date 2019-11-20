@@ -2,11 +2,11 @@
 
     <ion-toolbar [ngClass]="requestModal?.entryType">
 
-        <ion-buttons slot="start" (click)="goToHome()">
+        <ion-buttons class="header-arrow" slot="start" (click)="goToHome()">
             <ion-icon slot="icon-only" name="arrow-back" color="light"></ion-icon>
         </ion-buttons>
 
-        <ion-title>
+        <ion-title slot="start">
             <h3 class="header-io">{{ requestModal.entryType | titlecase }}</h3>
             <h4 class="header-value-io">
                 {{ requestModal.isMultiCurrencyAvailable ? requestModal.baseCurrencyDetails.symbol : '' }} {{ requestModal?.transactions[0]?.amount
@@ -31,8 +31,8 @@
                     </ng-template>
                 </ion-label>
 
-                <ion-label class="boldFont" *ngIf="isWeb">
-                    <ion-datetime class="boldFont" placeholder="{{ 'createEntry.selectDate' | translate }}"
+                <ion-label *ngIf="isWeb">
+                    <ion-datetime class="date-color" placeholder="{{ 'createEntry.selectDate' | translate }}"
                                   name="entryDate" [(ngModel)]="requestModal.entryDate"
                                   required></ion-datetime>
                 </ion-label>
@@ -40,7 +40,7 @@
 
             </ion-item>
 
-            <ion-item button="true" type="button">
+            <ion-item button="true" class="font-14" type="button">
                 <ion-icon class="icon mt-0" slot="start" name="create" [color]="requestModal.entryType"></ion-icon>
                 <ion-textarea placeholder="{{ 'createEntry.writeANote' | translate}}"
                               [(ngModel)]="requestModal.description" name="description"
