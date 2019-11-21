@@ -17,3 +17,10 @@
 .main-container {
   height: 300px;
 }
+ion-list {
+  ion-item {
+    ion-icon {
+      margin-right: 15px;
+    }
+  }
+}

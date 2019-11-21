@@ -18,22 +18,18 @@
 
     <ion-content>
 
-        <ion-list class="navi-list">
+        <ion-list  lines="none" class="navi-list">
             <ion-menu-toggle auto-hide="true">
-
                 <ion-item class="no-padding" routerLink="/pages/home">{{ 'menu.balance' | translate }}</ion-item>
                 <ion-item routerLink="/pages/home">{{ 'menu.home' | translate }}</ion-item>
                 <ion-item routerLink="/pages/setting">{{ 'menu.settings' | translate }}</ion-item>
 
                 <ion-item class="company-name" type="button" button="true">
-                    <ion-label class="boldFont">
-                        <strong>{{ activeCompany?.name }}</strong>
+                    <ion-label>
+                        <h4><strong>{{ activeCompany?.name }}</strong></h4>
+                        <p class="branch">(Branch)</p>
                     </ion-label>
-                    
-                    <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()"></ion-icon>
-
-                    <ion-label class="branch">(Branch)</ion-label>
-                    
+                    <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()" fill="outline" slot="end"></ion-icon>
                 </ion-item>
 
                 <ion-item type="button" button="true" (click)="logout()">{{ 'menu.logout' | translate }}</ion-item>

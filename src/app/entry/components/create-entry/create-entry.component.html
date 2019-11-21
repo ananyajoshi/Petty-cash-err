@@ -24,7 +24,6 @@
 
             <ion-item>
                 <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
-
                 <ion-label class="boldFont" (click)="showDatePicker()" *ngIf="!isWeb">
                     <ng-template [ngIf]="!isWeb">
                         {{ requestModal.entryDate ? (requestModal.entryDate | date: 'dd MMM, yy') : 'Select Date' }}
@@ -61,10 +60,14 @@
                 </ion-button>
                 <ion-grid style="overflow-x: auto;">
                     <ion-row nowrap>
-                        <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6"
-                                 *ngFor="let file of requestModal.attachedFilesVm">
+                        <ion-col class="img-upload" *ngFor="let file of requestModal.attachedFilesVm">
                             <ion-img class="attachmentImg" [src]="file"></ion-img>
                         </ion-col>
+
+                        <!-- <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6"
+                                 *ngFor="let file of requestModal.attachedFilesVm">
+                            <ion-img class="attachmentImg" [src]="file"></ion-img>
+                        </ion-col> -->
 
                     </ion-row>
 
@@ -83,7 +86,7 @@
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
                     <ion-label
-                            class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
+                            >{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
                         : 'Select Receipt Mode') }}
                     </ion-label>
                 </ion-item>
@@ -96,8 +99,7 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtors')">
-                        <ion-label
-                                class="boldFont">{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
+                        <ion-label >{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
                     </ion-item>
                 </ng-container>
 
@@ -113,8 +115,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label
-                            class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
+                    <ion-label >{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
                         : 'Select Payment Mode') }}
                     </ion-label>
                 </ion-item>

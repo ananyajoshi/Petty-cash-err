@@ -9,17 +9,18 @@ ion-text h2 {
   box-shadow: 2px 1px 7px #afafaf !important;
   z-index: 1;
 }
-.action-input {
-  ion-input {
-    font-size: 24px;
-    --padding-bottom: 20px;
-    --padding-top: 20px;
-    --padding-end: 20px;
-    &:focus {
-      outline: 0;
-    }
+ion-input {
+  font-size: 24px;
+  --padding-bottom: 20px;
+  --padding-top: 20px;
+  --padding-end: 20px;
+  --padding-start: 20px;
+  border-bottom: 1px solid #999999;
+  &:focus {
+    outline: 0;
   }
 }
+
 .footer-modal {
   ion-buttons {
     margin: 15px 0;

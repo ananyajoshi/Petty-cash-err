@@ -97,10 +97,15 @@ body {
   padding: 0 !important;
 }
 
+.mt-0 {
+  margin-top: 0px;
+}
 .boldFont {
   font-weight: 600;
 }
-
+.overflow-hiddne {
+  overflow: hidden;
+}
 ion-button {
   text-transform: none !important;
 }
@@ -129,10 +134,13 @@ ion-button {
 }
 
 app-layout.ion-page {
-  width: 380px;
+  max-width: 360px;
   margin: 0 auto;
   border: 1px solid #ececec;
 }
 .font-14 {
   font-size: 14px;
+}
+.font-16 {
+  font-size: 16px;
 }

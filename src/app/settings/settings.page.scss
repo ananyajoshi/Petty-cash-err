@@ -12,3 +12,14 @@ ion-card-header {
 ion-card {
   box-shadow: 0 2px 6px 1px #0000001A;
 }
+ion-toggle {
+--handle-background-checked: #089328;
+--background-checked: #96D0A6;
+}
+ion-list {
+  ion-select {
+    --padding-start: 0;
+    font-size: 16px;
+    color: #484848;
+  }
+}
