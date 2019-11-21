@@ -279,7 +279,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             this.isFileUploading = true;
         } else if (output.type === 'done') {
             if (output.file.response.status === 'success') {
-                this.requestModal.attachedFilesName.push(output.file.response.body.uniqueName);
+                this.requestModal.attachedFileUniqueNames.push(output.file.response.body.uniqueName);
                 this.requestModal.attachedFilesVm.push(output.file.response.body.path + '.' + output.file.response.body.imageFormat);
                 this.isFileUploading = false;
                 this.showToaster('file uploaded successfully');
@@ -304,7 +304,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             .then((data) => {
                 if (data && data.response) {
                     const result = JSON.parse(data.response);
-                    this.requestModal.attachedFilesName.push(result.body.uniqueName);
+                    this.requestModal.attachedFileUniqueNames.push(result.body.uniqueName);
                     this.requestModal.attachedFilesVm.push(result.body.path + '.' + result.body.imageFormat);
                     this.showToaster('Attachment uploaded successfully');
                     this.isFileUploading = false;
