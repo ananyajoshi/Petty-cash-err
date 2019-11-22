@@ -86,7 +86,7 @@
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
                     <ion-label
-                            >{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
+                            class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.particular ? requestModal?.particular.name
                         : 'Select Receipt Mode') }}
                     </ion-label>
                 </ion-item>
@@ -99,7 +99,8 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtors')">
-                        <ion-label >{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Debtor' }}</ion-label>
+                        <ion-label
+                                class="boldFont">{{ requestModal?.particular ? requestModal?.particular.name : 'Select Debtor' }}</ion-label>
                     </ion-item>
                 </ng-container>
 
@@ -115,7 +116,8 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label >{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.baseAccountName ? requestModal?.baseAccountName
+                    <ion-label
+                            class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.particular ? requestModal?.particular.name
                         : 'Select Payment Mode') }}
                     </ion-label>
                 </ion-item>
@@ -128,7 +130,7 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditors')">
-                        <ion-label>{{ requestModal?.baseAccountName ? requestModal?.baseAccountName : 'Select Creditor' }}</ion-label>
+                        <ion-label class="boldFont">{{ requestModal?.particular ? requestModal?.particular.name : 'Select Creditor' }}</ion-label>
                     </ion-item>
 
                 </ng-container>
@@ -146,7 +148,7 @@
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('withdrawal')">
                     <ion-label
-                            class="boldFont">{{ requestModal.transactions[0].name ? requestModal.transactions[0].name : 'Select Withdrawal A/c' }}</ion-label>
+                            class="boldFont">{{ requestModal.transactions[0].particular ? requestModal.transactions[0].particular.name : 'Select Withdrawal A/c' }}</ion-label>
                 </ion-item>
 
                 <ion-item>
@@ -157,7 +159,7 @@
 
                 <ion-item detail="" class="inner-item" (click)="showWithdrawalDepositAcc('deposit')">
                     <ion-label
-                            class="boldFont">{{ requestModal.baseAccountName ? requestModal.baseAccountName : 'Select Deposit A/c' }}</ion-label>
+                            class="boldFont">{{ requestModal.particular ? requestModal.particular.name : 'Select Deposit A/c' }}</ion-label>
                 </ion-item>
             </ng-container>
             <!-- endregion -->

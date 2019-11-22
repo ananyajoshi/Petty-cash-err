@@ -6,7 +6,7 @@ import {GeneralService} from '../../services/general.service';
 import {Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
-import {CreateEntryAction, CreateEntryErrorAction, CreateEntrySuccessAction, EntryActionType} from './entry.action';
+import {CreateEntryAction, CreateEntryErrorAction, CreateEntrySuccessAction, EntryActionType, ResetEntryAction} from './entry.action';
 import {ToastController} from '@ionic/angular';
 import {BaseResponse} from '../../models/base.model';
 import {EntryService} from '../../services/entry/entry.service';
@@ -52,7 +52,7 @@ export class EntryEffect {
                 t.present();
             });
             this.router.navigate(['/pages/home']);
-            return of();
+            return of(new ResetEntryAction());
         })
     );
 }
