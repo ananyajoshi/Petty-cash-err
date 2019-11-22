@@ -6,6 +6,7 @@ import {HomePage} from './home.page';
 import {SharedModule} from '../shared/shared.module';
 import {SelectActionModalComponent} from './select-action/select-action.modal.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {EntryClosingBalanceDetailsComponent} from './entry-closing-baalnce-details-component/entry-closing-balance-details-component';
 
 @NgModule({
     imports: [
@@ -19,8 +20,8 @@ import {TranslateModule} from '@ngx-translate/core';
         ]),
         TranslateModule
     ],
-    declarations: [HomePage, SelectActionModalComponent],
-    entryComponents: [SelectActionModalComponent]
+    declarations: [HomePage, SelectActionModalComponent, EntryClosingBalanceDetailsComponent],
+    entryComponents: [SelectActionModalComponent, EntryClosingBalanceDetailsComponent]
 })
 export class HomePageModule {
 }

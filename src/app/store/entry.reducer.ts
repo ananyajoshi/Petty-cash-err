@@ -31,6 +31,14 @@ export function EntryReducer(state: EntryState = initialState, action: EntryActi
             };
         }
 
+        case EntryActionType.createEntryError: {
+            return {
+                ...state,
+                createEntrySuccess: false,
+                createEntryInProcess: false
+            };
+        }
+
         case EntryActionType.SetEntryRequest: {
             return {
                 ...state,

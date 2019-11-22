@@ -5,6 +5,9 @@
     "settings": "الإعدادات",
     "logout": "تسجيل خروج"
   },
+  "home": {
+    "title": "كل المقالات"
+  },
   "selectAction": "Select Action",
   "addAmount": "Add Amount",
   "createEntry": {

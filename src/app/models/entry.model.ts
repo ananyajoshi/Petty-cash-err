@@ -2,8 +2,9 @@ import {ICurrencyDetails} from './company.model';
 import {INameUniqueName} from './general.model';
 import {IPaginatedResponse, IPagination} from './base.model';
 
-export class EntryListRequestModel implements IPagination {
+export class EntryReportRequestModel implements IPagination {
     count: number;
+    size?: number;
     page: number;
     totalItems: number;
     totalPages: number;
@@ -11,43 +12,54 @@ export class EntryListRequestModel implements IPagination {
     fromDate: string;
 }
 
-export class EntryListResponse implements IPaginatedResponse<EntryListItem> {
+export class EntryReportResponse implements IPaginatedResponse<EntryReportItem> {
     count: number;
     page: number;
-    results: EntryListItem[];
+    results: EntryReportItem[];
     size: number;
     totalItems: number;
     totalPages: number;
     fromDate: string;
     toDate: string;
+    closingBalance: EntryBalance;
+    openingBalance: EntryBalance;
 }
 
-export class EntryListItem {
-    entryDate: string;
-    closingBalance: EntryClosingBalance;
+export class EntryReportItem {
+    entryDate: Date;
+    closingBalance: EntryBalance;
     entries: EntryDetailModel[];
+    totalClosingBalance: number;
 }
 
 export class EntryDetailModel {
     entryType: string;
-    entryDate: string;
+    entryTypeIcon: string;
+    entryDate: Date;
     uniqueName: string;
     createdBy: INameUniqueName;
+    showCreatedBy: boolean;
     currencySymbol: string;
     amount: number;
     baseAccount: INameUniqueName;
     particularAccount: INameUniqueName;
-    fileNames: any;
+    fileNames: string[];
     description: string;
     status: string;
+    statusIcon: string;
     statusMessage: string;
     baseAccountCategory: string;
 }
 
-export class EntryClosingBalance {
-    sales: string;
-    expense: string;
-    deposit: string;
+export class EntryBalance {
+    sales: EntryAmountObject;
+    expense: EntryAmountObject;
+    deposit: EntryAmountObject;
+}
+
+export class EntryAmountObject {
+    amount: number;
+    type: string;
 }
 
 export class EntryModel {

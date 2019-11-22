@@ -8,7 +8,7 @@
         </ion-buttons>
 
         <ion-title size="large">
-            <span class="title-io"> {{ 'menu.home' | translate }}</span>
+            <span class="title-io"> {{ reportRequestModal.totalItems }} {{ 'home.title' | translate }}</span>
         </ion-title>
 
     </ion-toolbar>
@@ -17,35 +17,60 @@
 
 <ion-content class="home-container">
 
-   <div>
+    <ion-list>
 
-       <div class="data-date">
-           <strong>Thu, 8 Aug 19</strong>
-           <strong>₹2,200.00</strong>
-       </div>
+        <div *ngFor="let item of reportResponse">
 
-       <!--    <ion-list>-->
-       <ion-card class="d-card">
-           <div class="cardHeader">
-               <div><strong>Groceries</strong></div>
-               <div>
-                   <span>$340.00</span>
-               </div>
-           </div>
-           <ion-card-content>
-               Keep close to Nature's heart... and break clear away, once in awhile,
-               and climb a mountain or spend a week in the woods. Wash your spirit clean.
-           </ion-card-content>
-           <div class="img-container">
-               <ion-img src="../../assets/giddh-logo-white.png"></ion-img>
-           </div>
-           <div class="card-footer">
-               <span>Alok Gangrade</span>
-           </div>
-       </ion-card>
+            <div class="data-date">
+                <strong>{{ item.entryDate | date: 'dd MMM, yy' }}</strong>
+                <strong>{{ item.totalClosingBalance }}</strong>
+                <ion-icon src="../../assets/icon/expand.svg" (click)="showBalanceDetailsPopup(item)"></ion-icon>
+            </div>
 
-   </div>
-    <!--    </ion-list>-->
+            <ion-card class="d-card" *ngFor="let entry of item.entries">
+
+                <div class="cardHeader">
+                    <ion-icon [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
+                    <ion-text [color]="entry.entryType"><strong>{{ entry.baseAccount.name }}</strong></ion-text>
+                    <div>
+                        <span>
+                            <ion-icon [src]="entry.entryTypeIcon" *ngIf="entry.entryTypeIcon"></ion-icon>
+                            {{ entry.currencySymbol }}{{ entry.amount }}
+                        </span>
+                    </div>
+                </div>
+
+                <ion-card-content>
+                    {{ entry.description }}
+                </ion-card-content>
+
+                <div class="img-container" *ngIf="entry.fileNames">
+
+                    <div *ngFor="let file of entry.fileNames">
+
+                        <ion-img [src]="file"></ion-img>
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer" *ngIf="entry.showCreatedBy">
+                    <ion-icon src="../../assets/icon/account.svg"></ion-icon>
+                    <span>{{ entry.createdBy.name }}</span>
+                </div>
+
+            </ion-card>
+
+        </div>
+
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="pageChanged()">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="Loading more data..."
+        ></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
     <!--    <div class="ion-padding home-s">-->
     <!--        <ion-icon src="../../../../assets/icon/home-icon.svg"></ion-icon>-->
@@ -56,9 +81,10 @@
     <!--        </div>-->
     <!--    </div>-->
 
-    <!--    <ion-fab vertical="bottom" horizontal="end" slot="fixed">-->
-    <!--        <ion-fab-button (click)="openSelectActionModal()">-->
-    <!--            <ion-icon name="add"></ion-icon>-->
-    <!--        </ion-fab-button>-->
-    <!--    </ion-fab>-->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="openSelectActionModal()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
 </ion-content>

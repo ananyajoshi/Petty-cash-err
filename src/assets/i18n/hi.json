@@ -5,6 +5,9 @@
     "settings": "समायोजन",
     "logout": "\nलॉग आउट"
   },
+  "home": {
+    "title": "सभी प्रविष्टियों"
+  },
   "selectAction": "Select Action",
   "addAmount": "Add Amount",
   "createEntry": {
