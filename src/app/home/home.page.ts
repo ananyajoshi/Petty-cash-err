@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {LoadingController, MenuController, ModalController, PopoverController} from '@ionic/angular';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {IonInfiniteScroll, LoadingController, MenuController, ModalController, PopoverController} from '@ionic/angular';
 import {SelectActionModalComponent} from './select-action/select-action.modal.component';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
@@ -10,6 +10,7 @@ import {EntryReportItem, EntryReportRequestModel} from '../models/entry.model';
 import * as moment from 'moment';
 import {environment} from '../../environments/environment';
 import {GeneralService} from '../services/general.service';
+import {EntryClosingBalanceDetailsComponent} from './entry-closing-baalnce-details-component/entry-closing-balance-details-component';
 
 @Component({
     selector: 'app-home',
@@ -17,6 +18,7 @@ import {GeneralService} from '../services/general.service';
     styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+    @ViewChild(IonInfiniteScroll, {static: true}) infiniteScroll: IonInfiniteScroll;
     public reportRequestModal: EntryReportRequestModel;
     public reportResponse: EntryReportItem[];
 
@@ -25,7 +27,8 @@ export class HomePage implements OnInit {
                 private _generalService: GeneralService, private _loadingController: LoadingController
     ) {
         this.reportRequestModal = new EntryReportRequestModel();
-        this.reportRequestModal.count = 50;
+        this.reportRequestModal.count = 10;
+        this.reportRequestModal.size = 10;
         this.reportRequestModal.page = 1;
     }
 
@@ -85,6 +88,24 @@ export class HomePage implements OnInit {
                 this.store.dispatch(new ResetEntryAction());
             }
         });
+    }
+
+    async showBalanceDetailsPopup(item: EntryReportItem) {
+        const popover = await this.popover.create({
+            component: EntryClosingBalanceDetailsComponent,
+            componentProps: {
+                entryReportItem: item
+            },
+        });
+
+        await popover.present();
+    }
+
+    async pageChanged() {
+        this.reportRequestModal.page += 1;
+        this.reportRequestModal.count = 10;
+        await this.getReportData();
+        this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
     }
 
     private transformReportResponse(items: EntryReportItem[]): EntryReportItem[] {

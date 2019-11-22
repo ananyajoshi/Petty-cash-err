@@ -24,11 +24,13 @@
             <div class="data-date">
                 <strong>{{ item.entryDate | date: 'dd MMM, yy' }}</strong>
                 <strong>{{ item.totalClosingBalance }}</strong>
+                <ion-icon src="../../assets/icon/expand.svg" (click)="showBalanceDetailsPopup(item)"></ion-icon>
             </div>
 
             <ion-card class="d-card" *ngFor="let entry of item.entries">
 
                 <div class="cardHeader">
+                    <ion-icon [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
                     <ion-text [color]="entry.entryType"><strong>{{ entry.baseAccount.name }}</strong></ion-text>
                     <div>
                         <span>{{ entry.currencySymbol }}{{ entry.amount }}</span>
@@ -60,8 +62,11 @@
 
     </ion-list>
 
-    <ion-infinite-scroll>
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll (ionInfinite)="pageChanged()">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="Loading more data..."
+        ></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
     <!--    <div class="ion-padding home-s">-->

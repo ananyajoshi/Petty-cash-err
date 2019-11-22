@@ -4,6 +4,7 @@ import {IPaginatedResponse, IPagination} from './base.model';
 
 export class EntryReportRequestModel implements IPagination {
     count: number;
+    size?: number;
     page: number;
     totalItems: number;
     totalPages: number;
