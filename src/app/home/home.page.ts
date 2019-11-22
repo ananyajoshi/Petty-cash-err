@@ -120,6 +120,7 @@ export class HomePage implements OnInit {
 
             item.entries = item.entries.map(entry => {
                 entry.entryDate = moment(entry.entryDate, 'DD-MM-YYYY').toDate();
+                entry.showCreatedBy = entry.createdBy.uniqueName !== this._generalService.user.uniqueName;
 
                 if (entry.fileNames) {
                     entry.fileNames = entry.fileNames.filter(f => !!f).map(file => {
@@ -128,7 +129,7 @@ export class HomePage implements OnInit {
                     });
                 }
 
-                // entry status icon
+                // entry status icon preparation
                 const baseIconUrl = '../../assets/icon/';
                 switch (entry.status) {
                     case 'approved':

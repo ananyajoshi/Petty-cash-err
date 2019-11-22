@@ -5,6 +5,9 @@
     "settings": "Settings",
     "logout": "Logout"
   },
+  "home": {
+    "title": "All Entries"
+  },
   "selectAction": "Select Action",
   "addAmount": "Add Amount",
   "createEntry": {

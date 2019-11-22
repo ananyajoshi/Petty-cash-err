@@ -37,6 +37,7 @@ export class EntryDetailModel {
     entryDate: Date;
     uniqueName: string;
     createdBy: INameUniqueName;
+    showCreatedBy: boolean;
     currencySymbol: string;
     amount: number;
     baseAccount: INameUniqueName;
