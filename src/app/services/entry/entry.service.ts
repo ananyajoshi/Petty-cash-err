@@ -8,7 +8,7 @@ import {BaseService} from '../base.service';
 import {GeneralService} from '../general.service';
 import {ToastController} from '@ionic/angular';
 import {EntryUrls} from './entry.url';
-import {EntryModel} from '../../models/entry.model';
+import {EntryModel, EntryReportRequestModel, EntryReportResponse} from '../../models/entry.model';
 import {Injectable} from '@angular/core';
 
 @Injectable()
@@ -29,6 +29,17 @@ export class EntryService extends BaseService {
                 data.request = entry;
                 return data;
             }), catchError((e) => this.handleCatch<any, EntryModel>(e)));
+
+    }
+
+    public GetReport(requestModel: EntryReportRequestModel): Observable<BaseResponse<EntryReportResponse, EntryReportRequestModel>> {
+        return this._http.post(EntryUrls.getReport
+            .replace(':companyUniqueName', encodeURIComponent(this._generalService.activeCompany.uniqueName)), requestModel)
+            .pipe(map((res) => {
+                const data: BaseResponse<EntryReportResponse, EntryReportRequestModel> = res;
+                data.request = requestModel;
+                return data;
+            }), catchError((e) => this.handleCatch<EntryReportResponse, EntryReportRequestModel>(e)));
 
     }
 }
