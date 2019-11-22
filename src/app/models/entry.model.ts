@@ -34,6 +34,7 @@ export class EntryReportItem {
 
 export class EntryDetailModel {
     entryType: string;
+    entryTypeIcon: string;
     entryDate: Date;
     uniqueName: string;
     createdBy: INameUniqueName;

@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {IonInfiniteScroll, LoadingController, MenuController, ModalController, PopoverController} from '@ionic/angular';
 import {SelectActionModalComponent} from './select-action/select-action.modal.component';
 import {Router} from '@angular/router';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {AppState} from '../store/reducer';
 import {ResetEntryAction, SetEntryAction} from '../actions/entry/entry.action';
 import {EntryService} from '../services/entry/entry.service';
@@ -11,16 +11,19 @@ import * as moment from 'moment';
 import {environment} from '../../environments/environment';
 import {GeneralService} from '../services/general.service';
 import {EntryClosingBalanceDetailsComponent} from './entry-closing-baalnce-details-component/entry-closing-balance-details-component';
+import {IFlattenAccountsResultItem} from '../models/account.model';
+import {untilDestroyed} from 'ngx-take-until-destroy';
 
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
     @ViewChild(IonInfiniteScroll, {static: true}) infiniteScroll: IonInfiniteScroll;
     public reportRequestModal: EntryReportRequestModel;
     public reportResponse: EntryReportItem[];
+    public flattenAccounts: IFlattenAccountsResultItem[];
 
     constructor(private modalController: ModalController, private popover: PopoverController, private router: Router,
                 private store: Store<AppState>, private menuController: MenuController, private _entryService: EntryService,
@@ -33,6 +36,9 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit(): void {
+        this.store.pipe(select(s => s.general.flattenAccounts), untilDestroyed(this)).subscribe(res => {
+            this.flattenAccounts = res;
+        });
     }
 
     ionViewWillEnter() {
@@ -122,6 +128,23 @@ export class HomePage implements OnInit {
                 entry.entryDate = moment(entry.entryDate, 'DD-MM-YYYY').toDate();
                 entry.showCreatedBy = entry.createdBy.uniqueName !== this._generalService.user.uniqueName;
 
+                // entry type icon process
+                const account = this.flattenAccounts.find(f => f.uniqueName === entry.particularAccount.uniqueName);
+                if (account) {
+                    let type: string;
+                    if (account.parentGroups.some(s => s.uniqueName === 'bankaccounts')) {
+                        type = 'bank';
+                    } else if (account.parentGroups.some(s => s.uniqueName === 'cash')) {
+                        type = 'cash';
+                    }
+                    // else if (account.parentGroups.some(s => ['sundrycreditors', 'sundrydebtors'].includes(s.uniqueName))) {
+                    //     type = 'user';
+                    // }
+                    if (type) {
+                        entry.entryTypeIcon = `../../assets/icon/${type}.svg`;
+                    }
+                }
+
                 if (entry.fileNames) {
                     entry.fileNames = entry.fileNames.filter(f => !!f).map(file => {
                         file = `${environment.apiUrl}/company/${this._generalService.activeCompany.uniqueName}/image/${file}`;
@@ -154,6 +177,9 @@ export class HomePage implements OnInit {
 
             return item;
         });
+    }
+
+    ngOnDestroy(): void {
     }
 
 }

@@ -33,7 +33,10 @@
                     <ion-icon [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
                     <ion-text [color]="entry.entryType"><strong>{{ entry.baseAccount.name }}</strong></ion-text>
                     <div>
-                        <span>{{ entry.currencySymbol }}{{ entry.amount }}</span>
+                        <span>
+                            <ion-icon [src]="entry.entryTypeIcon" *ngIf="entry.entryTypeIcon"></ion-icon>
+                            {{ entry.currencySymbol }}{{ entry.amount }}
+                        </span>
                     </div>
                 </div>
 
