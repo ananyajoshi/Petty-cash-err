@@ -29,7 +29,7 @@
             <ion-card class="d-card" *ngFor="let entry of item.entries">
 
                 <div class="cardHeader">
-                    <div class="text-right">
+                    <div class="">
                         <ion-icon class="middle" [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
                         <ion-text class="middle pl-05" [color]="entry.entryType"><strong> {{ entry.baseAccount.name }}</strong></ion-text>
                     </div>
