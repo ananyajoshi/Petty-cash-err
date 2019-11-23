@@ -24,7 +24,7 @@
 
             <ion-item>
                 <ion-icon class="icon" slot="start" name="calendar" [color]="requestModal.entryType"></ion-icon>
-                <ion-label class="boldFont" (click)="showDatePicker()" *ngIf="!isWeb">
+                <ion-label (click)="showDatePicker()" *ngIf="!isWeb">
                     <ng-template [ngIf]="!isWeb">
                         {{ requestModal.entryDate ? (requestModal.entryDate | date: 'dd MMM, yy') : 'Select Date' }}
                     </ng-template>
@@ -85,8 +85,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label
-                            class="boldFont">{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.particular ? requestModal?.particular.name
+                    <ion-label >{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.particular ? requestModal?.particular.name
                         : 'Select Receipt Mode') }}
                     </ion-label>
                 </ion-item>
@@ -99,8 +98,7 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtors')">
-                        <ion-label
-                                class="boldFont">{{ requestModal?.particular ? requestModal?.particular.name : 'Select Debtor' }}</ion-label>
+                        <ion-label >{{ requestModal?.particular ? requestModal?.particular.name : 'Select Debtor' }}</ion-label>
                     </ion-item>
                 </ng-container>
 

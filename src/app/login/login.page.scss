@@ -139,6 +139,12 @@
 button {
     border-radius: 0px !important; 
 }
+@media only screen and (max-width: 767px) {
+  .main-page, .login-form {
+    max-width: 100%;
+    width: 100%;
+  }
+}
 @media (max-width: 576px) {
   .login_right {
     width: 100%;

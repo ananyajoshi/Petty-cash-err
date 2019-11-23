@@ -1,13 +1,11 @@
 <ion-header>
-
     <ion-toolbar>
-
         <ion-buttons slot="start" (click)="toggleMenu()">
             <!-- <ion-menu-button></ion-menu-button> -->
             <ion-icon class="toggle-btn" src="../../../../assets/icon/nav-toggle.svg" color="light"></ion-icon>
         </ion-buttons>
 
-        <ion-title size="large">
+        <ion-title class="boldFont" size="large">
             <span class="title-io"> {{ reportRequestModal.totalItems }} {{ 'home.title' | translate }}</span>
         </ion-title>
 
@@ -17,46 +15,43 @@
 
 <ion-content class="home-container">
 
-    <ion-list>
+    <ion-list class="all-entries">
 
         <div *ngFor="let item of reportResponse">
 
             <div class="data-date">
                 <strong>{{ item.entryDate | date: 'dd MMM, yy' }}</strong>
-                <strong>{{ item.totalClosingBalance }}</strong>
-                <ion-icon src="../../assets/icon/expand.svg" (click)="showBalanceDetailsPopup(item)"></ion-icon>
+                <span><strong class="middle">{{ item.totalClosingBalance }}</strong> 
+                    <ion-icon class="expaned middle pl-1" src="../../assets/icon/expand-2.svg" (click)="showBalanceDetailsPopup(item)"></ion-icon>
+                </span>
             </div>
 
             <ion-card class="d-card" *ngFor="let entry of item.entries">
 
                 <div class="cardHeader">
-                    <ion-icon [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
-                    <ion-text [color]="entry.entryType"><strong>{{ entry.baseAccount.name }}</strong></ion-text>
-                    <div>
-                        <span>
-                            <ion-icon [src]="entry.entryTypeIcon" *ngIf="entry.entryTypeIcon"></ion-icon>
-                            {{ entry.currencySymbol }}{{ entry.amount }}
-                        </span>
+                    <div class="text-right">
+                        <ion-icon class="middle" [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
+                        <ion-text class="middle pl-05" [color]="entry.entryType"><strong> {{ entry.baseAccount.name }}</strong></ion-text>
                     </div>
+                    <span>
+                        <ion-icon class="middle" [src]="entry.entryTypeIcon" *ngIf="entry.entryTypeIcon"></ion-icon>
+                        <span class="middle">{{ entry.currencySymbol }}{{ entry.amount }}</span>
+                    </span>
                 </div>
 
                 <ion-card-content>
                     {{ entry.description }}
                 </ion-card-content>
 
-                <div class="img-container" *ngIf="entry.fileNames">
-
-                    <div *ngFor="let file of entry.fileNames">
-
+                <div class="img-container item-image" *ngIf="entry.fileNames">
+                    <div class="inner-img" *ngFor="let file of entry.fileNames">
                         <ion-img [src]="file"></ion-img>
-
                     </div>
-
                 </div>
 
                 <div class="card-footer" *ngIf="entry.showCreatedBy">
-                    <ion-icon src="../../assets/icon/account.svg"></ion-icon>
-                    <span>{{ entry.createdBy.name }}</span>
+                    <ion-icon class="middle pr-05" src="../../assets/icon/user-account.svg"></ion-icon>
+                    <span class="middle">{{ entry.createdBy.name }}</span>
                 </div>
 
             </ion-card>
@@ -81,7 +76,7 @@
     <!--        </div>-->
     <!--    </div>-->
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab class="icon-feb" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="openSelectActionModal()">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>

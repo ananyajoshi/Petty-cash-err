@@ -1,4 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit,} from '@angular/core';
+import {MenuController} from '@ionic/angular';
 import {TranslateService} from '@ngx-translate/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../store/reducer';
@@ -13,7 +14,9 @@ import {SetActiveLanguage} from '../actions/auth/auth.action';
 export class SettingPage implements OnInit, OnDestroy {
     public selectedLanguage: string;
 
-    constructor(private translate: TranslateService, private store: Store<AppState>) {
+    
+
+    constructor(private translate: TranslateService, private store: Store<AppState>, private menuController: MenuController, ) {
     }
 
     ngOnInit() {
@@ -25,6 +28,10 @@ export class SettingPage implements OnInit, OnDestroy {
             this.changeLanguage(res);
         });
         //
+    }
+
+    toggleMenu() {
+        this.menuController.toggle();
     }
 
     changeLanguage(lang: string) {

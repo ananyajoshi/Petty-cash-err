@@ -1,23 +1,23 @@
 <ion-content>
 
-    <ion-item>
-        <ion-label>{{ entryReportItem.entryDate | date: 'dd MMM, yy' }}</ion-label>
-        <ion-label>{{ entryReportItem.totalClosingBalance }}</ion-label>
+    <ion-item class="modal-header">
+        <ion-label class="boldFont">{{ entryReportItem.entryDate | date: 'dd MMM, yy' }}</ion-label>
+        <ion-label class="boldFont ion-text-right">{{ entryReportItem.totalClosingBalance }}</ion-label>
     </ion-item>
 
-    <ion-item lines="none">
+    <ion-item class="total-list" lines="none">
         <ion-label>Total Expenses</ion-label>
-        <ion-label>{{ entryReportItem.closingBalance.expense.amount }}</ion-label>
+        <ion-label class="text-right">{{ entryReportItem.closingBalance.expense.amount }}</ion-label>
     </ion-item>
 
-    <ion-item lines="none">
+    <ion-item class="total-list" lines="none">
         <ion-label>Total Income</ion-label>
-        <ion-label>{{ entryReportItem.closingBalance.sales.amount }}</ion-label>
+        <ion-label class="text-right">{{ entryReportItem.closingBalance.sales.amount }}</ion-label>
     </ion-item>
 
-    <ion-item lines="none">
+    <ion-item class="total-list" lines="none">
         <ion-label>Total Deposits</ion-label>
-        <ion-label>{{ entryReportItem.closingBalance.deposit.amount }}</ion-label>
+        <ion-label class="text-right">{{ entryReportItem.closingBalance.deposit.amount }}</ion-label>
     </ion-item>
 
 </ion-content>
