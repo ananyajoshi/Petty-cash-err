@@ -17,45 +17,55 @@
 
     <ion-list class="all-entries">
 
-        <div *ngFor="let item of reportResponse">
+        <ng-container *ngIf="reportResponse?.length">
+            <div *ngFor="let item of reportResponse">
 
-            <div class="data-date">
-                <strong>{{ item.entryDate | date: 'dd MMM, yy' }}</strong>
-                <span><strong class="middle">{{ item.totalClosingBalance }}</strong> 
-                    <ion-icon class="expaned middle pl-1" src="../../assets/icon/expand-2.svg" (click)="showBalanceDetailsPopup(item)"></ion-icon>
+                <div class="data-date">
+                    <strong>{{ item.entryDate | date: 'dd MMM, yy' }}</strong>
+                    <span><strong class="middle">{{ item.totalClosingBalance }}</strong>
+                    <ion-icon class="expaned middle pl-1" src="../../assets/icon/expand-2.svg"
+                              (click)="showBalanceDetailsPopup(item)"></ion-icon>
                 </span>
-            </div>
+                </div>
 
-            <ion-card class="d-card" *ngFor="let entry of item.entries">
+                <ion-card class="d-card" *ngFor="let entry of item.entries">
 
-                <div class="cardHeader">
-                    <div class="">
-                        <ion-icon class="middle" [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
-                        <ion-text class="middle pl-05" [color]="entry.entryType"><strong> {{ entry.baseAccount.name }}</strong></ion-text>
-                    </div>
-                    <span>
+                    <div class="cardHeader">
+                        <div class="">
+                            <ion-icon class="middle" [color]="entry.entryType" [src]="entry.statusIcon"></ion-icon>
+                            <ion-text class="middle pl-05" [color]="entry.entryType">
+                                <strong> {{ entry.baseAccount.name }}</strong></ion-text>
+                        </div>
+                        <span>
                         <ion-icon class="middle" [src]="entry.entryTypeIcon" *ngIf="entry.entryTypeIcon"></ion-icon>
                         <span class="middle">{{ entry.currencySymbol }}{{ entry.amount }}</span>
                     </span>
-                </div>
-
-                <ion-card-content>
-                    {{ entry.description }}
-                </ion-card-content>
-
-                <div class="img-container item-image" *ngIf="entry.fileNames">
-                    <div class="inner-img" *ngFor="let file of entry.fileNames">
-                        <ion-img [src]="file"></ion-img>
                     </div>
-                </div>
 
-                <div class="card-footer" *ngIf="entry.showCreatedBy">
-                    <ion-icon class="middle pr-05" src="../../assets/icon/user-account.svg"></ion-icon>
-                    <span class="middle">{{ entry.createdBy.name }}</span>
-                </div>
+                    <ion-card-content>
+                        {{ entry.description }}
+                    </ion-card-content>
 
-            </ion-card>
+                    <div class="img-container item-image" *ngIf="entry.fileNames">
+                        <div class="inner-img" *ngFor="let file of entry.fileNames">
+                            <ion-img [src]="file"></ion-img>
+                        </div>
+                    </div>
 
+                    <div class="card-footer" *ngIf="entry.showCreatedBy">
+                        <ion-icon class="middle pr-05" src="../../assets/icon/user-account.svg"></ion-icon>
+                        <span class="middle">{{ entry.createdBy.name }}</span>
+                    </div>
+
+                </ion-card>
+
+            </div>
+        </ng-container>
+
+        <div *ngIf="!reportResponse?.length" class="no-entry">
+            <label>
+                No Entries Found...
+            </label>
         </div>
 
     </ion-list>
