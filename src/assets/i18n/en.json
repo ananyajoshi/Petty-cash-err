@@ -6,7 +6,8 @@
     "logout": "Logout"
   },
   "home": {
-    "title": "All Entries"
+    "title": "All Entries",
+    "noentry": "No Entries Found.."
   },
   "selectAction": "Select Action",
   "addAmount": "Add Amount",
