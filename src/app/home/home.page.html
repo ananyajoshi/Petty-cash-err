@@ -6,7 +6,9 @@
         </ion-buttons>
 
         <ion-title class="boldFont" size="large">
-            <span class="title-io"> {{ reportRequestModal.totalItems }} {{ 'home.title' | translate }}</span>
+            <span class="title-io" *ngIf="!reportResponse?.length"> {{ 'menu.home' | translate }}</span>
+            <span class="title-io"
+                  *ngIf="reportResponse?.length"> {{ reportRequestModal.totalItems }} {{ 'home.title' | translate }}</span>
         </ion-title>
 
     </ion-toolbar>
@@ -15,9 +17,9 @@
 
 <ion-content class="home-container">
 
-    <ion-list class="all-entries">
+    <ng-container *ngIf="reportResponse?.length">
+        <ion-list class="all-entries">
 
-        <ng-container *ngIf="reportResponse?.length">
             <div *ngFor="let item of reportResponse">
 
                 <div class="data-date">
@@ -60,31 +62,25 @@
                 </ion-card>
 
             </div>
-        </ng-container>
 
-        <div *ngIf="!reportResponse?.length" class="no-entry">
-            <label>
-                No Entries Found...
-            </label>
-        </div>
+        </ion-list>
+    </ng-container>
 
-    </ion-list>
-
-    <ion-infinite-scroll (ionInfinite)="pageChanged()">
+    <ion-infinite-scroll (ionInfinite)="pageChanged()" [hidden]="!reportResponse?.length">
         <ion-infinite-scroll-content
                 loadingSpinner="bubbles"
                 loadingText="Loading more data..."
         ></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
-    <!--    <div class="ion-padding home-s">-->
-    <!--        <ion-icon src="../../../../assets/icon/home-icon.svg"></ion-icon>-->
-    <!--        <h2>Record Transactions</h2>-->
-    <!--        <ion-label>Lorem Ipsum dummy text dummy Lorem ipsum Lorem Ipsum dummy text dummy Lorem ipsum.</ion-label>-->
-    <!--        <div class="w-100">-->
-    <!--            <ion-button class="home-btn" (click)="openSelectActionModal()">New Transaction</ion-button>-->
-    <!--        </div>-->
-    <!--    </div>-->
+    <div class="ion-padding home-s" *ngIf="!reportResponse?.length">
+        <ion-icon src="../../../../assets/icon/home-icon.svg"></ion-icon>
+        <h2>Record Transactions</h2>
+        <ion-label>Track your small expenses and stay on top of your finances!</ion-label>
+        <div class="w-100">
+            <ion-button class="home-btn" (click)="openSelectActionModal()">New Transaction</ion-button>
+        </div>
+    </div>
 
     <ion-fab class="icon-feb" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="openSelectActionModal()">

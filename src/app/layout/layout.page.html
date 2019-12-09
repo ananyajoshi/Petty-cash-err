@@ -24,9 +24,8 @@
                 <ion-item routerLink="/pages/home">{{ 'menu.home' | translate }}</ion-item>
                 <ion-item routerLink="/pages/setting">{{ 'menu.settings' | translate }}</ion-item>
 
-                <ion-item class="company-name" type="button" button="true">
-                    
-                    
+                <ion-item class="company-name" type="button" button="true" (click)="showCompanySwitchModal()">
+
                     <ion-label>
                         <h4><strong>{{ activeCompany?.name }}</strong></h4>
                         
@@ -34,25 +33,9 @@
                             <ion-label class="branch">({{ activeCompany?.nameAlias }})</ion-label>
                         </div>
 
-
                     </ion-label>
-                    <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()" fill="outline" slot="end"></ion-icon>
 
-
-
-                    
-                    <!-- <div class="w-100">
-                        <div class="company-title">
-                            <ion-label class="boldFont">
-                                <strong>{{ activeCompany?.name }}</strong>
-                            </ion-label>
-                            <ion-icon src="../assets/icon/company-switcher.svg" (click)="showCompanySwitchModal()"></ion-icon>
-                        </div>
-
-                        <div class="mt-10" *ngIf="activeCompany?.nameAlias">
-                            <ion-label class="branch"><small>({{ activeCompany?.nameAlias }})</small></ion-label>
-                        </div>
-                    </div> -->
+                    <ion-icon src="../assets/icon/company-switcher.svg" fill="outline" slot="end"></ion-icon>
 
                 </ion-item>
 
