@@ -8,6 +8,7 @@ import {EntryReportItem} from '../../models/entry.model';
 })
 
 export class EntryClosingBalanceDetailsComponent implements OnInit, OnDestroy {
+    @Input() public companyCurrencySymbol: string;
     @Input() public entryReportItem: EntryReportItem;
 
     ngOnDestroy(): void {

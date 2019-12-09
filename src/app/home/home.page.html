@@ -24,7 +24,7 @@
 
                 <div class="data-date">
                     <strong>{{ item.entryDate | date: 'dd MMM, yy' }}</strong>
-                    <span><strong class="middle">{{ item.totalClosingBalance }}</strong>
+                    <span><strong class="middle">{{ companyCurrencySymbol }}{{ item.totalClosingBalance }}</strong>
                     <ion-icon class="expaned middle pl-1" src="../../assets/icon/expand-2.svg"
                               (click)="showBalanceDetailsPopup(item)"></ion-icon>
                 </span>

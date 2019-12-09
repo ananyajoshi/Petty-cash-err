@@ -55,6 +55,7 @@ export class CompanyResponse {
     public createdBy: ICommonItem;
     public uniqueName: string;
     public baseCurrency: string;
+    public baseCurrencySymbol?: string;
     public contactNo: string;
     public companySubscription: CompanySubscription;
     public financialYears: ActiveFinancialYear[];

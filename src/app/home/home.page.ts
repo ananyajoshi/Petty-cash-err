@@ -24,6 +24,7 @@ export class HomePage implements OnInit, OnDestroy {
     public reportRequestModal: EntryReportRequestModel;
     public reportResponse: EntryReportItem[];
     public flattenAccounts: IFlattenAccountsResultItem[];
+    public companyCurrencySymbol: string;
 
     constructor(private modalController: ModalController, private popover: PopoverController, private router: Router,
                 private store: Store<AppState>, private menuController: MenuController, private _entryService: EntryService,
@@ -36,6 +37,9 @@ export class HomePage implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        if (this._generalService.activeCompany) {
+            this.companyCurrencySymbol = this._generalService.activeCompany.baseCurrencySymbol;
+        }
         this.store.pipe(select(s => s.general.flattenAccounts), untilDestroyed(this)).subscribe(res => {
             this.flattenAccounts = res;
         });
@@ -100,7 +104,8 @@ export class HomePage implements OnInit, OnDestroy {
         const popover = await this.popover.create({
             component: EntryClosingBalanceDetailsComponent,
             componentProps: {
-                entryReportItem: item
+                entryReportItem: item,
+                companyCurrencySymbol: this.companyCurrencySymbol
             },
         });
 
