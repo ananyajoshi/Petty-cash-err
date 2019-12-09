@@ -114,15 +114,18 @@ export class EntryPage implements OnInit, OnDestroy {
                     this.requestModal.transactions[0].particular = {uniqueName: res.data.uniqueName, name: res.data.name};
                 }
 
-                this.requestModal.isMultiCurrencyAvailable = (res.data.currency) && (res.data.currency !== this._generalService.activeCompany.baseCurrency);
+                // commented this because api doesn't support multi currency entry in petty cash for now
+                // need to uncomment after multi currency enabled at api side L.No:- 120 to 128
 
-                if (this.requestModal.isMultiCurrencyAvailable) {
-                    const baseCurrencyDetails = this._generalService.currencies.find(f => f.code === res.data.currency);
-                    const foreignCurrencyDetails = this._generalService.currencies.find(f => f.code === this._generalService.activeCompany.baseCurrency);
-
-                    this.requestModal.baseCurrencyDetails = {...baseCurrencyDetails};
-                    this.requestModal.foreignCurrencyDetails = {...foreignCurrencyDetails};
-                }
+                // this.requestModal.isMultiCurrencyAvailable = (res.data.currency) && (res.data.currency !== this._generalService.activeCompany.baseCurrency);
+                //
+                // if (this.requestModal.isMultiCurrencyAvailable) {
+                //     const baseCurrencyDetails = this._generalService.currencies.find(f => f.code === res.data.currency);
+                //     const foreignCurrencyDetails = this._generalService.currencies.find(f => f.code === this._generalService.activeCompany.baseCurrency);
+                //
+                //     this.requestModal.baseCurrencyDetails = {...baseCurrencyDetails};
+                //     this.requestModal.foreignCurrencyDetails = {...foreignCurrencyDetails};
+                // }
                 this.updateRequestModal();
                 this.router.navigate(['pages', 'entry', this.entryType, 'create']);
             } else {

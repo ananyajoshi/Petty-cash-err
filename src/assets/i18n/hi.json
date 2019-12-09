@@ -6,7 +6,8 @@
     "logout": "\nलॉग आउट"
   },
   "home": {
-    "title": "सभी प्रविष्टियों"
+    "title": "सभी प्रविष्टियों",
+    "noentry": "नो एंट्रीज मिली ।।"
   },
   "selectAction": "Select Action",
   "addAmount": "Add Amount",

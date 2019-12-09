@@ -6,7 +6,8 @@
     "logout": "تسجيل خروج"
   },
   "home": {
-    "title": "كل المقالات"
+    "title": "كل المقالات",
+    "noentry": "لا توجد مقالات.."
   },
   "selectAction": "Select Action",
   "addAmount": "Add Amount",
