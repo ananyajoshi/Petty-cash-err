@@ -2,9 +2,11 @@
   --inner-padding-start: 40px;
 
 }
-::ng-deep.inner-item ion-label{
+
+::ng-deep.inner-item ion-label {
   --color: black !important;
 }
+
 ion-toolbar.sales {
   --background: var(--ion-color-sales);
 }
@@ -34,9 +36,11 @@ ion-label {
 
   font-size: 14px !important;
 }
-.g-color{
+
+.g-color {
   --color: #999999 !important;
 }
+
 .icon {
   margin-right: 15px;
 }
@@ -44,9 +48,11 @@ ion-label {
 ion-datetime {
   padding-left: 0;
 }
+
 ion-datetime {
   --placeholder-: #333333 !important;
 }
+
 .item-native {
   border: 0;
 }
@@ -55,6 +61,7 @@ form, ion-list {
   background: #F7F8FA;
   min-height: 100%;
 }
+
 ::ng-deep.main-lis {
   display: flex;
   flex-wrap: wrap;
@@ -99,6 +106,7 @@ form, ion-list {
   font-size: 20px;
   margin: 0;
 }
+
 .header-io {
   font-weight: 600;
 }
@@ -125,25 +133,55 @@ form, ion-list {
   min-height: 60px;
   min-width: 60px;
   margin: 0px !important;
-  border: 1px solid #e2e2e2;
 }
+
+.attachmentImgBorderSales {
+  border: 2px solid var(--ion-color-sales);
+}
+
+.attachmentImgBorderDeposit {
+  border: 2px solid var(--ion-color-deposit);
+}
+
+.attachmentImgBorderExpense {
+  border: 2px solid var(--ion-color-expense);
+}
+
 .img-upload {
   height: 60px;
   width: 60px;
   min-width: 60px;
   max-width: 60px;
   padding: 0px;
-  padding: 0px;
   margin-right: 15px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .bg-success .button-native {
   --background: var(--ion-color-sales);
 }
+
 .header-arrow {
   position: relative;
   top: -16px;
   cursor: pointer;
 }
+
 .date-color {
   color: #333333 !important;
+}
+
+.detail-icon {
+  height: 13px;
+  opacity: 0.7;
+}
+
+.img-close-icon {
+  position: absolute;
+  font-size: 15px;
+  height: 25px;
+  width: 25px;
 }

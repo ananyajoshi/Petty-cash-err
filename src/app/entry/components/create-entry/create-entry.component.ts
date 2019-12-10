@@ -5,7 +5,7 @@ import {select, Store} from '@ngrx/store';
 import {AppState} from '../../../store/reducer';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {CreateEntryAction, ResetEntryAction} from '../../../actions/entry/entry.action';
-import {Platform, PopoverController, ToastController} from '@ionic/angular';
+import {LoadingController, Platform, PopoverController, ToastController} from '@ionic/angular';
 import {IFlattenAccountsResultItem} from '../../../models/account.model';
 import {PaymentModeComponent} from '../payment-mode/payment-mode.component';
 import {SelectDebtorCreditorComponent} from '../select-debtor-creditor/select-debtor-creditor.component';
@@ -18,6 +18,7 @@ import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native
 import {IOSFilePicker} from '@ionic-native/file-picker/ngx';
 import {EntryUrls} from '../../../services/entry/entry.url';
 import {UploadInput, UploadOutput} from 'ngx-uploader';
+import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 
 @Component({
     selector: 'create-entry',
@@ -45,9 +46,12 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
     public debtorListPopover;
     public depositListPopover;
 
+    private camera: Camera;
+
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService,
                 private _generalService: GeneralService, private platform: Platform, private toasterCtrl: ToastController,
-                private _cdr: ChangeDetectorRef) {
+                private _cdr: ChangeDetectorRef, private _loaderCtrl: LoadingController) {
+        this.camera = new Camera();
     }
 
     ngOnInit() {
@@ -265,7 +269,30 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         }
     }
 
-    public webChooseFile(output: UploadOutput) {
+    async captureImage() {
+        if (this.platform.is('desktop')) {
+            // web
+            this.webFileInput.nativeElement.click();
+            return;
+        }
+        const options: CameraOptions = {
+            quality: 50,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE
+        };
+
+        this.camera.getPicture(options).then((imageData) => {
+            this.isFileUploading = true;
+            this.uploadFile(imageData);
+        }, (err) => {
+            this.isFileUploading = false;
+            this.showToaster('Something Went Wrong');
+        });
+    }
+
+    public async webChooseFile(output: UploadOutput) {
+
         if (output.type === 'allAddedToQueue') {
             const event: UploadInput = {
                 type: 'uploadAll',
@@ -277,20 +304,36 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             this.uploadInput.emit(event);
         } else if (output.type === 'start') {
             this.isFileUploading = true;
+            // start loader
+            await this._loaderCtrl.create({
+                message: 'Uploading...'
+            }).then(ctrl => {
+                ctrl.present();
+            });
+
         } else if (output.type === 'done') {
             if (output.file.response.status === 'success') {
                 this.requestModal.attachedFileUniqueNames.push(output.file.response.body.uniqueName);
                 this.requestModal.attachedFilesVm.push(output.file.response.body.path + '.' + output.file.response.body.imageFormat);
                 this.isFileUploading = false;
+                // hide loader
+                await this._loaderCtrl.dismiss();
                 this.showToaster('file uploaded successfully');
             } else {
                 this.isFileUploading = false;
+                // hide loader
+                await this._loaderCtrl.dismiss();
                 this.showToaster(output.file.response.message, 'danger');
             }
         }
     }
 
-    private uploadFile(uri) {
+    public removeAttachedFile(index: number) {
+        this.requestModal.attachedFileUniqueNames.splice(index, 1);
+        this.requestModal.attachedFilesVm.splice(index, 1);
+    }
+
+    private async uploadFile(uri) {
         const transfer = new FileTransfer();
         const fileTransfer: FileTransferObject = transfer.create();
         const options: FileUploadOptions = {
@@ -300,6 +343,11 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             }
         };
         const httpUrl = EntryUrls.uploadAttachment.replace(':companyUniqueName', this._generalService.activeCompany.uniqueName);
+
+        const imageUploadLoader = await this._loaderCtrl.create({
+            message: 'Uploading...'
+        });
+        await imageUploadLoader.present();
         fileTransfer.upload(uri, httpUrl, options)
             .then((data) => {
                 if (data && data.response) {
@@ -308,11 +356,13 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     this.requestModal.attachedFilesVm.push(result.body.path + '.' + result.body.imageFormat);
                     this.showToaster('Attachment uploaded successfully');
                     this.isFileUploading = false;
+                    imageUploadLoader.dismiss();
                 }
             }, (err) => {
                 // show toaster
-                this.showToaster('Something Went Wrong');
+                this.showToaster('Something Went Wrong', 'danger');
                 this.isFileUploading = false;
+                imageUploadLoader.dismiss();
             });
     }
 

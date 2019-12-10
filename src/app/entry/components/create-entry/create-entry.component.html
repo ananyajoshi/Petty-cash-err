@@ -47,32 +47,44 @@
             </ion-item>
 
             <!-- region attachment -->
-            <ion-item detail="">
+            <ion-item>
                 <ion-icon class="icon" slot="start" src="../../../../assets/icon/attachment.svg"
                           [color]="requestModal.entryType"></ion-icon>
                 <ion-label class="g-color">{{ 'createEntry.attachment' | translate }}</ion-label>
+                <ion-icon class="detail-icon" slot="end" src="../../../../assets/icon/detailsArrow.svg"
+                          (click)="chooseFile()"></ion-icon>
             </ion-item>
 
             <ion-item class="inner-item">
-                <ion-button class="attachment" color="medium" fill="clear" (click)="chooseFile()">
+                <ion-button class="attachment" color="medium" fill="clear" (click)="captureImage()">
                     <ion-icon name="camera">
                     </ion-icon>
                 </ion-button>
-                <ion-grid style="overflow-x: auto;">
-                    <ion-row nowrap>
-                        <ion-col class="img-upload" *ngFor="let file of requestModal.attachedFilesVm">
-                            <ion-img class="attachmentImg" [src]="file"></ion-img>
-                        </ion-col>
 
-                        <!-- <ion-col sizeSm="4" sizeLg="1" sizeXl="1" sizeXs="4" sizeMd="6"
-                                 *ngFor="let file of requestModal.attachedFilesVm">
-                            <ion-img class="attachmentImg" [src]="file"></ion-img>
-                        </ion-col> -->
+                <ion-grid style="overflow-x: auto;">
+
+                    <ion-row nowrap>
+
+                        <ion-col class="img-upload" *ngFor="let file of requestModal.attachedFilesVm; let fileIndex = index">
+                            <ion-icon name="close" class="img-close-icon" (click)="removeAttachedFile(fileIndex)" [color]="requestModal.entryType"></ion-icon>
+                            <ion-img class="attachmentImg"
+                                     (click)="removeAttachedFile(fileIndex)"
+                                     [ngClass]="{
+                                     attachmentImgBorderSales: requestModal.entryType === 'sales',
+                                     attachmentImgBorderDeposit: requestModal.entryType === 'deposit',
+                                     attachmentImgBorderExpense: requestModal.entryType === 'expense'
+                                      }"
+                                     [src]="file"></ion-img>
+                        </ion-col>
 
                     </ion-row>
 
                 </ion-grid>
             </ion-item>
+
+            <input type="file" hidden #webFileInput accept="image/*" ngFileSelect [uploadInput]="uploadInput"
+                   (uploadOutput)="webChooseFile($event)"
+            />
             <!-- endregion -->
 
             <!-- region only for sales -->
@@ -85,7 +97,7 @@
                 </ion-item>
 
                 <ion-item detail="" class="inner-item" (click)="showPaymentMode()">
-                    <ion-label >{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.particular ? requestModal?.particular.name
+                    <ion-label>{{ otherPaymentMode ? otherPaymentMode.name : (requestModal?.particular ? requestModal?.particular.name
                         : 'Select Receipt Mode') }}
                     </ion-label>
                 </ion-item>
@@ -98,7 +110,7 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('debtors')">
-                        <ion-label >{{ requestModal?.particular ? requestModal?.particular.name : 'Select Debtor' }}</ion-label>
+                        <ion-label>{{ requestModal?.particular ? requestModal?.particular.name : 'Select Debtor' }}</ion-label>
                     </ion-item>
                 </ng-container>
 
@@ -128,7 +140,8 @@
                     </ion-item>
 
                     <ion-item detail="" class="inner-item" (click)="showDebtorCreditor('creditors')">
-                        <ion-label class="boldFont">{{ requestModal?.particular ? requestModal?.particular.name : 'Select Creditor' }}</ion-label>
+                        <ion-label
+                                class="boldFont">{{ requestModal?.particular ? requestModal?.particular.name : 'Select Creditor' }}</ion-label>
                     </ion-item>
 
                 </ng-container>
@@ -215,9 +228,6 @@
 
             <ion-item class="ion-padding"></ion-item>
 
-            <input type="file" hidden #webFileInput accept="image/*" ngFileSelect [uploadInput]="uploadInput"
-                   (uploadOutput)="webChooseFile($event)"
-            />
         </ion-list>
     </form>
 
