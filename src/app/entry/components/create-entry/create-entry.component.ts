@@ -291,7 +291,8 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
         });
     }
 
-    public webChooseFile(output: UploadOutput) {
+    public async webChooseFile(output: UploadOutput) {
+
         if (output.type === 'allAddedToQueue') {
             const event: UploadInput = {
                 type: 'uploadAll',
@@ -303,22 +304,33 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             this.uploadInput.emit(event);
         } else if (output.type === 'start') {
             this.isFileUploading = true;
+            // start loader
+            await this._loaderCtrl.create({
+                message: 'Uploading...'
+            }).then(ctrl => {
+                ctrl.present();
+            });
+
         } else if (output.type === 'done') {
             if (output.file.response.status === 'success') {
                 this.requestModal.attachedFileUniqueNames.push(output.file.response.body.uniqueName);
                 this.requestModal.attachedFilesVm.push(output.file.response.body.path + '.' + output.file.response.body.imageFormat);
                 this.isFileUploading = false;
+                // hide loader
+                await this._loaderCtrl.dismiss();
                 this.showToaster('file uploaded successfully');
             } else {
                 this.isFileUploading = false;
+                // hide loader
+                await this._loaderCtrl.dismiss();
                 this.showToaster(output.file.response.message, 'danger');
             }
         }
     }
 
-    public removeAttachedFile(uniqueName: string) {
-        this.requestModal.attachedFileUniqueNames = this.requestModal.attachedFileUniqueNames.filter(file => file !== uniqueName);
-        this.requestModal.attachedFilesVm = this.requestModal.attachedFilesVm.filter(file => file !== uniqueName);
+    public removeAttachedFile(index: number) {
+        this.requestModal.attachedFileUniqueNames.splice(index, 1);
+        this.requestModal.attachedFilesVm.splice(index, 1);
     }
 
     private async uploadFile(uri) {

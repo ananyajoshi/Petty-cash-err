@@ -65,9 +65,10 @@
 
                     <ion-row nowrap>
 
-                        <ion-col class="img-upload" *ngFor="let file of requestModal.attachedFilesVm">
-                            <ion-icon name="close" class="img-close-icon" [color]="requestModal.entryType"></ion-icon>
+                        <ion-col class="img-upload" *ngFor="let file of requestModal.attachedFilesVm; let fileIndex = index">
+                            <ion-icon name="close" class="img-close-icon" (click)="removeAttachedFile(fileIndex)" [color]="requestModal.entryType"></ion-icon>
                             <ion-img class="attachmentImg"
+                                     (click)="removeAttachedFile(fileIndex)"
                                      [ngClass]="{
                                      attachmentImgBorderSales: requestModal.entryType === 'sales',
                                      attachmentImgBorderDeposit: requestModal.entryType === 'deposit',
