@@ -9,7 +9,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start:android": "ionic cordova run android --livereload",
+    "build:android:stage": "ionic cordova build android",
+    "build:android:prod": "ionic cordova build android --prod --release --buildConfig=build.json"
   },
   "private": true,
   "dependencies": {

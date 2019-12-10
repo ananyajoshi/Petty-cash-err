@@ -1,0 +1,10 @@
+{
+  "android": {
+    "release": {
+      "keystore": "./keystore.keystore",
+      "storePassword": "asd123",
+      "alias": "pettycash",
+      "password" : "asd123"
+    }
+  }
+}
