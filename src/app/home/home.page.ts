@@ -151,7 +151,7 @@ export class HomePage implements OnInit, OnDestroy {
                 }
 
                 if (entry.fileNames) {
-                    entry.fileNames = entry.fileNames.filter(f => !!f).map(file => {
+                    entry.fileNames = entry.fileNames.filter(f => f && f.length).map(file => {
                         file = `${environment.apiUrl}/company/${this._generalService.activeCompany.uniqueName}/image/${file}`;
                         return file;
                     });

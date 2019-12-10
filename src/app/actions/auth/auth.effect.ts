@@ -28,7 +28,7 @@ import {LoginResponseModel, LoginWithPassword, ResetPasswordRequest} from '../..
 import {CompanyResponse} from '../../models/company.model';
 import {GetFlattenAccountAction} from '../account/account.action';
 import {GetCurrenciesAction} from '../company/company.action';
-import {ToastController} from '@ionic/angular';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 
 @Injectable()
@@ -51,7 +51,7 @@ export class AuthEffect {
                         return new LoginUserCompleteAction(res.body);
                     }),
                     catchError((res) => {
-                        return of(new LoginUserErrorAction(res.message));
+                        return of(new LoginUserErrorAction(res.message || 'Something went Wrong!'));
                     })
                 );
         })

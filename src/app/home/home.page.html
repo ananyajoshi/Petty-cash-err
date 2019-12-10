@@ -24,10 +24,11 @@
 
                 <div class="data-date">
                     <strong>{{ item.entryDate | date: 'dd MMM, yy' }}</strong>
-                    <span><strong class="middle">{{ companyCurrencySymbol }}{{ item.totalClosingBalance }}</strong>
-                    <ion-icon class="expaned middle pl-1" src="../../assets/icon/expand-2.svg"
+                    <span>
+                        <strong class="middle">{{ companyCurrencySymbol }}  {{ item.totalClosingBalance }}</strong>
+                        <ion-icon class="expaned middle pl-1" src="../../assets/icon/expand-2.svg"
                               (click)="showBalanceDetailsPopup(item)"></ion-icon>
-                </span>
+                    </span>
                 </div>
 
                 <ion-card class="d-card" *ngFor="let entry of item.entries">
@@ -38,9 +39,11 @@
                             <ion-text class="middle pl-05" [color]="entry.entryType">
                                 <strong> {{ entry.baseAccount.name }}</strong></ion-text>
                         </div>
+
                         <span>
                         <ion-icon class="middle" [src]="entry.entryTypeIcon" *ngIf="entry.entryTypeIcon"></ion-icon>
-                        <span class="middle">{{ entry.currencySymbol }}{{ entry.amount }}</span>
+                            &nbsp;
+                        <span class="middle">{{ entry.currencySymbol }}  {{ entry.amount }}</span>
                     </span>
                     </div>
 
@@ -48,7 +51,7 @@
                         {{ entry.description }}
                     </ion-card-content>
 
-                    <div class="img-container item-image" *ngIf="entry.fileNames">
+                    <div class="img-container item-image" *ngIf="entry.fileNames && entry.fileNames.length">
                         <div class="inner-img" *ngFor="let file of entry.fileNames">
                             <ion-img [src]="file"></ion-img>
                         </div>
