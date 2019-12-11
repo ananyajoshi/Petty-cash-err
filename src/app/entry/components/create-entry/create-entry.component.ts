@@ -193,7 +193,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                         if (type === 'withdrawal') {
                             this.requestModal.transactions[0].particular = {
                                 uniqueName: isThereOthersAcc.uniqueName,
-                                name: 'isThereOthersAcc.name'
+                                name: isThereOthersAcc.name
                             };
                         } else {
                             this.requestModal.particular = {uniqueName: isThereOthersAcc.uniqueName, name: isThereOthersAcc.name};
