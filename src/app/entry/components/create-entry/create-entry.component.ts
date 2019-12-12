@@ -287,7 +287,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
             this.uploadFile(imageData);
         }, (err) => {
             this.isFileUploading = false;
-            this.showToaster('Something Went Wrong');
+            this.showToaster('Camera Error..');
         });
     }
 
