@@ -21,7 +21,6 @@ export class EntryService extends BaseService {
 
 
     public CreateEntry(entry: EntryModel, entryType: string): Observable<BaseResponse<any, EntryModel>> {
-        delete entry.transactions;
         return this._http.post(EntryUrls.create
             .replace(':companyUniqueName', encodeURIComponent(this._generalService.activeCompany.uniqueName))
             .replace(':entryType', encodeURIComponent(entryType)), entry)
