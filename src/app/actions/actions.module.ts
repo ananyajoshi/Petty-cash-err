@@ -4,6 +4,7 @@ import {AuthEffect} from './auth/auth.effect';
 import {CompanyEffect} from './company/company.effect';
 import {AccountEffect} from './account/account.effect';
 import {EntryEffect} from './entry/entry.effect';
+import {GeneralEffect} from './general/general.effect';
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import {EntryEffect} from './entry/entry.effect';
             CompanyEffect,
             AccountEffect,
             EntryEffect,
-            CompanyEffect
+            CompanyEffect,
+            GeneralEffect
         ])
     ],
     exports: [EffectsModule],

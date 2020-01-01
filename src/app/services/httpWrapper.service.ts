@@ -1,8 +1,10 @@
-import {finalize, tap} from 'rxjs/operators';
+import {catchError, finalize, map, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GeneralService} from './general.service';
+import {environment} from '../../environments/environment';
+import {createUrl} from './base.url';
 
 @Injectable()
 export class HttpWrapperService {
@@ -16,34 +18,30 @@ export class HttpWrapperService {
         return this.http.get(url, options).pipe(tap((res) => {
             //
         }), finalize(() => {
-            this.hideLoader();
         }));
-    }
+    };
     public post = (url: string, body: any, options?: any): Observable<any> => {
         options = this.prepareOptions(options);
         return this.http.post(url, body, options).pipe(tap((res) => {
             //
         }), finalize(() => {
-            this.hideLoader();
         }));
-    }
+    };
     public put = (url: string, body: any, options?: any): Observable<any> => {
         options = this.prepareOptions(options);
         return this.http.put(url, body, options).pipe(tap((res) => {
             //
         }), finalize(() => {
-            this.hideLoader();
         }));
-    }
+    };
     public delete = (url: string, params?: any, options?: any): Observable<any> => {
         options = this.prepareOptions(options);
         options.search = this.objectToParams(params);
         return this.http.delete(url, options).pipe(tap((res) => {
             //
         }), finalize(() => {
-            this.hideLoader();
         }));
-    }
+    };
 
     public deleteWithBody = (url: string, request: any): Observable<any> => {
         const options = {headers: {}, body: {}};
@@ -52,25 +50,21 @@ export class HttpWrapperService {
         options.headers['Accept'] = 'application/json';
         options.headers = new HttpHeaders(options.headers);
         options.body = request;
-        this.showLoader();
         return this.http.delete(url, options).pipe(tap((res) => {
             //
         }), finalize(() => {
-            this.hideLoader();
         }));
-    }
+    };
 
     public patch = (url: string, body: any, options?: any): Observable<any> => {
         options = this.prepareOptions(options);
         return this.http.patch(url, body, options).pipe(tap((res) => {
             //
         }), finalize(() => {
-            this.hideLoader();
         }));
-    }
+    };
 
     public prepareOptions(options: any): any {
-        this.showLoader();
         const sessionId = this.generalService.sessionId;
         options = options || {};
 
@@ -107,11 +101,12 @@ export class HttpWrapperService {
         }).join('&');
     }
 
-    private showLoader(): void {
-        // this.loaderService.show();
-    }
-
-    private hideLoader(): void {
-        // this.loaderService.hide();
+    public reportInvalidJSON(model) {
+        model.email = this.generalService.user ? this.generalService.user.email : null;
+        model.environment = environment.apiUrl;
+        model.userUniqueName = this.generalService.user ? this.generalService.user.uniqueName : '';
+        return this.post(createUrl('exception/invalid-json'), model).pipe(map((res) => {
+            return res;
+        }), catchError((e) => e));
     }
 }

@@ -5,6 +5,7 @@ import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../store/reducer';
 import {ToastController} from '@ionic/angular';
+import {ReportInvalidJsonAction} from '../actions/general/general.action';
 
 const invalidStatusCodes: number[] = [0, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511];
 
@@ -13,7 +14,7 @@ export class BaseService {
     }
 
     handleCatch<TResponse, TRequest>(r: HttpErrorResponse, request?: any) {
-        const data: BaseResponse<TResponse, TRequest> = new BaseResponse<TResponse, TRequest>();
+        let data: BaseResponse<TResponse, TRequest> = new BaseResponse<TResponse, TRequest>();
         const toast = this.toastController.create({
             message: r.error.message,
             animated: true,
@@ -32,11 +33,11 @@ export class BaseService {
             data.body = null;
             data.code = 'Internal Error';
         } else {
-            // data = r.error as any;
+            data = r.error as any;
             if (data) {
                 if (data.code === 'SESSION_EXPIRED_OR_INVALID') {
                     // this.store.dispatch({type: 'LoginOut'});
-                } else if (data.code === 'INVALID_JSON') {
+                } else if (data.code === 'INVALID_JSON' || data.code === 'INVALID_REQUEST') {
                     const dataToSend = {
                         requestBody: '', // r.error.request ? r.error.request : request
                         queryString: data.queryString,
@@ -45,9 +46,9 @@ export class BaseService {
                         email: null,
                         userUniqueName: null,
                         environment: null,
-                        key: r.error.message ? r.error.message.substring(r.error.message.indexOf(':') + 2, r.error.message.length) : null,
+                        key: r.error.message,
                     };
-                    // this.store.dispatch({type: 'REPORT_INVALID_JSON', payload: dataToSend});
+                    this.store.dispatch(new ReportInvalidJsonAction(dataToSend));
                 } else if (data.code === '') {
                     // handle unshared company response
                     // this.store.dispatch({type: 'CompanyRefresh'});
