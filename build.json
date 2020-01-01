@@ -3,7 +3,7 @@
     "release": {
       "keystore": "./keystore.keystore",
       "storePassword": "asd123",
-      "alias": "pettycash",
+      "alias": "upload",
       "password" : "asd123"
     }
   }
