@@ -359,8 +359,13 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     imageUploadLoader.dismiss();
                 }
             }, (err) => {
-                // show toaster
-                this.showToaster('Something Went Wrong', 'danger');
+                let errorBody = err.body;
+                let errorMessage = 'Something Went Wrong';
+                if (errorBody) {
+                    errorBody = JSON.parse(errorBody);
+                    errorMessage = errorBody.message;
+                }
+                this.showToaster(errorMessage, 'danger');
                 this.isFileUploading = false;
                 imageUploadLoader.dismiss();
             });
