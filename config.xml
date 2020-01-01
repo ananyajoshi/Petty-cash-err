@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.giddh.pettycash" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android">
+<widget id="com.giddh.pettycash" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Petty Cash</name>
     <description>Petty Cash Management App</description>
     <author email="support@giddh.com" href="https://giddh.com/">Giddh Inc.</author>
