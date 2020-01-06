@@ -19,6 +19,7 @@ import {IOSFilePicker} from '@ionic-native/file-picker/ngx';
 import {EntryUrls} from '../../../services/entry/entry.url';
 import {UploadInput, UploadOutput} from 'ngx-uploader';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
+import {environment} from '../../../../environments/environment';
 
 @Component({
     selector: 'create-entry',
@@ -313,8 +314,9 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
         } else if (output.type === 'done') {
             if (output.file.response.status === 'success') {
-                this.requestModal.attachedFileUniqueNames.push(output.file.response.body.uniqueName);
-                this.requestModal.attachedFilesVm.push(output.file.response.body.path + '.' + output.file.response.body.imageFormat);
+                const result = output.file.response;
+                this.requestModal.attachedFileUniqueNames.push(result.body.uniqueName);
+                this.requestModal.attachedFilesVm.push(this.createImageUrl(result.body.uniqueName) + '.' + result.body.fileType);
                 this.isFileUploading = false;
                 // hide loader
                 await this._loaderCtrl.dismiss();
@@ -353,7 +355,7 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                 if (data && data.response) {
                     const result = JSON.parse(data.response);
                     this.requestModal.attachedFileUniqueNames.push(result.body.uniqueName);
-                    this.requestModal.attachedFilesVm.push(result.body.path + '.' + result.body.imageFormat);
+                    this.requestModal.attachedFilesVm.push(this.createImageUrl(result.body.uniqueName) + '.' + result.body.fileType);
                     this.showToaster('Attachment uploaded successfully');
                     this.isFileUploading = false;
                     imageUploadLoader.dismiss();
@@ -399,6 +401,13 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
                     this.requestModal.exchangeRate = rate;
                 }
             });
+    }
+
+    /**
+     * create image url from image uniqueName
+     */
+    private createImageUrl(imageUniqueName: string) {
+        return `${environment.apiUrl}/company/${this._generalService.activeCompany.uniqueName}/image/${imageUniqueName}`;
     }
 
     ngOnDestroy(): void {
