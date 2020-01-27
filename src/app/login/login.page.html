@@ -3,43 +3,67 @@
     <div class="login">
 
         <div class="login_left"></div>
-        
+
         <div class="login_right">
             <div class="giddh_login">
 
-            <div class="giddh_login_inner">
+                <div class="giddh_login_inner">
 
-            <div class="logo_login">
-                <img src="./assets/login-page-logo.png" alt="" width="141px">
-            </div>
+                    <div class="logo_login">
+                        <img src="./assets/login-page-logo.png" alt="" width="141px">
+                    </div>
 
-            <div class="accounting_space">
-            <!-- <a class="logo" href="/"><img src="./assets/giddh-logo-white.png"></a> -->
-            <h3 class="mb-3 mt-0"><strong> Login to your secure accounting space</strong></h3>
-            <br/>
-            <div class="login-form">
-    
-                <form [formGroup]="loginWithPasswordForm">
-                    <ion-input type="email" placeholder="Email Id" formControlName="uniqueKey"
-                                class="form-control input-io"></ion-input>
-                    <ion-input type="password" placeholder="Password" formControlName="password"
-                                class="form-control input-io"></ion-input>
-                </form>
-                
-                <ion-button (click)="login()" class="btn btn-success btn-lg btn-block" expand="block">
-                    Login
-                </ion-button>
-    
-                <div class="overflow-hiddne"><a color="secondary" href="javascript:void(0)" class="text-black pointer mt-10 font-14" (click)="forgotPassword()">Forgot Password</a></div>
-                
-                <!--            <a href="javascript:void(0)" type="butotn" class="btn-google btn-block mt-3" routerLink="/">-->
-                <!--                <span><img src="assets/google_ico.svg" alt=""></span>-->
-                <!--                Login with Google-->
-                <!--            </a>-->
+                    <div class="accounting_space">
+                        <!-- <a class="logo" href="/"><img src="./assets/giddh-logo-white.png"></a> -->
+                        <h3 class="mb-3 mt-0"><strong> Login to your secure accounting space</strong></h3>
+                        <br/>
+                        <div class="login-form" *ngIf="!isTwoWayAuthenticationInProgress">
+
+                            <form [formGroup]="loginWithPasswordForm">
+                                <ion-input type="email" placeholder="Email Id" formControlName="uniqueKey"
+                                           class="form-control input-io"></ion-input>
+                                <ion-input type="password" placeholder="Password" formControlName="password"
+                                           class="form-control input-io"></ion-input>
+                            </form>
+
+                            <ion-button (click)="login()" class="btn btn-success btn-lg btn-block" expand="block">
+                                Login
+                            </ion-button>
+
+                            <div class="overflow-hiddne"><a color="secondary" href="javascript:void(0)"
+                                                            class="text-black pointer mt-10 font-14"
+                                                            (click)="forgotPassword()">Forgot Password</a></div>
+
+                            <!--            <a href="javascript:void(0)" type="butotn" class="btn-google btn-block mt-3" routerLink="/">-->
+                            <!--                <span><img src="assets/google_ico.svg" alt=""></span>-->
+                            <!--                Login with Google-->
+                            <!--            </a>-->
+                        </div>
+
+                        <div class="login-form twoWayAuthentication" *ngIf="isTwoWayAuthenticationInProgress">
+
+                            <form [formGroup]="twoWayAtuthenticationForm">
+                                <ion-input type="email" placeholder="Enter OTP" formControlName="otp"
+                                           class="form-control input-io"></ion-input>
+                                <small>We have sent an OTP to your registered mobile number.</small>
+                            </form>
+
+                            <ion-button (click)="verifyTwoWayCode()" class="btn btn-success btn-lg btn-block" expand="block">
+                                Login
+                            </ion-button>
+
+                            <div class="overflow-hiddne"><a color="secondary" href="javascript:void(0)"
+                                                            class="text-black pointer mt-10 font-14"
+                                                            (click)="forgotPassword()">Forgot Password</a></div>
+
+                            <!--            <a href="javascript:void(0)" type="butotn" class="btn-google btn-block mt-3" routerLink="/">-->
+                            <!--                <span><img src="assets/google_ico.svg" alt=""></span>-->
+                            <!--                Login with Google-->
+                            <!--            </a>-->
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-            </div>
-        </div>
         </div>
 
     </div>

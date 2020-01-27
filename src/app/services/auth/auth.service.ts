@@ -4,7 +4,7 @@ import {BaseResponse} from '../../models/base.model';
 import {Observable} from 'rxjs';
 import {HttpWrapperService} from '../httpWrapper.service';
 import {AuthUrls} from './auth.url';
-import {LoginResponseModel, LoginWithPassword, ResetPasswordRequest} from '../../models/login.model';
+import {LoginResponseModel, LoginWithPassword, ResetPasswordRequest, VerifyMobileModel} from '../../models/login.model';
 import {BaseService} from '../base.service';
 import {AppState} from '../../store/reducer';
 import {Store} from '@ngrx/store';
@@ -43,5 +43,13 @@ export class AuthService extends BaseService {
             data.request = model;
             return data;
         }), catchError((e) => this.handleCatch<string, ResetPasswordRequest>(e)));
+    }
+
+    public VerifyNumberOTP(modele: VerifyMobileModel): Observable<BaseResponse<LoginResponseModel, VerifyMobileModel>> {
+        return this._http.post(AuthUrls.VERIFY_OTP, modele).pipe(map((res) => {
+            let data: BaseResponse<LoginResponseModel, VerifyMobileModel> = res;
+            data.request = modele;
+            return data;
+        }), catchError((e) => this.handleCatch<LoginResponseModel, VerifyMobileModel>(e)));
     }
 }
