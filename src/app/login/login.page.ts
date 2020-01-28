@@ -4,7 +4,7 @@ import {select, Store} from '@ngrx/store';
 import {AppState} from '../store/reducer';
 import {GoogleSignInAction, LoginUserAction, TwoWayAuthenticationAction} from '../actions/auth/auth.action';
 import {Router} from '@angular/router';
-import {LoadingController} from '@ionic/angular';
+import {AlertController, LoadingController} from '@ionic/angular';
 import {untilDestroyed} from 'ngx-take-until-destroy';
 import {LoginResponseModel, VerifyMobileModel} from "../models/login.model";
 import {skip, take} from "rxjs/operators";
@@ -22,7 +22,7 @@ export class LoginPage implements OnInit, OnDestroy {
     public isTwoWayAuthenticationInProgress: boolean = false;
     private isTwoWayAuthenticationSuccess: boolean;
 
-    constructor(private store: Store<AppState>, private router: Router, private _loaderCtrl: LoadingController, private _cdrf: ChangeDetectorRef, private ngZone: NgZone) {
+    constructor(private alertController: AlertController, private store: Store<AppState>, private router: Router, private _loaderCtrl: LoadingController, private _cdrf: ChangeDetectorRef, private ngZone: NgZone) {
     }
 
     ngOnInit() {
@@ -88,7 +88,20 @@ export class LoginPage implements OnInit, OnDestroy {
         })
     }
 
+    async presentAlert() {
+
+    }
+
+
     loginWithGoogle() {
+        // const alert = await this.alertController.create({
+        //     header: 'Alert',
+        //     subHeader: 'Subtitle',
+        //     message: 'This is an alert message.',
+        //     buttons: ['OK']
+        // });
+        //
+        // await alert.present();
         this.ngZone.run(
             () => {
                 (window as any).plugins.googleplus.login(
