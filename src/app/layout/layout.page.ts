@@ -47,7 +47,11 @@ export class LayoutPage implements OnInit {
     }
 
     logout() {
-        this.store.dispatch(new LogoutUserAction());
+        (window as any).plugins.googleplus.logout(
+            (msg) => {
+                this.store.dispatch(new LogoutUserAction());
+            }
+        );
     }
 
 }

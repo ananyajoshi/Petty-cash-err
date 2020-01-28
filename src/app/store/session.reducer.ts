@@ -33,6 +33,7 @@ const initialState: SessionState = {
 
 export function SessionReducer(state: SessionState = initialState, action: AuthActionsUnion) {
     switch (action.type) {
+        case AuthActionType.GoogleSignIn:
         case AuthActionType.LoginUser: {
             return {
                 ...state,
@@ -42,7 +43,7 @@ export function SessionReducer(state: SessionState = initialState, action: AuthA
                 data: null
             };
         }
-
+        case AuthActionType.GoogleSignInComplete:
         case AuthActionType.LoginUserComplete: {
             if (action.result.statusCode === "AUTHENTICATE_TWO_WAY") {
                 return {
@@ -153,7 +154,7 @@ export function SessionReducer(state: SessionState = initialState, action: AuthA
         case AuthActionType.LogoutUser: {
             return initialState;
         }
-
+        case AuthActionType.GoogleSignInError:
         case AuthActionType.LoginUserError: {
             return initialState;
         }

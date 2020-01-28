@@ -9,6 +9,7 @@ import {BaseService} from '../base.service';
 import {AppState} from '../../store/reducer';
 import {Store} from '@ngrx/store';
 import {ToastController} from '@ionic/angular';
+import {HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -35,6 +36,24 @@ export class AuthService extends BaseService {
             data.request = userId;
             return data;
         }), catchError((e) => this.handleCatch<string, any>(e)));
+    }
+
+    public LoginWithGoogle(token: string) {
+
+        let args: any = {headers: {}};
+        args.headers['cache-control'] = 'no-cache';
+        args.headers['Content-Type'] = 'application/json';
+        args.headers['Accept'] = 'application/json';
+        args.headers['Access-Token'] = token;
+        // args.headers = new HttpHeaders(args.headers);
+
+        return this._http.get(AuthUrls.LOGIN_WITH_GOOGLE, null, {
+            headers: args.headers,
+            responseType: 'json'
+        }).pipe(map((res) => {
+            let data: BaseResponse<LoginResponseModel, string> = res as BaseResponse<LoginResponseModel, string>;
+            return data;
+        }), catchError((e) => this.handleCatch<LoginResponseModel, string>(e, args)));
     }
 
     public ResetPassword(model): Observable<BaseResponse<string, ResetPasswordRequest>> {

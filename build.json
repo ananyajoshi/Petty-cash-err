@@ -5,6 +5,12 @@
       "storePassword": "asd123",
       "alias": "upload",
       "password" : "asd123"
+    },
+    "debug": {
+      "keystore": "./keystore.keystore",
+      "storePassword": "asd123",
+      "alias": "upload",
+      "password" : "asd123"
     }
   }
 }

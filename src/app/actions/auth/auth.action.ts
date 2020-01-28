@@ -6,6 +6,10 @@ export enum AuthActionType {
     LoginUserComplete = '[User] Login complete',
     LoginUserError = '[User] Login Error',
 
+    GoogleSignIn = '[User] GoogleSignIn',
+    GoogleSignInComplete = '[User] GoogleSignIn complete',
+    GoogleSignInError = '[User] GoogleSignIn Error',
+
     TwoWayAuthentication = '[User] Two Way Authentication',
     TwoWayAuthenticationComplete = '[User] Two Way Authentication complete',
     TwoWayAuthenticationError = '[User] Two Way Authentication Error',
@@ -46,6 +50,28 @@ export class LoginUserCompleteAction implements Action {
 
 export class LoginUserErrorAction implements Action {
     readonly type = AuthActionType.LoginUserError;
+
+    constructor(public errors: string) {
+    }
+}
+
+
+export class GoogleSignInAction implements Action {
+    readonly type = AuthActionType.GoogleSignIn;
+
+    constructor(public request: string) {
+    }
+}
+
+export class GoogleSignInCompleteAction implements Action {
+    readonly type = AuthActionType.GoogleSignInComplete;
+
+    constructor(public result: LoginResponseModel) {
+    }
+}
+
+export class GoogleSignInErrorAction implements Action {
+    readonly type = AuthActionType.GoogleSignInError;
 
     constructor(public errors: string) {
     }
@@ -147,6 +173,9 @@ export type AuthActionsUnion =
     | TwoWayAuthenticationAction
     | TwoWayAuthenticationCompleteAction
     | TwoWayAuthenticationErrorAction
+    | GoogleSignInAction
+    | GoogleSignInCompleteAction
+    | GoogleSignInErrorAction
     | ForgotPasswordAction
     | ForgotPasswordSuccessAction
     | ForgotPasswordErrorAction

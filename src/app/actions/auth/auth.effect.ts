@@ -12,7 +12,7 @@ import {
     AuthActionType,
     ForgotPasswordAction,
     ForgotPasswordErrorAction,
-    ForgotPasswordSuccessAction,
+    ForgotPasswordSuccessAction, GoogleSignInAction, GoogleSignInCompleteAction, GoogleSignInErrorAction,
     LoginUserAction,
     LoginUserCompleteAction,
     LoginUserErrorAction,
@@ -101,7 +101,7 @@ export class AuthEffect {
             this.generalService.user = s.result.user;
             this.router.navigate(['/pages/home']);
 
-            return of() ;
+            return of();
         })
     );
 
@@ -151,6 +151,43 @@ export class AuthEffect {
                     }),
                     catchError((res) => {
                         return of(new ForgotPasswordErrorAction(res.message));
+                    })
+                );
+        })
+    );
+
+
+    @Effect()
+    signInWithGoogle$: Observable<Action> = this.actions$.pipe(
+        ofType<GoogleSignInAction>(AuthActionType.GoogleSignIn),
+        switchMap((s) => {
+            return this.authService.LoginWithGoogle(s.request)
+                .pipe(
+                    map((res: BaseResponse<LoginResponseModel, string>) => {
+                        if (res.status !== 'success') {
+                            return new LoginUserErrorAction(res.message);
+                        }
+                        if (res.status === "success") {
+                            if (res.body.statusCode === "AUTHENTICATE_TWO_WAY") {
+                                if (res.body.text) {
+                                    const toast = this.toastController.create({
+                                        message: res.body.text,
+                                        animated: true,
+                                        color: 'danger',
+                                        showCloseButton: true,
+                                        position: 'top',
+                                        duration: 3000
+                                    }).then(t => {
+                                        t.present();
+                                    });
+                                }
+                            }
+                            return new GoogleSignInCompleteAction(res.body);
+                        }
+                        return new GoogleSignInErrorAction(res.message || 'Something went Wrong!');
+                    }),
+                    catchError((res) => {
+                        return of(new GoogleSignInErrorAction(res.message));
                     })
                 );
         })

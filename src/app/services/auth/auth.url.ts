@@ -5,4 +5,5 @@ export const AuthUrls = {
     forgotPassword: createUrl('users/:userEmail/forgot-password'),
     RESET_PASSWORD: createUrl('reset-password'),
     VERIFY_OTP: createUrl('v2/verify-number'),
+    LOGIN_WITH_GOOGLE: createUrl('v2/signup-with-google'),
 };
