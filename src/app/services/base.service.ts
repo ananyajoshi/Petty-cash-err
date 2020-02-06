@@ -7,7 +7,7 @@ import {AppState} from '../store/reducer';
 import {ToastController} from '@ionic/angular';
 import {ReportInvalidJsonAction} from '../actions/general/general.action';
 
-const invalidStatusCodes: number[] = [0, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511];
+const invalidStatusCodes: number[] = [0, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 400];
 
 export class BaseService {
     constructor(protected store: Store<AppState>, protected toastController: ToastController) {
@@ -32,6 +32,11 @@ export class BaseService {
             data.message = 'Something went wrong';
             data.body = null;
             data.code = 'Internal Error';
+        } else if (400 === r.status) {
+            data.status = 'error';
+            data.message = data.message;
+            data.body = null;
+            data.code = 'Unauthorized';
         } else {
             data = r.error as any;
             if (data) {

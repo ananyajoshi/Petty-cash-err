@@ -14,7 +14,8 @@ export class HttpWrapperService {
 
     public get = (url: string, params?: any, options?: any): Observable<any> => {
         options = this.prepareOptions(options);
-        options.params = params;
+        if (params)
+            options.params = params;
         return this.http.get(url, options).pipe(tap((res) => {
             //
         }), finalize(() => {
@@ -36,7 +37,8 @@ export class HttpWrapperService {
     };
     public delete = (url: string, params?: any, options?: any): Observable<any> => {
         options = this.prepareOptions(options);
-        options.search = this.objectToParams(params);
+        if (params)
+            options.search = this.objectToParams(params);
         return this.http.delete(url, options).pipe(tap((res) => {
             //
         }), finalize(() => {

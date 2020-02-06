@@ -3,9 +3,14 @@ import {LoginResponseModel} from '../models/login.model';
 
 export interface SessionState {
     data: LoginResponseModel;
+
+    isTwoWayAuthenticationInProgress: boolean;
+    isTwoWayAuthenticationSuccess: boolean;
     isLoginWithPasswordInProcess: boolean;
+
     activeCompany: string;
     selectedLanguage: string;
+
     forgotPasswordInProcess: boolean;
     forgotPasswordSuccess: boolean;
     resetPasswordInProcess: boolean;
@@ -15,6 +20,8 @@ export interface SessionState {
 const initialState: SessionState = {
     activeCompany: '',
     data: null,
+    isTwoWayAuthenticationInProgress: false,
+    isTwoWayAuthenticationSuccess: false,
     isLoginWithPasswordInProcess: false,
     selectedLanguage: 'en',
     forgotPasswordInProcess: false,
@@ -26,19 +33,60 @@ const initialState: SessionState = {
 
 export function SessionReducer(state: SessionState = initialState, action: AuthActionsUnion) {
     switch (action.type) {
+        case AuthActionType.GoogleSignIn:
         case AuthActionType.LoginUser: {
             return {
                 ...state,
                 isLoginWithPasswordInProcess: true,
+                isTwoWayAuthenticationInProgress: false,
+                isTwoWayAuthenticationSuccess: false,
                 data: null
             };
         }
-
+        case AuthActionType.GoogleSignInComplete:
         case AuthActionType.LoginUserComplete: {
+            if (action.result.statusCode === "AUTHENTICATE_TWO_WAY") {
+                return {
+                    ...state,
+                    isLoginWithPasswordInProcess: false,
+                    isTwoWayAuthenticationInProgress: true,
+                    isTwoWayAuthenticationSuccess: false,
+                    data: action.result
+                };
+            }
             return {
                 ...state,
                 isLoginWithPasswordInProcess: false,
+                isTwoWayAuthenticationInProgress: false,
                 data: action.result
+            };
+        }
+
+        case AuthActionType.TwoWayAuthentication: {
+            return {
+                ...state,
+                isLoginWithPasswordInProcess: true,
+                isTwoWayAuthenticationInProgress: true,
+                isTwoWayAuthenticationSuccess: false,
+            };
+        }
+
+        case AuthActionType.TwoWayAuthenticationComplete: {
+
+            return {
+                ...state,
+                isLoginWithPasswordInProcess: false,
+                isTwoWayAuthenticationInProgress: false,
+                isTwoWayAuthenticationSuccess: true,
+                data: action.result
+            };
+        }
+        case AuthActionType.TwoWayAuthenticationError: {
+            return {
+                ...state,
+                isLoginWithPasswordInProcess: false,
+                isTwoWayAuthenticationInProgress: true,
+                isTwoWayAuthenticationSuccess: false,
             };
         }
 
@@ -106,7 +154,7 @@ export function SessionReducer(state: SessionState = initialState, action: AuthA
         case AuthActionType.LogoutUser: {
             return initialState;
         }
-
+        case AuthActionType.GoogleSignInError:
         case AuthActionType.LoginUserError: {
             return initialState;
         }

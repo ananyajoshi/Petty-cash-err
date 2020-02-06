@@ -1,10 +1,18 @@
 import {Action} from '@ngrx/store';
-import {LoginResponseModel, LoginWithPassword, ResetPasswordRequest} from '../../models/login.model';
+import {LoginResponseModel, LoginWithPassword, ResetPasswordRequest, VerifyMobileModel} from '../../models/login.model';
 
 export enum AuthActionType {
     LoginUser = '[User] Login',
     LoginUserComplete = '[User] Login complete',
     LoginUserError = '[User] Login Error',
+
+    GoogleSignIn = '[User] GoogleSignIn',
+    GoogleSignInComplete = '[User] GoogleSignIn complete',
+    GoogleSignInError = '[User] GoogleSignIn Error',
+
+    TwoWayAuthentication = '[User] Two Way Authentication',
+    TwoWayAuthenticationComplete = '[User] Two Way Authentication complete',
+    TwoWayAuthenticationError = '[User] Two Way Authentication Error',
 
     LogoutUser = '[User] Logout',
 
@@ -42,6 +50,50 @@ export class LoginUserCompleteAction implements Action {
 
 export class LoginUserErrorAction implements Action {
     readonly type = AuthActionType.LoginUserError;
+
+    constructor(public errors: string) {
+    }
+}
+
+
+export class GoogleSignInAction implements Action {
+    readonly type = AuthActionType.GoogleSignIn;
+
+    constructor(public request: string) {
+    }
+}
+
+export class GoogleSignInCompleteAction implements Action {
+    readonly type = AuthActionType.GoogleSignInComplete;
+
+    constructor(public result: LoginResponseModel) {
+    }
+}
+
+export class GoogleSignInErrorAction implements Action {
+    readonly type = AuthActionType.GoogleSignInError;
+
+    constructor(public errors: string) {
+    }
+}
+
+
+export class TwoWayAuthenticationAction implements Action {
+    readonly type = AuthActionType.TwoWayAuthentication;
+
+    constructor(public request: VerifyMobileModel) {
+    }
+}
+
+export class TwoWayAuthenticationCompleteAction implements Action {
+    readonly type = AuthActionType.TwoWayAuthenticationComplete;
+
+    constructor(public result: LoginResponseModel) {
+    }
+}
+
+export class TwoWayAuthenticationErrorAction implements Action {
+    readonly type = AuthActionType.TwoWayAuthenticationError;
 
     constructor(public errors: string) {
     }
@@ -118,6 +170,12 @@ export type AuthActionsUnion =
     LoginUserAction
     | LoginUserCompleteAction
     | LoginUserErrorAction
+    | TwoWayAuthenticationAction
+    | TwoWayAuthenticationCompleteAction
+    | TwoWayAuthenticationErrorAction
+    | GoogleSignInAction
+    | GoogleSignInCompleteAction
+    | GoogleSignInErrorAction
     | ForgotPasswordAction
     | ForgotPasswordSuccessAction
     | ForgotPasswordErrorAction

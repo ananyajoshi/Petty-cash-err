@@ -16,10 +16,21 @@ export class LoginResponseModel {
     public isNewUser: boolean;
     public session?: Session;
     public intercomHash?: string;
+// this below field will be returned when we have two way authentication enabled.
+    public contactNumber: string;
+    public countryCode: string;
+    public statusCode: string;
+    public text: string;
 }
 
 export class ResetPasswordRequest {
     verificationCode: string;
     uniqueKey: string;
     newPassword: string;
+}
+
+export class VerifyMobileModel {
+    public mobileNumber: string;
+    public countryCode: number = 91;
+    public oneTimePassword: string;
 }
