@@ -20,7 +20,7 @@ import {EntryUrls} from '../../../services/entry/entry.url';
 import {UploadInput, UploadOutput} from 'ngx-uploader';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {environment} from '../../../../environments/environment';
-
+declare let cordova: any;
 @Component({
     selector: 'create-entry',
     templateUrl: './create-entry.component.html',
@@ -51,12 +51,12 @@ export class CreateEntryComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router, private store: Store<AppState>, private popoverCtrl: PopoverController, private _companyService: CompanyService,
                 private _generalService: GeneralService, private platform: Platform, private toasterCtrl: ToastController,
-                private _cdr: ChangeDetectorRef, private _loaderCtrl: LoadingController) {
+                private _cdr: ChangeDetectorRef, private _loaderCtrl: LoadingController ) {
         this.camera = new Camera();
     }
 
     ngOnInit() {
-        this.isWeb = !(window.cordova) && !this.platform.is('android') && !this.platform.is('ios');
+        this.isWeb = !(window as any).cordova && !this.platform.is('android') && !this.platform.is('ios');
         this.uploadInput = new EventEmitter<UploadInput>();
         this.store.pipe(select(s => s.entry.requestModal), untilDestroyed(this)).subscribe(req => {
             this.requestModal = req;

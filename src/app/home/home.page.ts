@@ -13,6 +13,9 @@ import {GeneralService} from '../services/general.service';
 import {EntryClosingBalanceDetailsComponent} from './entry-closing-baalnce-details-component/entry-closing-balance-details-component';
 import {IFlattenAccountsResultItem} from '../models/account.model';
 import {untilDestroyed} from 'ngx-take-until-destroy';
+import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
+
+//import { Camera,CameraOptions } from '@ionic-native/Camera';
 
 @Component({
     selector: 'app-home',
@@ -25,15 +28,19 @@ export class HomePage implements OnInit, OnDestroy {
     public reportResponse: EntryReportItem[];
     public flattenAccounts: IFlattenAccountsResultItem[];
     public companyCurrencySymbol: string;
-
+    private camera: Camera;
+    imgData:any;
+    imgName:any;
+    myPhoto :any;
     constructor(private modalController: ModalController, private popover: PopoverController, private router: Router,
                 private store: Store<AppState>, private menuController: MenuController, private _entryService: EntryService,
-                private _generalService: GeneralService, private _loadingController: LoadingController
+                private _generalService: GeneralService, private _loadingController: LoadingController 
     ) {
         this.reportRequestModal = new EntryReportRequestModel();
         this.reportRequestModal.count = 10;
         this.reportRequestModal.size = 10;
         this.reportRequestModal.page = 1;
+        this.camera = new Camera();
     }
 
     ngOnInit(): void {
@@ -52,6 +59,41 @@ export class HomePage implements OnInit, OnDestroy {
             }
         });
     }
+   
+    //A
+
+    takePhoto(){
+        const options:CameraOptions={
+          quality:100,
+          destinationType:this.camera.DestinationType.DATA_URL,
+          encodingType:this.camera.EncodingType.PNG,
+          mediaType:this.camera.MediaType.PICTURE
+        }
+        this.camera.getPicture(options).then((imageData)=>{
+          this.myPhoto = 'data:image/png;base64,' + imageData;
+          this.imgData=imageData;
+        },(err)=>{
+          console.log(err);
+        });
+    
+      }
+      getPhoto(){
+        const options: CameraOptions = {
+          quality: 100,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          encodingType:this.camera.EncodingType.PNG,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+          saveToPhotoAlbum:false
+        }
+        this.camera.getPicture(options).then((imageData) => {
+          this.myPhoto = 'data:image/png;base64,' + imageData;
+          this.imgData = imageData;
+        }, (err) => {
+          console.log(err);
+        });
+      }
+ 
+      
 
     async getReportData() {
         const loader = await this._loadingController.create({
